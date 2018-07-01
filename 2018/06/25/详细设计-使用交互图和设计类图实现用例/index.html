@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="软件工程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="详细设计-使用交互图和设计类图实现用例">
+<meta name="keywords" content="软件工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详细设计-使用交互图和设计类图实现用例">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/06/25/详细设计-使用交互图和设计类图实现用例/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="详细设计-使用交互图和设计类图实现用例">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/06/25/详细设计-使用交互图和设计类图实现用例/Screen%20Shot%202018-06-29%20at%2012.18.32%20PM.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/06/25/详细设计-使用交互图和设计类图实现用例/Screen%20Shot%202018-07-01%20at%208.24.12%20PM.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/06/25/详细设计-使用交互图和设计类图实现用例/Screen%20Shot%202018-07-01%20at%208.45.41%20PM.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/06/25/详细设计-使用交互图和设计类图实现用例/Screen%20Shot%202018-07-01%20at%209.17.39%20PM.png">
+<meta property="og:updated_time" content="2018-07-01T13:52:04.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="详细设计-使用交互图和设计类图实现用例">
+<meta name="twitter:description" content="详细设计-使用交互图和设计类图实现用例">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/06/25/详细设计-使用交互图和设计类图实现用例/Screen%20Shot%202018-06-29%20at%2012.18.32%20PM.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/06/25/详细设计-使用交互图和设计类图实现用例/"/>
+
+
+
+
+
+  <title>详细设计-使用交互图和设计类图实现用例 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/06/25/详细设计-使用交互图和设计类图实现用例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">详细设计-使用交互图和设计类图实现用例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T10:40:58+08:00">
+                2018-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  详细设计-使用交互图和设计类图实现用例
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-设计的核心"><a href="#1-设计的核心" class="headerlink" title="1. 设计的核心"></a>1. 设计的核心</h2><ul>
+<li>以业务场景为中心</li>
+<li>减少对具体语言实现和技术依赖</li>
+</ul>
+<a id="more"></a>
+<h2 id="2-详细设计的方法-BCE-模型"><a href="#2-详细设计的方法-BCE-模型" class="headerlink" title="2. 详细设计的方法 - BCE 模型"></a>2. 详细设计的方法 - BCE 模型</h2><h3 id="2-1-准备"><a href="#2-1-准备" class="headerlink" title="2.1 准备"></a>2.1 准备</h3><ul>
+<li>用例</li>
+<li>界面原型 与 外部系统接口文档</li>
+<li>领域模型 与 数据库设计（ER 逻辑模型）</li>
+<li>逻辑架构 与 应用程序框架</li>
+</ul>
+<h3 id="2-2-识别类"><a href="#2-2-识别类" class="headerlink" title="2.2 识别类"></a>2.2 识别类</h3><ul>
+<li>Boundary：与外部 Actor 交互的类。包括 UI、外部系统接口</li>
+<li>Controller：处理外部事件，实现控制流的类。通常是一个子系统、一个用例一个类</li>
+<li>Entity：领域对象或数据实体</li>
+</ul>
+<p>其中，UI 类识别比较难，依赖实现技术。传统技术是 window 表示一个 UI，随着 HTML 等多媒体页面表示工具的出现，不同功能的内容在一个界面中共存。</p>
+<h3 id="2-3-动态图设计"><a href="#2-3-动态图设计" class="headerlink" title="2.3 动态图设计"></a>2.3 动态图设计</h3><ul>
+<li>UI类（如业务表单）放最左边，控制器对象放置中间，实体放置右边，外部系统放在最右边<ul>
+<li>使用构造型细化四种类</li>
+<li>Boundary，Controller，Entity，Interface/Boundary</li>
+</ul>
+</li>
+<li>按 BCE 规则实现用例中主要场景<ul>
+<li>Boundary 只能和 Controller 联系，Controller 处理 UI 事件</li>
+<li>Entity 只能和 Controller 联系，Controller 请求 Entity 加工自己或关联的数据<ul>
+<li>即 Entity 提供业务服务，包括简单的 CRUD 资源操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>按 UI 事件顺序，描述 UI 事件被处理的过程</li>
+</ul>
+<h3 id="2-4-静态设计"><a href="#2-4-静态设计" class="headerlink" title="2.4 静态设计"></a>2.4 静态设计</h3><ul>
+<li><p>Boundary 对象（完善界面不在讨论范围内）</p>
+</li>
+<li><p>Controller 对象</p>
+<ul>
+<li>Boundary 发生的用户事件消息，皆是 Controller 的方法。</li>
+<li>以下都是不正确的交互（严格的层次模型）：<ul>
+<li>UI 有箭头指向模型（注意 ViewModel 与 Model 的区别）</li>
+<li>模型有箭头指向控制器。或控制器有除创建之外的箭头指向界面</li>
+<li>无论安卓或web，控制器都设计为多用户。即控制器不包含状态变量</li>
+</ul>
+</li>
+<li>不能考虑多线程，使用多线程更新界面。要使用回调函数（消息）机制完成异步操作</li>
+</ul>
+</li>
+<li><p>Entity 对象</p>
+<ul>
+<li>从 领域模型 获取属性</li>
+<li>如果模型之间存在关联，请将关系转化为合适的实现（关联属性）</li>
+<li>将 Controller 消息转化为方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-5-映射"><a href="#2-5-映射" class="headerlink" title="2.5 映射"></a>2.5 映射</h3><p>不同架构和框架映射机制不一样，以传统 java web 为例：</p>
+<ul>
+<li>表示层<ul>
+<li>M （ViewModel） 与 用例涉及的 Entities 数据一致， 放入 models 或 pojos 或 entities 包</li>
+<li>V （View） 就是视图模板，或部分视图模板（如查询表单）</li>
+<li>C （Controller） 与 Controller 对象一致，处理一类 UI 事件</li>
+<li>如果模板数据 是 Entities 数据的投影、join，设计为 dto（data transfer object） 对象，放入 dtos 包</li>
+<li>如果一个表达或数据需要在多个界面共享，可设计为应用程序范围或 Session 范围变量，如输入表单，一般放入 form 包</li>
+<li>将常用数据验证方法、翻页等，应写成统一的实用程序包 utilities</li>
+<li>将常用数据转换（序列化、反序列化、格式化）类，放在 converter 包中</li>
+</ul>
+</li>
+<li>业务层（services 包）<ul>
+<li>Entities 的方法</li>
+<li>获取关联对象的方法</li>
+</ul>
+</li>
+<li>数据层（daos 或 repos 包）<ul>
+<li>Entities 的 CRUD 方法</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-make-reservation-用例的详细设计"><a href="#3-make-reservation-用例的详细设计" class="headerlink" title="3. make reservation 用例的详细设计"></a>3. make reservation 用例的详细设计</h2><blockquote>
+<p>使用 ECB 实现 make reservation 用例的详细设计（包含用例简介，顺序图，类图）</p>
+</blockquote>
+<h3 id="3-1-用例简介"><a href="#3-1-用例简介" class="headerlink" title="3.1 用例简介"></a>3.1 用例简介</h3><p>用例：make reservation，选择限制查找酒店，选择酒店，选择房间和入住日期，确认预订酒店订单</p>
+<p>用例图：</p>
+<p><img src="/2018/06/25/详细设计-使用交互图和设计类图实现用例/Screen Shot 2018-06-29 at 12.18.32 PM.png" alt="Screen Shot 2018-06-29 at 12.17.24 PM"></p>
+<h3 id="3-2-识别类"><a href="#3-2-识别类" class="headerlink" title="3.2 识别类"></a>3.2 识别类</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Boundary</th>
+<th>Controller</th>
+<th>Entity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 酒店预订搜索页面(SearchPage)<br>2. 酒店房间预订页面(ReservationPage)<br></td>
+<td>1. 后台酒店管理服务(FindHotel)<br>2. 后台订单管理服务(CreateReservation)</td>
+<td>1. 酒店信息(Hotel)<br>2. 预订订单(Reservation)<br>3. 地点(Location)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-3-顺序图"><a href="#3-3-顺序图" class="headerlink" title="3.3 顺序图"></a>3.3 顺序图</h3><p><img src="/2018/06/25/详细设计-使用交互图和设计类图实现用例/Screen Shot 2018-07-01 at 8.24.12 PM.png" alt="Screen Shot 2018-07-01 at 8.24.12 PM"></p>
+<p><br></p>
+<h3 id="3-4-类图"><a href="#3-4-类图" class="headerlink" title="3.4 类图"></a>3.4 类图</h3><p><img src="/2018/06/25/详细设计-使用交互图和设计类图实现用例/Screen Shot 2018-07-01 at 8.45.41 PM.png" alt="Screen Shot 2018-07-01 at 8.45.41 PM"></p>
+<blockquote>
+<p>将逻辑设计类图映射到实际项目框架的包图。用树形结构表述实现的包和类</p>
+</blockquote>
+<h3 id="3-5-树状结构"><a href="#3-5-树状结构" class="headerlink" title="3.5 树状结构"></a>3.5 树状结构</h3><p><img src="/2018/06/25/详细设计-使用交互图和设计类图实现用例/Screen Shot 2018-07-01 at 9.17.39 PM.png" alt="Screen Shot 2018-07-01 at 9.17.39 PM"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/软件工程/" rel="tag"># 软件工程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/05/软件项目架构与框架/" rel="next" title="软件项目架构与框架">
+                <i class="fa fa-chevron-left"></i> 软件项目架构与框架
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-设计的核心"><span class="nav-number">1.</span> <span class="nav-text">1. 设计的核心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-详细设计的方法-BCE-模型"><span class="nav-number">2.</span> <span class="nav-text">2. 详细设计的方法 - BCE 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-准备"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-识别类"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 识别类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-动态图设计"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 动态图设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-静态设计"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 静态设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-映射"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 映射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-make-reservation-用例的详细设计"><span class="nav-number">3.</span> <span class="nav-text">3. make reservation 用例的详细设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-用例简介"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 用例简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-识别类"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 识别类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-顺序图"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 顺序图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-类图"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-树状结构"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 树状结构</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="social relationship,Faster R-CNN,深度学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对Dual-Glance Model for Deciphering Social Relationships论文的学习，这篇论文研究使用深度学习的方法识别图像中一对人的社会关系">
+<meta name="keywords" content="social relationship,Faster R-CNN,深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dual-Glance模型">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/05/29/Dual-Glance模型/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="对Dual-Glance Model for Deciphering Social Relationships论文的学习，这篇论文研究使用深度学习的方法识别图像中一对人的社会关系">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/29/Dual-Glance模型/Dual-Glance模型/Screen%20Shot%202018-05-27%20at%204.44.19%20PM.png">
+<meta property="og:updated_time" content="2018-05-29T11:32:33.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dual-Glance模型">
+<meta name="twitter:description" content="对Dual-Glance Model for Deciphering Social Relationships论文的学习，这篇论文研究使用深度学习的方法识别图像中一对人的社会关系">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/05/29/Dual-Glance模型/Dual-Glance模型/Screen%20Shot%202018-05-27%20at%204.44.19%20PM.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/05/29/Dual-Glance模型/"/>
+
+
+
+
+
+  <title>Dual-Glance模型 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/05/29/Dual-Glance模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Dual-Glance模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-29T00:17:15+08:00">
+                2018-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>对<a href="https://arxiv.org/abs/1708.00634" target="_blank" rel="noopener">Dual-Glance Model for Deciphering Social Relationships</a>论文的学习，这篇论文研究使用深度学习的方法识别图像中一对人的社会关系</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="一、PISC数据集"><a href="#一、PISC数据集" class="headerlink" title="一、PISC数据集"></a>一、PISC数据集</h2><ol>
+<li><a href="https://scholarbank.nus.edu.sg/handle/10635/137262?mode=full" target="_blank" rel="noopener">PISC</a>数据集是Dual-Glance这篇论文中为了训练以及测试社会类型检测网络而收集制作的数据集，来源一部分是网上社交平台收集图片，一部分是来自COCO数据集。下面我们只介绍六种关系的标注信息。</li>
+<li>数据集标注包含两个文件：<code>relationship.json</code>，<code>annotation_image_info.json</code></li>
+</ol>
+<p><code>annotation_image_info.json</code>：文件中的每一项标注图片中的对应bbox和图片来源等信息（下面只举例包含bbox信息的一个实例）</p>
+<p>例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'id'</span>: <span class="number">3002</span>, <span class="comment">//image id: 3002，注意这里id是int形式，和下面relationship的id是一样的，只是下面的用了五位字符串'3002'</span></span><br><span class="line">        <span class="string">'bbox'</span>: [</span><br><span class="line">            [<span class="number">33</span>, <span class="number">22</span>, <span class="number">111</span>, <span class="number">111</span>], <span class="comment">// bounding box 代表box的四个边的位置[left, top, right, down]</span></span><br><span class="line">            [<span class="number">13</span>, <span class="number">12</span>, <span class="number">211</span>, <span class="number">211</span>],</span><br><span class="line">            [<span class="number">53</span>, <span class="number">52</span>, <span class="number">311</span>, <span class="number">311</span>]</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><code>relationship.json</code>：文件中的每一项标注是由图片id和对应图片中的关系pair组成</p>
+<p>关系用<code>{1: friends, 2: family, 3: couple, 4: professional, 5: commercial, 7: no relation}}</code>，对应的关系标号表示</p>
+<p>例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">'3002'</span>: &#123;  <span class="comment">// image id: 3002</span></span><br><span class="line">        <span class="string">'1 2'</span>: <span class="number">1</span>,  <span class="comment">// 图片中第一个bbox和第二个bbox组成pair，这对pair的关系是1</span></span><br><span class="line">        <span class="string">'2 3'</span>: <span class="number">1</span>,  <span class="comment">// 图片中第二个bbox和第三个bbox组成pair，这对pair的关系是1</span></span><br><span class="line">        <span class="string">'3 1'</span>: <span class="number">0</span>   <span class="comment">// 图片中第三个bbox和第一个bbox组成pair，这对pair的关系是0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'3001'</span>: &#123;  <span class="comment">// image id: 03001</span></span><br><span class="line">        <span class="string">'1 2'</span>: <span class="number">1</span>,  <span class="comment">// 图片中第一个bbox和第二个bbox组成pair，这对pair的关系是1</span></span><br><span class="line">        <span class="string">'2 3'</span>: <span class="number">1</span>,  <span class="comment">// 图片中第二个bbox和第三个bbox组成pair，这对pair的关系是1</span></span><br><span class="line">        <span class="string">'3 1'</span>: <span class="number">0</span>   <span class="comment">// 图片中第三个bbox和第一个bbox组成pair，这对pair的关系是0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>数据集包含三类图片索引，分别是：训练集，测试集，验证集（如：测试集<code>relation_trainids.json</code>）。每个索引文件都是用图片id表示对应图片</li>
+</ol>
+<p>例子： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &apos;3001&apos;,</span><br><span class="line">    &apos;3002&apos;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<ol>
+<li>数据集图片：图片格式为jpg，图片命名为五位数字。如果id不足五位，id前面补0。如：<code>id: 12 =&gt; image: 00012.jpg</code></li>
+</ol>
+<h2 id="二、Dual-Glance模型"><a href="#二、Dual-Glance模型" class="headerlink" title="二、Dual-Glance模型"></a>二、Dual-Glance模型</h2><p>先上模型图：</p>
+<p><img src="/2018/05/29/Dual-Glance模型/./Dual-Glance模型/Screen Shot 2018-05-27 at 4.44.19 PM.png" alt="Screen Shot 2018-05-27 at 4.44.19 PM"></p>
+<p>模型一共由两个大的网络组成，这两网络分别为<code>First Glance</code>， <code>Attentive RCNN for Second Glance</code>（分别对应图中的上下两个网络）；</p>
+<h3 id="2-1-First-Glance"><a href="#2-1-First-Glance" class="headerlink" title="2.1 First Glance"></a>2.1 First Glance</h3><ol>
+<li><p>论文分别提取一对pair的bbox（<code>p1</code> <code>p2</code>：patch1 patch2）和pair的联合bbox（<code>pu</code>：patch union）</p>
+</li>
+<li><p>我们再提取pair的标注信息$b<em>1^{pos}, b_2^{pos}$   ( $b^{pos} = {x</em>{min}, y<em>{min}, x</em>{max,} y<em>{max}, area</em>{i}} ∈ \R^5 $ )，将两个向量concat起来得到一个特征向量<code>b</code></p>
+</li>
+<li><p>在提取1，2中的数据后，我们使用ResNet（预先pre-trained经过 ImageNet classification task），分别作用于resize到<code>224x224</code>的patches（<code>pu</code>, <code>p1</code>, <code>p2</code>）。</p>
+<p>其中一个关键点是，三个patches经过CNN（ResNet）网络的最后一层卷积层之后，不进入原先ResNet全连接层，而是做flatten。最后我们得到从ResNet最后一层卷积层输出<code>2048-d</code>图像特征向量；</p>
+<p>最后注意：如上图所示，<code>p1</code>和<code>p2</code>的CNN是用的shared weight的方式，表示训练于同一个CNN网络。`</p>
+</li>
+<li><p>在处理<code>p1</code>, <code>p2</code>, <code>pu</code>的同时，我们也要处理<code>b</code>向量。我们这里的处理方法是将<code>b</code>输入一个全连接层，输出<code>256-d</code>特征向量。</p>
+</li>
+<li><p>最后将3，4中的特征向量concat到一起得到一个超长的特征向量<code>6400-d: [256-d, 2048-d, 2048-d, 2048-d]</code>，输入下一个全连接层，得到<code>4096-d</code>的输出，接着<code>4096-d</code>进入最后一个全连接层，得到<code>6-d</code>的scores <code>s1</code>。</p>
+<p>这样就完成First Glance的全部forward流程。</p>
+</li>
+</ol>
+<h3 id="2-2-Second-Glance"><a href="#2-2-Second-Glance" class="headerlink" title="2.2 Second Glance"></a>2.2 Second Glance</h3><blockquote>
+<p>Second Glance的提出是为了实现attention mechanism（注意力机制）引导。</p>
+<p>用图片中的cue上下文信息结合pair信息做学习，提高模型准确性</p>
+</blockquote>
+<ol>
+<li><p>原图通过一个RPN网络，被提取出RoI区域（这些RoI还要经过非最大化抑制，被过滤出IoU合适的RoI）</p>
+</li>
+<li><p>我们将原图输入一个CNN网络（这里用VGG实现），得到feature map；我们再从feature map中映射出RoI对应区域，以减小不必要的CNN计算。最终，在这一步，我们得到一系列RoI的feature map。</p>
+</li>
+<li><p>我们再将每个RoI投入一个RoI pooling层，使得各个RoI大小一致，以便进入下一个全连接层。每个RoI feature map进入全连接层，被转化为一个4096-d的feature vector $v_i$。</p>
+</li>
+<li><p>在我们完成3后，我们在这一步开始用到first glance中间的一个<code>4096-d</code>的feature vector $v<em>{top}$。我们先将两者通过一个weight（trainable）的参数$w</em>{top}$连接起来，通过下面的公式：</p>
+<script type="math/tex; mode=display">h_i = v_i + w_{top} \otimes v_{top}</script><p>公式中的$\otimes$表示点乘(element-wise multi)。</p>
+</li>
+<li><p>我们接着用$h_i$ 计算attention $a_i \in [0, 1]$。如下，一个LR模型将$h_i$映射到$[0, 1]$</p>
+<script type="math/tex; mode=display">a_i = \frac 1 {1 + exp(-(W_{h, a} h_i + b_a))}</script><p>$W_{h, a} \in \R^{1 \times k}$是一个矩阵， $b_a \in \R $是偏置</p>
+</li>
+<li><p>我们将这个$a_i \in [0, 1]$乘入$v_i$中，得到一个新的feature vector $v_i^{att}$ ，最后将$v_i^{att}$输入一个全连接层，得到每个RoI的score： $ s_i = W_s v_i^{att} + b_s$</p>
+</li>
+<li><p>最后，我们将$s<em>i$输入一个lse函数，得到$S_2 = log[1 + \sum</em>{i=1}^Nexp(S_i)]$ </p>
+</li>
+</ol>
+<h3 id="2-3-联合-S-1-S-2"><a href="#2-3-联合-S-1-S-2" class="headerlink" title="2.3 联合$S_1, S_2$"></a>2.3 联合$S_1, S_2$</h3><p>我们设置一个权重将最终的$S_1, S_2$联合起来：</p>
+<script type="math/tex; mode=display">S=S_1(I, b_1, b_2) + \alpha S_2(I, b_1, b_2, R)</script><p>这是各个类别的最终得分，再通过softmax转化为各个类别的检测概率：</p>
+<script type="math/tex; mode=display">p_r = \frac {exp(S_r)} {\sum_r exp(S_r)}</script>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/social-relationship/" rel="tag"># social relationship</a>
+          
+            <a href="/tags/Faster-R-CNN/" rel="tag"># Faster R-CNN</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/28/逻辑斯蒂回归模型/" rel="next" title="逻辑斯蒂回归模型">
+                <i class="fa fa-chevron-left"></i> 逻辑斯蒂回归模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/05/软件项目架构与框架/" rel="prev" title="软件项目架构与框架">
+                软件项目架构与框架 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、PISC数据集"><span class="nav-number">1.</span> <span class="nav-text">一、PISC数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Dual-Glance模型"><span class="nav-number">2.</span> <span class="nav-text">二、Dual-Glance模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-First-Glance"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 First Glance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Second-Glance"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Second Glance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-联合-S-1-S-2"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 联合$S_1, S_2$</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="状态建模," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="状态建模学习">
+<meta name="keywords" content="状态建模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="状态建模学习">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/05/04/状态建模学习/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="状态建模学习">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/04/状态建模学习/State.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/04/状态建模学习/Asg订单状态图.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/04/状态建模学习/淘宝退款业务订单状态建模.png">
+<meta property="og:updated_time" content="2018-05-08T09:32:44.733Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="状态建模学习">
+<meta name="twitter:description" content="状态建模学习">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/05/04/状态建模学习/State.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/05/04/状态建模学习/"/>
+
+
+
+
+
+  <title>状态建模学习 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/05/04/状态建模学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">状态建模学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-04T11:15:00+08:00">
+                2018-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  状态建模学习
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-状态建模基础"><a href="#1-状态建模基础" class="headerlink" title="1. 状态建模基础"></a>1. 状态建模基础</h2><blockquote>
+<p>References: <a href="http://www.cnblogs.com/ywqu/archive/2009/12/17/1626043.html" target="_blank" rel="noopener">http://www.cnblogs.com/ywqu/archive/2009/12/17/1626043.html</a></p>
+</blockquote>
+<h3 id="1-1-状态建模概念"><a href="#1-1-状态建模概念" class="headerlink" title="1.1 状态建模概念"></a>1.1 状态建模概念</h3><blockquote>
+<p>领域模型描述了问题域中事物及其之间的关系与量化的约束，我们需要进一步验证模型的有效性与完备性，管理这些事物的生命周期成为有效的方法 - 状态建模。它主要解决以下问题：</p>
+<ul>
+<li>从实例的角度识别业务事件，完善、优化业务过程的细节，细化业务过程与领域模型</li>
+<li>给出业务过程合理性与完备性验证</li>
+<li>为程序开发提供业务规范细节</li>
+</ul>
+</blockquote>
+<h3 id="1-2-UML-状态建模符号体系"><a href="#1-2-UML-状态建模符号体系" class="headerlink" title="1.2 UML 状态建模符号体系"></a>1.2 UML 状态建模符号体系</h3><p>状态图描述一个 <strong>事物或对象</strong> 受 <strong>事件或消息</strong> 刺激产生 可见的状态（属性/属性组合） 的数据变化。</p>
+<ul>
+<li>基础符号<ul>
+<li>起始状态（Initial）</li>
+<li>终止状态（Final）</li>
+<li>取消/对象取消（Termination）</li>
+<li>状态（State）</li>
+<li>变迁（Transform），含条件（Condition）、事件（Event）和事件处理动作（Action/Handler）</li>
+</ul>
+</li>
+<li>扩展符号<ul>
+<li>复合状态</li>
+<li>信号</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2018/05/04/状态建模学习/State.png" alt="State"></p>
+<blockquote>
+<p>绘图注意事项：</p>
+<ul>
+<li><p>必须有起始状态，通常有终止和取消状态</p>
+</li>
+<li><p>状态命名要用名词短语、动词过去时或正在进行时等具有延续性的词汇</p>
+</li>
+<li><p>在需求分析过程中，尽可能不涉及动作</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="1-3-状态建模"><a href="#1-3-状态建模" class="headerlink" title="1.3 状态建模"></a>1.3 状态建模</h3><p>应用场景：</p>
+<ul>
+<li>需求建模。 与客户讨论关键事物的变化过程。 进一步细化 用例图 或 用例场景。</li>
+<li>OOD/P 软件设计。 关键数据的变化；表达状态机；状态机模式（GOF）</li>
+</ul>
+<p>工作步骤：</p>
+<ol>
+<li>确定研究对象<ul>
+<li>这是最难的！系统作为一个对象？所有对象？</li>
+<li>通常是客户关注的业务交易实体，如订单，凭证等</li>
+</ul>
+</li>
+<li>识别状态集合<ul>
+<li>I， F， S={S0…Sk}</li>
+<li>状态不一定是门的开或关闭这样简单属性，可能是属性复杂的组合</li>
+<li>事物中包含的 mode 和 state 属性</li>
+</ul>
+</li>
+<li>识别事件和变迁条件</li>
+<li>合理性、完整性检查与逻辑分析<ul>
+<li>终点的可达性</li>
+<li>悬挂状态</li>
+<li>循环分析（死循环条件与风险）</li>
+<li>路径分析（最短路径、关键路径、平均距离）</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-实例"><a href="#2-实例" class="headerlink" title="2. 实例"></a>2. 实例</h2><blockquote>
+<p>建模工具： UMLet 14.1.1 stand-alone</p>
+</blockquote>
+<h3 id="2-1-使用-UML-State-Model"><a href="#2-1-使用-UML-State-Model" class="headerlink" title="2.1 使用 UML State Model"></a>2.1 使用 UML State Model</h3><ul>
+<li>建模对象： 参考 Asg_RH 文档， 对 Reservation/Order 对象建模。</li>
+<li>建模要求： 参考练习不能提供足够信息帮助你对订单对象建模，请参考现在 定旅馆 的旅游网站，尽可能分析围绕订单发生的各种情况，直到订单通过销售事件（柜台销售）结束订单。</li>
+</ul>
+<p><img src="/2018/05/04/状态建模学习/Asg订单状态图.png" alt="Asg订单状态图"></p>
+<h3 id="2-2-研究淘宝退货流程活动图，对退货业务对象状态建模"><a href="#2-2-研究淘宝退货流程活动图，对退货业务对象状态建模" class="headerlink" title="2.2 研究淘宝退货流程活动图，对退货业务对象状态建模"></a>2.2 研究淘宝退货流程活动图，对退货业务对象状态建模</h3><p><img src="/2018/05/04/状态建模学习/淘宝退款业务订单状态建模.png" alt="淘宝退款业务订单状态建模"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/状态建模/" rel="tag"># 状态建模</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/01/Session和Cookie/" rel="next" title="Session和Cookie">
+                <i class="fa fa-chevron-left"></i> Session和Cookie
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/04/McCabe环路复杂度分析/" rel="prev" title="McCabe环路复杂度分析">
+                McCabe环路复杂度分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-状态建模基础"><span class="nav-number">1.</span> <span class="nav-text">1. 状态建模基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-状态建模概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 状态建模概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-UML-状态建模符号体系"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 UML 状态建模符号体系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-状态建模"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 状态建模</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-实例"><span class="nav-number">2.</span> <span class="nav-text">2. 实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-使用-UML-State-Model"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 使用 UML State Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-研究淘宝退货流程活动图，对退货业务对象状态建模"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 研究淘宝退货流程活动图，对退货业务对象状态建模</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

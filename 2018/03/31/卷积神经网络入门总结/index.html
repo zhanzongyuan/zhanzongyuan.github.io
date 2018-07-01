@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="深度学习,CNN," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="卷积神经网络入门总结">
+<meta name="keywords" content="深度学习,CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卷积神经网络入门总结">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/03/31/卷积神经网络入门总结/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="卷积神经网络入门总结">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/03/31/卷积神经网络入门总结/Computer%20Vision.png">
+<meta property="og:updated_time" content="2018-06-29T03:25:52.314Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="卷积神经网络入门总结">
+<meta name="twitter:description" content="卷积神经网络入门总结">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/03/31/卷积神经网络入门总结/Computer%20Vision.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/03/31/卷积神经网络入门总结/"/>
+
+
+
+
+
+  <title>卷积神经网络入门总结 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/03/31/卷积神经网络入门总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">卷积神经网络入门总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T00:10:15+08:00">
+                2018-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  卷积神经网络入门总结
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、基础概念学习"><a href="#一、基础概念学习" class="headerlink" title="一、基础概念学习"></a>一、基础概念学习</h2><h3 id="1-感知机"><a href="#1-感知机" class="headerlink" title="1. 感知机"></a>1. 感知机</h3><h4 id="1-1-感知机模型"><a href="#1-1-感知机模型" class="headerlink" title="1.1 感知机模型"></a>1.1 感知机模型</h4><blockquote>
+<p>$f(x) = sign(w\cdot x+b)$</p>
+</blockquote>
+<p>简单判别模型，输出为正负号</p>
+<h4 id="1-2-感知机学习策略"><a href="#1-2-感知机学习策略" class="headerlink" title="1.2 感知机学习策略"></a>1.2 感知机学习策略</h4><blockquote>
+<p>通过第一范式或第二范式等形式</p>
+</blockquote>
+<p>如第二范式损失函数（残差平方和）：$L(f) =\sum (f(x_i) - y_i)^2 =\sum (\hat {y_i}- y_i)^2$ </p>
+<p>模型的损失函数越低，说明模型越好</p>
+<h4 id="1-3-感知机学习算法"><a href="#1-3-感知机学习算法" class="headerlink" title="1.3 感知机学习算法"></a>1.3 感知机学习算法</h4><h5 id="1-3-1-梯度的概念"><a href="#1-3-1-梯度的概念" class="headerlink" title="1.3.1 梯度的概念"></a>1.3.1 梯度的概念</h5><blockquote>
+<p>即为某函数$F(x_1, x_2, …, x_n)$ 对各个变量求导后得到的向量$\overrightarrow v = [\frac {dF} {dx_1}, \frac {dF} {dx_2}, \frac {dF} {dx_3}, ….. \frac {dF} {dx_n}]$</p>
+<p>方向代表F在点$[x_1, x_2, … x_n]$ 指向F斜率最大的方向（F变大的方向）</p>
+</blockquote>
+<h5 id="1-3-2-梯度下降法"><a href="#1-3-2-梯度下降法" class="headerlink" title="1.3.2 梯度下降法"></a>1.3.2 梯度下降法</h5><blockquote>
+<p>为了计算最小化损失函数，即为位于$L$的偏导为零的极小值（假设$L$是可导函数）</p>
+</blockquote>
+<ol>
+<li>通过解析解求极值</li>
+</ol>
+<p>使得偏导数为零，列方程组解方程，矩阵方程组求解（计算量大，容易失去精度）</p>
+<ol>
+<li>通过数值解求极值</li>
+</ol>
+<p>通过迭代更新规则$w = w + \eta \cdot \nabla w$， $b = b + \eta \cdot \nabla b $ </p>
+<p>$\nabla w, \nabla b$ 为梯度，$\eta $ 为学习率</p>
+<blockquote>
+<p>注意sign不可导</p>
+</blockquote>
+<h3 id="2-多层感知网络-人工神经网络（ANN）"><a href="#2-多层感知网络-人工神经网络（ANN）" class="headerlink" title="2. 多层感知网络/人工神经网络（ANN）"></a>2. 多层感知网络/人工神经网络（ANN）</h3><blockquote>
+<p>多层感知机，中将多个感知机单元按照层与层的关系连接输入输出，使得数据在网络中的传输方向是不断向前的，也叫做前向网络；由于类似脑中的神经元拓扑结构，也叫人工神经网络</p>
+</blockquote>
+<h4 id="2-1-激励函数"><a href="#2-1-激励函数" class="headerlink" title="2.1 激励函数"></a>2.1 激励函数</h4><blockquote>
+<p>激励函数为模型添加非线性化</p>
+</blockquote>
+<p>多层网络中对感知机做出了改进，激励函数改用一个S型函数（sigmoid），$S(x) = \frac 1 {1 + e^{-x}}$，解决$sign(x)$不可导的问题，</p>
+<h4 id="2-2-网络结构"><a href="#2-2-网络结构" class="headerlink" title="2.2 网络结构"></a>2.2 网络结构</h4><blockquote>
+<p>一层由多个感知机单元组成，上一层结构的所有感知机的输出将输入当前层每个神经元</p>
+<p>即为每个神经元需要以上一层所有神经元的输出作为输入，所以也就全连接</p>
+</blockquote>
+<p>输入层+隐藏层+输出层</p>
+<blockquote>
+<p>对于多分类问题，可能结尾会需要使用一个softmax函数转换为概率分布</p>
+</blockquote>
+<h4 id="2-3-反向传播算法"><a href="#2-3-反向传播算法" class="headerlink" title="2.3 反向传播算法"></a>2.3 反向传播算法</h4><p>由于出现了多层网络，就出现一个问题，原来的梯度下降法是否用于模型的优化呢？</p>
+<p>答案是可以的，在BP的论文中给予了证明，即通过<strong>链式法则</strong>求各层各个参数的偏导数。</p>
+<ul>
+<li>BP的核心指出，在网络中下一层的得到的梯度，可以在上一层梯度计算的过程中使用，所以各层的梯度计算是一个递推的过程，所以每层的时间复杂度都是相同的，指出多层网络中的梯度计算是可行的</li>
+</ul>
+<blockquote>
+<p>由于梯度的计算是从网络的输出层计算到输入层，与前向网络的方向（输入层到输出层）相反，同时由于梯度的计算是层次相关的，类似传播的过程，所以叫做反向传播算法</p>
+</blockquote>
+<h3 id="3-卷积神经网络（CNN）"><a href="#3-卷积神经网络（CNN）" class="headerlink" title="3. 卷积神经网络（CNN）"></a>3. 卷积神经网络（CNN）</h3><blockquote>
+<p>与ANN不同，引入卷积概念，池化概念，ReLU概念</p>
+</blockquote>
+<h4 id="3-1-卷积的概念"><a href="#3-1-卷积的概念" class="headerlink" title="3.1 卷积的概念"></a>3.1 卷积的概念</h4><ul>
+<li>feature map：指数据的形式</li>
+<li>feature map size：$c \times w \times h$ (频道(channel) x 宽 x 高)</li>
+</ul>
+<ul>
+<li>kernel/mask：卷积核指的是一个三维的张量</li>
+<li>kernel size：$d\times w \times h$ （深度 x 宽 x 高）</li>
+<li>receptive field: 一个kernel与feature map一次卷积的feature map的范围（一次卷积只能用一部分feature map，计算得到一个值）</li>
+</ul>
+<ul>
+<li>padding：原始feature map卷积前的边缘扩充</li>
+<li>stride：kernel卷积中移动的距离</li>
+<li>convolution：通过卷积核在原feature map上各个感知域（receptive field）点乘求和操作，提取feature map的特征</li>
+</ul>
+<blockquote>
+<p>convolution 使用的是</p>
+</blockquote>
+<h4 id="3-2-池化的概念"><a href="#3-2-池化的概念" class="headerlink" title="3.2 池化的概念"></a>3.2 池化的概念</h4><ul>
+<li>最大池化</li>
+<li>平均池化</li>
+</ul>
+<blockquote>
+<p>pooling 是一种下取样的方法，目的是为了降低feature map的尺度</p>
+</blockquote>
+<h4 id="3-3-用ReLU代替激励函数sigmoid"><a href="#3-3-用ReLU代替激励函数sigmoid" class="headerlink" title="3.3 用ReLU代替激励函数sigmoid"></a>3.3 用ReLU代替激励函数sigmoid</h4><p>AlexNet中提出，效果得到优化</p>
+<blockquote>
+<p>相当于去了个绝对值，同样是非线性，在x = 0处不可导</p>
+</blockquote>
+<h4 id="3-4-网络结构"><a href="#3-4-网络结构" class="headerlink" title="3.4 网络结构"></a>3.4 网络结构</h4><p>与ANN一样是：输入层+隐藏层+输出层</p>
+<p>不同于加入了卷积层，池化层，ReLU方法。</p>
+<p>卷积层一般紧接池化层</p>
+<h2 id="二、代表架构学习"><a href="#二、代表架构学习" class="headerlink" title="二、代表架构学习"></a>二、代表架构学习</h2><blockquote>
+<p>代表架构的学习让我学到了除网络结构以外的东西</p>
+<ol>
+<li>一些数据预处理的方法，如AlexNet中数据增强</li>
+<li>解决过拟合的方法，如Dropout，LRN（local response normalization）</li>
+<li>各种新型网络的结构，以及好的CNN模型的特点（深、窄）</li>
+<li>CNN模型的可适用领域广泛，各种解决各种其他实际问题</li>
+<li>了解了一些有趣的算法，selective searching</li>
+</ol>
+</blockquote>
+<ul>
+<li>RoadMap</li>
+</ul>
+<p><img src="/2018/03/31/卷积神经网络入门总结/Computer Vision.png" alt="Computer Visio"></p>
+<h3 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h3><ol>
+<li>首次提出卷积网络应用于人工神经网络</li>
+<li>提出池化层的概念</li>
+</ol>
+<h3 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h3><ol>
+<li>改进池化层，使用最大化池</li>
+<li>使用ReLU代替sigmoid</li>
+<li>为了防止过拟合，提出Dropout，Data Augmentation</li>
+<li>提出LNR（local response nomarlization）</li>
+<li>运用GPU的并行运算的性能</li>
+</ol>
+<h3 id="ZFNet"><a href="#ZFNet" class="headerlink" title="ZFNet"></a>ZFNet</h3><ol>
+<li>对AlexNet提出可视化层面研究，研究CNN背后机理</li>
+<li>提出解卷积层，可视化CNN学习的过程</li>
+<li>减小AlexNet部分卷积核，减少参数得到更好效果</li>
+</ol>
+<h3 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h3><ol>
+<li>研究CNN不同模型的性能，提出更深的网络以及更小的卷积核的改进思路</li>
+<li>提出3x3卷积核，简化模型，使得需要训练的参数更少</li>
+<li>feature map随着尺寸变小，逐渐加深层数</li>
+</ol>
+<h3 id="GoogLeNet"><a href="#GoogLeNet" class="headerlink" title="GoogLeNet"></a>GoogLeNet</h3><ol>
+<li>提出了Inception module</li>
+<li>Inception module中运用许多并行结构</li>
+<li>参量减少更多</li>
+<li>可以运用于图像检测</li>
+</ol>
+<h3 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h3><ol>
+<li>为解决层数太多，梯度消失的问题，提出残差模型</li>
+</ol>
+<hr>
+<blockquote>
+<p>下面是关于图像检测的模型，许多只是在粗略的学习</p>
+</blockquote>
+<h3 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h3><ol>
+<li>第一阶段通过selective searching 算法进行Region Proposal 区域预选，每个图片提取2000个regions</li>
+<li>第二阶段通过CNN提取每个region的特征</li>
+<li>第三阶段通过SVM线性分类器，对每个region的类型进行识别，同时设置阈值，去除无信息regions</li>
+<li>后期做box-bounding regression 使得提取区域的边界更为准确</li>
+</ol>
+<h3 id="Fast-R-CNN"><a href="#Fast-R-CNN" class="headerlink" title="Fast R-CNN"></a>Fast R-CNN</h3><ol>
+<li>保留selective searching</li>
+<li>将SVM部分去除</li>
+<li>提出RoI，以及RoI池化层，用于训练box bounding</li>
+<li>CNN改造成两个部分，一个部分用来训练分类，一个用于训练box bounding</li>
+<li>一定程度上增强了CNN网络的作用，以及简化了模型</li>
+</ol>
+<h2 id="三、工程学习"><a href="#三、工程学习" class="headerlink" title="三、工程学习"></a>三、工程学习</h2><h3 id="Tensorflow"><a href="#Tensorflow" class="headerlink" title="Tensorflow"></a>Tensorflow</h3><ul>
+<li>搭建LeNet的简化模型，训练手写体，在测试集中达到超过94%的正确率</li>
+<li>下阶段打算尝试搭建VGG，ResNet，训练相片分类，熟悉网络的搭建</li>
+</ul>
+<h3 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h3><p>👉<a href="http://blog.zhanzy.xyz/2018/04/11/pytorch/" target="_blank" rel="noopener">http://blog.zhanzy.xyz/2018/04/11/pytorch/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/CNN/" rel="tag"># CNN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/17/软件开发模型对比/" rel="next" title="软件开发模型对比">
+                <i class="fa fa-chevron-left"></i> 软件开发模型对比
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/10/Makefile构建c++项目/" rel="prev" title="Makefile构建c++项目">
+                Makefile构建c++项目 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基础概念学习"><span class="nav-number">1.</span> <span class="nav-text">一、基础概念学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-感知机"><span class="nav-number">1.1.</span> <span class="nav-text">1. 感知机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-感知机模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 感知机模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-感知机学习策略"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 感知机学习策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-感知机学习算法"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 感知机学习算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-梯度的概念"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">1.3.1 梯度的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-梯度下降法"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">1.3.2 梯度下降法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-多层感知网络-人工神经网络（ANN）"><span class="nav-number">1.2.</span> <span class="nav-text">2. 多层感知网络/人工神经网络（ANN）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-激励函数"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 激励函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-网络结构"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 网络结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-反向传播算法"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 反向传播算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-卷积神经网络（CNN）"><span class="nav-number">1.3.</span> <span class="nav-text">3. 卷积神经网络（CNN）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-卷积的概念"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 卷积的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-池化的概念"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 池化的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-用ReLU代替激励函数sigmoid"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 用ReLU代替激励函数sigmoid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-网络结构"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4 网络结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、代表架构学习"><span class="nav-number">2.</span> <span class="nav-text">二、代表架构学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LeNet"><span class="nav-number">2.1.</span> <span class="nav-text">LeNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AlexNet"><span class="nav-number">2.2.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZFNet"><span class="nav-number">2.3.</span> <span class="nav-text">ZFNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VGG"><span class="nav-number">2.4.</span> <span class="nav-text">VGG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GoogLeNet"><span class="nav-number">2.5.</span> <span class="nav-text">GoogLeNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ResNet"><span class="nav-number">2.6.</span> <span class="nav-text">ResNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#R-CNN"><span class="nav-number">2.7.</span> <span class="nav-text">R-CNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fast-R-CNN"><span class="nav-number">2.8.</span> <span class="nav-text">Fast R-CNN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、工程学习"><span class="nav-number">3.</span> <span class="nav-text">三、工程学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow"><span class="nav-number">3.1.</span> <span class="nav-text">Tensorflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pytorch"><span class="nav-number">3.2.</span> <span class="nav-text">Pytorch</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

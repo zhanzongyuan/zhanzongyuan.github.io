@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Session,Cookie,Express.js,Redis," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="解决HTTP协议无状态而提出的解决方案">
+<meta name="keywords" content="Session,Cookie,Express.js,Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Session和Cookie">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/05/01/Session和Cookie/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="解决HTTP协议无状态而提出的解决方案">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/01/Session和Cookie/Cookie.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/01/Session和Cookie/Session.png">
+<meta property="og:updated_time" content="2018-05-02T08:56:51.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Session和Cookie">
+<meta name="twitter:description" content="解决HTTP协议无状态而提出的解决方案">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/05/01/Session和Cookie/Cookie.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/05/01/Session和Cookie/"/>
+
+
+
+
+
+  <title>Session和Cookie | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/05/01/Session和Cookie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Session和Cookie</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-01T20:44:29+08:00">
+                2018-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  解决HTTP协议无状态而提出的解决方案
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-Cookie"><a href="#1-Cookie" class="headerlink" title="1. Cookie"></a>1. Cookie</h2><p><strong>概念：</strong>  服务器和客户端直接维持状态的解决方案</p>
+<ul>
+<li>HTTP无状态：指的是每次客户端向服务器发送HTTP方法的时候，对于服务器而言都是一次新的操作，之前的操作不会对后面的操作有任何影响。都是把每个请求当作一个新的请求。</li>
+</ul>
+<blockquote>
+<p>打个比方：</p>
+<p>无状态：每次去同一家餐厅吃饭，无状态的店员都把你当作新客人，每次都重新推荐菜品</p>
+<p>有状态：每次去同一家餐厅吃饭，有状态的店员对你之前来过有印象，就当作老顾客，能熟络的叫出你的名字，甚至都知道你喜欢的哪几道菜</p>
+</blockquote>
+<p><strong>目的：</strong>Cookie的出现就是为了简单的保留你的登录状态，而不用每次都重复登录</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>状态（历史操作记录，Cookie）数据保留在客户端</li>
+<li>分为会话Cookie和持久Cookie</li>
+</ul>
+<p><strong>机制：</strong></p>
+<p><img src="/2018/05/01/Session和Cookie/Cookie.png" alt="Cookie"></p>
+<h2 id="2-Session"><a href="#2-Session" class="headerlink" title="2. Session"></a>2. Session</h2><blockquote>
+<p>Session同样是解决HTTP无状态问题的机制，只是将历史数据保留在了服务器端，由服务器来管理</p>
+</blockquote>
+<p><strong>概念：</strong> 服务器和客户端直接维持状态的解决方案，有时也指这种解决方案的存储结构（与Cookie不同在于状态信息管理的位置不同，一个在服务器端，一个在客户端）</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>SessionId是全局的、唯一的</li>
+<li>一个客户对应一个SessionId</li>
+<li>Session在服务端器存储，管理</li>
+<li>Session是有生命周期的，会被产生，摧毁</li>
+</ul>
+<p><strong>机制：</strong></p>
+<p><img src="/2018/05/01/Session和Cookie/Session.png" alt="Session"></p>
+<blockquote>
+<p>References : <a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/preface.md" target="_blank" rel="noopener">https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/preface.md</a></p>
+</blockquote>
+<h2 id="3-Express-js配置Redis持久化存储Session会话"><a href="#3-Express-js配置Redis持久化存储Session会话" class="headerlink" title="3. Express.js配置Redis持久化存储Session会话"></a>3. Express.js配置Redis持久化存储Session会话</h2><blockquote>
+<p>References:</p>
+<p><a href="http://www.cnblogs.com/chyingp/p/express-session.html" target="_blank" rel="noopener">http://www.cnblogs.com/chyingp/p/express-session.html</a></p>
+<p><a href="https://segmentfault.com/a/1190000002630691" target="_blank" rel="noopener">https://segmentfault.com/a/1190000002630691</a></p>
+<p><a href="http://www.runoob.com/redis/redis-commands.html" target="_blank" rel="noopener">http://www.runoob.com/redis/redis-commands.html</a></p>
+</blockquote>
+<p>Redis使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis-server <span class="comment"># 启动Redis服务器</span></span><br><span class="line">redis-cli -h host -p port -a password <span class="comment"># 连接本地redis服务</span></span><br><span class="line"></span><br><span class="line">config <span class="built_in">set</span> requirepass password <span class="comment"># 设置登录密码</span></span><br></pre></td></tr></table></figure>
+<p>Express.js配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> expressSession = <span class="built_in">require</span>(<span class="string">'express-session'</span>);  <span class="comment">// 该中间件使得req有session属性</span></span><br><span class="line"><span class="keyword">var</span> RedisStore = <span class="built_in">require</span>(<span class="string">'connect-redis'</span>)(expressSession);</span><br><span class="line"><span class="keyword">var</span> redisConfig=&#123;</span><br><span class="line">    <span class="string">'cookie'</span> : &#123;</span><br><span class="line">       <span class="string">'maxAge'</span> : <span class="number">1800000</span> <span class="comment">// 30 * 60 * 1000 ms = 30 mins</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'sessionStore'</span> : &#123;</span><br><span class="line">        <span class="string">'host'</span> : <span class="string">'127.0.0.1'</span>,</span><br><span class="line">        <span class="string">'port'</span> : <span class="string">'6379'</span>,</span><br><span class="line">        <span class="string">'pass'</span> : <span class="string">'password'</span>,</span><br><span class="line">        <span class="string">'db'</span> : <span class="number">1</span>,</span><br><span class="line">        <span class="string">'ttl'</span> : <span class="number">1800</span>, <span class="comment">// 30 * 60 sec = 30 mins</span></span><br><span class="line">        <span class="string">'logErrors'</span> : <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// var FileStore = require('session-file-store')(session);</span></span><br><span class="line">app.use(expressSession(&#123;</span><br><span class="line">    name : <span class="string">'sid'</span>,</span><br><span class="line">    secret : <span class="string">'zhidan'</span>,  <span class="comment">// 用来对session id相关的cookie进行签名</span></span><br><span class="line">    resave : <span class="literal">true</span>,</span><br><span class="line">    rolling: <span class="literal">true</span>,</span><br><span class="line">    saveUninitialized : <span class="literal">false</span>,  <span class="comment">// 是否自动保存未初始化的会话，建议false</span></span><br><span class="line">    cookie : redisConfig.cookie,  <span class="comment">// 是否每次都重新保存会话，建议false</span></span><br><span class="line">    store : <span class="keyword">new</span> RedisStore(redisConfig.sessionStore)  <span class="comment">// Redis存储session（也可以选择其他store，比如FileStore()，本地文本存取，）</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>Session使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置Session</span></span><br><span class="line">req.session.site = &#123;<span class="attr">number</span>: <span class="string">'110'</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取Session</span></span><br><span class="line"><span class="keyword">var</span> number = req.session.number;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Session/" rel="tag"># Session</a>
+          
+            <a href="/tags/Cookie/" rel="tag"># Cookie</a>
+          
+            <a href="/tags/Express-js/" rel="tag"># Express.js</a>
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/01/Nginx/" rel="next" title="Nginx">
+                <i class="fa fa-chevron-left"></i> Nginx
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/04/状态建模学习/" rel="prev" title="状态建模学习">
+                状态建模学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Cookie"><span class="nav-number">1.</span> <span class="nav-text">1. Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Session"><span class="nav-number">2.</span> <span class="nav-text">2. Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Express-js配置Redis持久化存储Session会话"><span class="nav-number">3.</span> <span class="nav-text">3. Express.js配置Redis持久化存储Session会话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

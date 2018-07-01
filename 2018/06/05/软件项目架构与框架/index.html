@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="软件工程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要探讨Web应用的多层架构">
+<meta name="keywords" content="软件工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件项目架构与框架">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/06/05/软件项目架构与框架/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="本文主要探讨Web应用的多层架构">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/06/05/软件项目架构与框架/Multi-ties.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/06/05/软件项目架构与框架/三层架构.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/06/05/软件项目架构与框架/flux.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/06/05/软件项目架构与框架/vuex.png">
+<meta property="og:updated_time" content="2018-06-05T13:42:57.228Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件项目架构与框架">
+<meta name="twitter:description" content="本文主要探讨Web应用的多层架构">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/06/05/软件项目架构与框架/Multi-ties.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/06/05/软件项目架构与框架/"/>
+
+
+
+
+
+  <title>软件项目架构与框架 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/06/05/软件项目架构与框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件项目架构与框架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T16:16:02+08:00">
+                2018-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/2018/06/05/软件项目架构与框架/Multi-ties.png" alt="Multi-ties"></p>
+<p>本文主要探讨Web应用的多层架构</p>
+<a id="more"></a>
+<h2 id="1-软件架构与框架之间的区别与联系"><a href="#1-软件架构与框架之间的区别与联系" class="headerlink" title="1. 软件架构与框架之间的区别与联系"></a>1. 软件架构与框架之间的区别与联系</h2><h3 id="1-1-概念解释"><a href="#1-1-概念解释" class="headerlink" title="1.1 概念解释"></a>1.1 概念解释</h3><h4 id="1-1-1-架构-Architecture"><a href="#1-1-1-架构-Architecture" class="headerlink" title="1.1.1 架构 (Architecture)"></a>1.1.1 架构 (Architecture)</h4><blockquote>
+<p>An architecture is the set of significant decisions about the organization of a software system, which describe the selection of the structural elements and their interfaces by which the system is composed，and their behavior as specified in the collaborations among those elements</p>
+</blockquote>
+<p>软件架构描述一个系统的组成元素，元素之间的接口，以及各个元素之间的协作行为，即软件系统的组织架构。</p>
+<h4 id="1-1-2-架构模式-Architecture-Styles"><a href="#1-1-2-架构模式-Architecture-Styles" class="headerlink" title="1.1.2 架构模式 (Architecture Styles)"></a>1.1.2 架构模式 (Architecture Styles)</h4><blockquote>
+<p>An architectural style guides the organization of these elements and their collaborations to solve common problems of the specific domain.</p>
+</blockquote>
+<p>软件架构模式是特定领域的组织解决方案，可以说是架构的特定风格，如信息系统领域的<strong>经典三层架构</strong></p>
+<ul>
+<li>三层架构：<ul>
+<li>表示层（Presentation Layer）<ul>
+<li>Models，Views，Controllers</li>
+<li>State Management</li>
+</ul>
+</li>
+<li>业务层（Business Layer）/服务层（Service Layer）<ul>
+<li>Transacton（交易）</li>
+<li>Query（查询）</li>
+</ul>
+</li>
+<li>数据持久化层（Persistent Layer）/ 数据访问层（Data Access Layer/DAO）<ul>
+<li>CRUD（实体的四种操作）</li>
+<li>ORM（实体与关系映射）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>关于三层架构与MVC：三层架构可以应用于任何语言、任何技术的应用程序；而MVC只是为了解决BS应用程序<strong>表现层</strong>各部分的耦合关系。它们互不冲突，可以同时存在，也可根据情况使用其中一种。MVC 关注的重点在于<strong>表现层</strong>的代码组织方式，通过降低代码间的耦合度，使代码更改维护。</p>
+<p>总之：三层架构是一种宏观的架构模式，应用于整个软件项目。MVC是一种架构模式，一般可以灵活的运用于项目的部分（如前端）。一种架构模式往往使用了多种设计模式</p>
+</blockquote>
+<p>详情见：<a href="https://juejin.im/post/593021272f301e0058273468" target="_blank" rel="noopener">前端开发中的 MVC/MVP/MVVM 模式</a>，<a href="http://gad.qq.com/article/detail/16776" target="_blank" rel="noopener">MVC模式与三层架构的区别</a></p>
+<h4 id="1-1-3-应用框架-Application-Frameworks"><a href="#1-1-3-应用框架-Application-Frameworks" class="headerlink" title="1.1.3 应用框架 (Application Frameworks)"></a>1.1.3 应用框架 (Application Frameworks)</h4><blockquote>
+<p>应用框架是特定语言和应用的架构解决方案。</p>
+</blockquote>
+<p>框架是面向某领域（包括业务领域，如ERP，和计算领域，如GUI）的、可复用的“半成品”软件，它实现了该领域的共性部分，并提供一系列定义良好的可变点以保证灵活性和可扩展性</p>
+<h3 id="1-2-架构模式与框架的区别与联系"><a href="#1-2-架构模式与框架的区别与联系" class="headerlink" title="1.2 架构模式与框架的区别与联系"></a>1.2 架构模式与框架的区别与联系</h3><ul>
+<li><p>区别：框架是一种软件，是由特定语言实现，并应用于特定领域的软件。架构模式不是软件，架构模式是一种思想、风格，是一个抽象的概念。</p>
+</li>
+<li><p>联系：框架是架构模式的解决方案。架构模式是框架应用时的组织思想。</p>
+</li>
+</ul>
+<h2 id="2-一个架构模式例子"><a href="#2-一个架构模式例子" class="headerlink" title="2. 一个架构模式例子"></a>2. 一个架构模式例子</h2><blockquote>
+<p>我们即将描述的系统架构是我的一个Web项目：<a href="https://zhidan-system.github.io/Dashboard/" target="_blank" rel="noopener">知单(Zhidan)智慧餐厅系统</a></p>
+<p>我们的项目采用的是经典的三层架构模式</p>
+</blockquote>
+<p><img src="/2018/06/05/软件项目架构与框架/三层架构.png" alt="三层架构"></p>
+<h2 id="3-研究-VUE-与-Flux-状态管理的异同"><a href="#3-研究-VUE-与-Flux-状态管理的异同" class="headerlink" title="3. 研究 VUE 与 Flux 状态管理的异同"></a>3. 研究 VUE 与 Flux 状态管理的异同</h2><h3 id="3-1-概念解释"><a href="#3-1-概念解释" class="headerlink" title="3.1 概念解释"></a>3.1 概念解释</h3><h4 id="3-1-1-Flux"><a href="#3-1-1-Flux" class="headerlink" title="3.1.1 Flux"></a>3.1.1 Flux</h4><p>简单说，Flux 是一种架构思想，专门解决软件的结构问题。它跟<a href="http://www.ruanyifeng.com/blog/2007/11/mvc.html" target="_blank" rel="noopener">MVC 架构</a>是同一类东西，但是更加<a href="http://www.infoq.com/news/2014/05/facebook-mvc-flux" target="_blank" rel="noopener">简单和清晰</a>。Flux的核心理念是单向数据流。Flux应用有三个主要部分：<strong>Dispatcher调度</strong> 、<strong>存储Store</strong>和<strong>视图View</strong>(React 组件)。</p>
+<p>在这种架构当中，Views 查询 Stores（而不是 Models），并且用户交互将会触发 Actions，Actions 则会被提交到一个集中的 Dispatcher 当中。当 Actions 被派发之后，Stores 将会随之更新自己并且通知 Views 进行修改。这些 Store 当中的修改会进一步促使 Views 查询新的数据。</p>
+<p><img src="/2018/06/05/软件项目架构与框架/flux.png" alt="flux"></p>
+<h4 id="3-1-2-Vue"><a href="#3-1-2-Vue" class="headerlink" title="3.1.2 Vue"></a>3.1.2 Vue</h4><p>Vue是一种前端框架。Vue.js是一套构建用户界面(user interface)的<strong>渐进式框架</strong>。</p>
+<ul>
+<li>Vuex：Vue的状态管理工具</li>
+</ul>
+<p><img src="/2018/06/05/软件项目架构与框架/vuex.png" alt="vuex"></p>
+<h3 id="3-2-Vue与Flux状态管理的异同"><a href="#3-2-Vue与Flux状态管理的异同" class="headerlink" title="3.2 Vue与Flux状态管理的异同"></a>3.2 Vue与Flux状态管理的异同</h3><ol>
+<li><p>Flux是一种架构。Flux主要组成部分是Dispatcher，Store，View，Action。</p>
+</li>
+<li><p>Vue状态管理Vuex是一种工具，Vue中的VueComponent相当于Flux的View。而状态管理工具Vuex主要组成部分是State，Mutations，Action，其中Mutations+State相当于Flux的Store部分。Vuex中还去除了Dispatcher部分。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/软件工程/" rel="tag"># 软件工程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/29/Dual-Glance模型/" rel="next" title="Dual-Glance模型">
+                <i class="fa fa-chevron-left"></i> Dual-Glance模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/25/详细设计-使用交互图和设计类图实现用例/" rel="prev" title="详细设计-使用交互图和设计类图实现用例">
+                详细设计-使用交互图和设计类图实现用例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-软件架构与框架之间的区别与联系"><span class="nav-number">1.</span> <span class="nav-text">1. 软件架构与框架之间的区别与联系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-概念解释"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 概念解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-1-架构-Architecture"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 架构 (Architecture)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-2-架构模式-Architecture-Styles"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 架构模式 (Architecture Styles)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-应用框架-Application-Frameworks"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.3 应用框架 (Application Frameworks)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-架构模式与框架的区别与联系"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 架构模式与框架的区别与联系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-一个架构模式例子"><span class="nav-number">2.</span> <span class="nav-text">2. 一个架构模式例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-研究-VUE-与-Flux-状态管理的异同"><span class="nav-number">3.</span> <span class="nav-text">3. 研究 VUE 与 Flux 状态管理的异同</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-概念解释"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 概念解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-Flux"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 Flux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-Vue"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 Vue</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Vue与Flux状态管理的异同"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Vue与Flux状态管理的异同</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="领域建模,数据库建模," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="领域建模与数据库建模实践">
+<meta name="keywords" content="领域建模,数据库建模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="领域建模与数据库建模实践">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/04/28/领域建模与数据库建模实践/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="领域建模与数据库建模实践">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/28/领域建模与数据库建模实践/search_hotel.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/28/领域建模与数据库建模实践/create_reservation.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/28/领域建模与数据库建模实践/payment.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/28/领域建模与数据库建模实践/ER.png">
+<meta property="og:updated_time" content="2018-04-29T03:21:07.755Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="领域建模与数据库建模实践">
+<meta name="twitter:description" content="领域建模与数据库建模实践">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/04/28/领域建模与数据库建模实践/search_hotel.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/04/28/领域建模与数据库建模实践/"/>
+
+
+
+
+
+  <title>领域建模与数据库建模实践 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/04/28/领域建模与数据库建模实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">领域建模与数据库建模实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-28T14:38:43+08:00">
+                2018-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  领域建模与数据库建模实践
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-领域建模"><a href="#1-领域建模" class="headerlink" title="1. 领域建模"></a>1. 领域建模</h2><blockquote>
+<p>References from Wiki: </p>
+<p>A domain model is a system of abstractions that describes selected aspects of a sphere of knowledge, influence or activity (a domain<a href="https://en.wikipedia.org/wiki/Domain_model#cite_note-3" target="_blank" rel="noopener">[3]</a>). The model can then be used to solve problems related to that domain. The domain model is a representation of meaningful real-world concepts pertinent to the domain that need to be modelled in software. The concepts include the data involved in the business and rules the business uses in relation to that data.</p>
+<p>A domain model generally uses the vocabulary of the domain, thus allowing a representation of the model to be communicated to non-technical stakeholders.</p>
+<p>领域模型是描述知识领域，影响领域或活动领域（领域）的抽象系统。该模型可以用来解决与该域相关的问题。领域模型是与需要在软件中建模的领域相关的有意义的现实世界概念的表示。这些概念包括涉及业务的数据和业务使用的与该数据相关的规则。<br>领域模型通常使用领域的词汇表，从而允许将模型的表示传达给非技术利益相关者。</p>
+</blockquote>
+<ul>
+<li>a. 阅读 Asg_RH 文档，按用例构建领域模型。<ul>
+<li>按 Task2 要求，请使用工具 UMLet，截图格式务必是 png 并控制尺寸</li>
+<li>说明：请不要受 PCMEF 层次结构影响。你需要识别实体（E）和 中介实体（M，也称状态实体）<ul>
+<li>在单页面应用（如 vue）中，E 一般与数据库构建有关， M 一般与 <a href="https://cn.vuejs.org/v2/guide/state-management.html" target="_blank" rel="noopener">store 模式</a> 有关</li>
+<li>在 java web 应用中，E 一般与数据库构建有关， M 一般与 session 有关</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p> <a href="http://blog.zhanzy.xyz/2018/04/11/UML绘图学习/" target="_blank" rel="noopener">Asg_RH 用例图回顾</a></p>
+<p><a href="http://umlet.com/changes.htm" target="_blank" rel="noopener">UMLet下载</a></p>
+<p>UMLet usage:  <code>cd UMLet &amp;&amp; bash umlet.sh # Linux and Unix bash shell command</code></p>
+</blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>领域模型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search hotel  by city</td>
+<td><img src="/2018/04/28/领域建模与数据库建模实践/search_hotel.png" alt="search_hotel"></td>
+</tr>
+<tr>
+<td>Make reservation with hotel and room type</td>
+<td><img src="/2018/04/28/领域建模与数据库建模实践/create_reservation.png" alt="create_reservation"></td>
+</tr>
+<tr>
+<td>Pay for basket with reservation</td>
+<td><img src="/2018/04/28/领域建模与数据库建模实践/payment.png" alt="payment"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="2-数据库建模"><a href="#2-数据库建模" class="headerlink" title="2. 数据库建模"></a>2. 数据库建模</h2><blockquote>
+<p>References from Wiki:</p>
+<p>A <strong>database model</strong> is a type of <a href="https://en.wikipedia.org/wiki/Data_model" target="_blank" rel="noopener">data model</a> that determines the logical structure of a <a href="https://en.wikipedia.org/wiki/Database" target="_blank" rel="noopener">database</a> and fundamentally determines in which manner <a href="https://en.wikipedia.org/wiki/Data" target="_blank" rel="noopener">data</a> can be stored, organized and manipulated. The most popular example of a database model is the <a href="https://en.wikipedia.org/wiki/Relational_model" target="_blank" rel="noopener">relational model</a>, which uses a table-based format.</p>
+<p>数据库模型是一种数据模型，它决定了数据库的逻辑结构，从根本上决定了数据可以存储，组织和操作的方式。数据库模型最流行的例子是关系模型，它使用基于表格的格式。</p>
+</blockquote>
+<ul>
+<li>b. 数据库建模(E-R 模型)<ul>
+<li>按 Task 3 要求，给出系统的 E-R 模型（数据逻辑模型）</li>
+<li>建模工具 PowerDesigner（简称PD） 或开源工具 <a href="http://www.codebydesign.com/" target="_blank" rel="noopener">OpenSystemArchitect</a></li>
+<li>不负责的链接 <a href="http://www.cnblogs.com/mcgrady/archive/2013/05/25/3098588.html" target="_blank" rel="noopener">http://www.cnblogs.com/mcgrady/archive/2013/05/25/3098588.html</a></li>
+<li>导出 Mysql 物理数据库的脚本</li>
+<li>简单叙说 数据库逻辑模型 与 领域模型 的异同</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>下面是用Mysql Workbench绘制的ER图</li>
+</ol>
+<p><img src="/2018/04/28/领域建模与数据库建模实践/ER.png" alt="ER"></p>
+<ol>
+<li>Mysql Workbench导出的脚本：<a href="assets/Asg_Hotel.sql">Asg_Hotel.sql</a></li>
+</ol>
+<ol>
+<li>比较数据逻辑模型和领域建模异同</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>同</th>
+<th>异</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据逻辑模型和领域模型</td>
+<td>1. 以识别主体为绘制的开端，以填充属性为结束<br>2. 主体对象之间都是用一条直线表示关联关系</td>
+<td>1. 数据逻辑模型包含更多接近底层数据类型的内容，领域模型则更加语义化一些，没有定义数据类型<br>2. 数据逻辑模型对一对多、多对多的情况的描绘可能需要中间实体，领域模型可以直接表示一对多的情况</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/领域建模/" rel="tag"># 领域建模</a>
+          
+            <a href="/tags/数据库建模/" rel="tag"># 数据库建模</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/22/Halstead/" rel="next" title="Halstead 复杂度">
+                <i class="fa fa-chevron-left"></i> Halstead 复杂度
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/01/Nginx/" rel="prev" title="Nginx">
+                Nginx <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-领域建模"><span class="nav-number">1.</span> <span class="nav-text">1. 领域建模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据库建模"><span class="nav-number">2.</span> <span class="nav-text">2. 数据库建模</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

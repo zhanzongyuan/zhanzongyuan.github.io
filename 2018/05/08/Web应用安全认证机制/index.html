@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Authentication," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Web应用安全认证机制">
+<meta name="keywords" content="Authentication">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web应用安全认证机制">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/05/08/Web应用安全认证机制/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="Web应用安全认证机制">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/08/Web应用安全认证机制/Session:Cookie.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/08/Web应用安全认证机制/OAuth.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/08/Web应用安全认证机制/JWT.png">
+<meta property="og:updated_time" content="2018-05-09T06:18:35.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web应用安全认证机制">
+<meta name="twitter:description" content="Web应用安全认证机制">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/05/08/Web应用安全认证机制/Session:Cookie.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/05/08/Web应用安全认证机制/"/>
+
+
+
+
+
+  <title>Web应用安全认证机制 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/05/08/Web应用安全认证机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Web应用安全认证机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T17:19:32+08:00">
+                2018-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Web应用安全认证机制
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前对Session/Cookie机制做了仔细的研究：Session/Cookie的提出是为了解决HTTP无状态的问题，为了识别客户端请求是来自哪个客户，同时也记住该客户的状态。</p>
+<p>而在最近做项目的过程中发现一个新的概念：Authentication，即认证的概念。之前对这个概念不是很有兴趣去了解，由于一直把OAuth2.0当作是第三方应用接入Web后台api的认证标准，所以觉得自己可能不需要这方面的学习。但是最近的后端项目中，我仔细研究了RESTful的设计规范之后，发现其实Web应用的认证是很有必要按照一定的权威标准去做的，所以写下了这篇学习总结。</p>
+<p>下面的内容就几种常见的Auth机制做介绍，各个方式的适用场景都是互不相同的。</p>
+<h2 id="1-BA-Basic-access-authentication"><a href="#1-BA-Basic-access-authentication" class="headerlink" title="1. BA (Basic access authentication)"></a>1. BA (Basic access authentication)</h2><blockquote>
+<p>wiki上名词解释：<a href="https://en.wikipedia.org/wiki/Basic_access_authentication" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Basic_access_authentication</a></p>
+<p>这是客户端代理的一种方法，每次请求都会带上用户名和密码</p>
+<p>特点是不需要cookie，session，或者login的页面。HTTP头部域有专门区域BA field，用于控制BA。</p>
+</blockquote>
+<p>简单的说就是每次请求都需要加入用户名和密码，每次请求都需要访问数据库验证信息。所以这种方式是效率极低，又不安全的做法。</p>
+<p>在Swagger2.0（一种API框架）中，提供了BA的API书写方式<a href="https://swagger.io/docs/specification/2-0/authentication/basic-authentication/" target="_blank" rel="noopener">https://swagger.io/docs/specification/2-0/authentication/basic-authentication/</a></p>
+<h2 id="2-Cookie-Session-Auth"><a href="#2-Cookie-Session-Auth" class="headerlink" title="2. Cookie/Session Auth"></a>2. Cookie/Session Auth</h2><p>这种认证机制是通过在第一次请求认证的时候，在服务端添加Session，在客户端保留Cookie，之后每次请求通过Cookie信息和Session信息匹配的方式管理状态。</p>
+<p><img src="/2018/05/08/Web应用安全认证机制/Session:Cookie.png" alt="Session:Cookie"></p>
+<h2 id="3-OAuth"><a href="#3-OAuth" class="headerlink" title="3. OAuth"></a>3. OAuth</h2><blockquote>
+<p>OAuth（开放授权）是一个开放的授权标准，允许用户让第三方应用访问该用户在某一web服务上存储的私密的资源（如照片，视频，联系人列表），而无需将用户名和密码提供给第三方应用。</p>
+<p>OAuth允许用户提供一个令牌，而不是用户名和密码来访问他们存放在特定服务提供者的数据。每一个令牌授权一个特定的第三方系统（例如，视频编辑网站)在特定的时段（例如，接下来的2小时内）内访问特定的资源（例如仅仅是某一相册中的视频）。这样，OAuth让用户可以授权第三方网站访问他们存储在另外服务提供者的某些特定信息，而非所有内容</p>
+<p>这种基于OAuth的认证机制适用于个人消费者类的互联网产品，如社交类APP等应用，但是不太适合拥有自有认证权限管理的企业应用；</p>
+</blockquote>
+<p><img src="/2018/05/08/Web应用安全认证机制/OAuth.png" alt="OAuth"></p>
+<h2 id="4-JWT-Json-Web-Tokens"><a href="#4-JWT-Json-Web-Tokens" class="headerlink" title="4. JWT (Json Web Tokens)"></a>4. JWT (Json Web Tokens)</h2><p>JWT是一种规范，这个规范允许我们使用JWT在客户端和服务器之间传递安全可靠信息。</p>
+<blockquote>
+<p> 对于Token Auth，Swagger2.0有相关编写规范：<a href="https://swagger.io/docs/specification/2-0/authentication/api-keys/" target="_blank" rel="noopener">https://swagger.io/docs/specification/2-0/authentication/api-keys/</a></p>
+</blockquote>
+<h3 id="4-1-JWT组成"><a href="#4-1-JWT组成" class="headerlink" title="4.1 JWT组成"></a>4.1 JWT组成</h3><p>一个JWT实际上就是一个字符串，它由三部分组成，<strong>头部</strong>、<strong>载荷</strong>与<strong>签名</strong>。</p>
+<ul>
+<li><strong>载荷 Payload</strong></li>
+</ul>
+<p>这个载荷就是相当于将一部分信息（可以是Session信息）用json表示，这部分的内容的字段在JWT标准中可以找到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;iss&quot;: &quot;John Wu JWT&quot;,</span><br><span class="line">    &quot;iat&quot;: 1441593502,</span><br><span class="line">    &quot;exp&quot;: 1441594722,</span><br><span class="line">    &quot;aud&quot;: &quot;www.example.com&quot;,</span><br><span class="line">    &quot;sub&quot;: &quot;jrocket@example.com&quot;,</span><br><span class="line">    &quot;from_user&quot;: &quot;B&quot;,</span><br><span class="line">    &quot;target_user&quot;: &quot;A&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面的前五个字段都是由JWT的标准所定义的。</p>
+<p><code>iss</code>: 该JWT的签发者</p>
+<p><code>sub</code>: 该JWT所面向的用户</p>
+<p><code>aud</code>: 接收该JWT的一方</p>
+<p><code>exp</code>(expires): 什么时候过期，这里是一个Unix时间戳</p>
+<p><code>iat</code>(issued at): 在什么时候签发的</p>
+<p> 然后对这部分做base64编码（这是一种编码方式，不是加密方式，可以重新恢复成原来的编码格式），得到新的字符串如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJpc3MiOiJKb2huIFd1IEpXVCIsImlhdCI6MTQ0MTU5MzUwMiwiZXhwIjoxNDQxNTk0NzIyLCJhdWQiOiJ3d3cuZXhhbXBsZS5jb20iLCJzdWIiOiJqcm9ja2V0QGV4YW1wbGUuY29tIiwiZnJvbV91c2VyIjoiQiIsInRhcmdldF91c2VyIjoiQSJ9</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>头部 Header</strong></li>
+</ul>
+<p>JWT的头部是描述该JWT的基本信息，如描述类型和所用签名算法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;typ&quot;: &quot;JWT&quot;,</span><br><span class="line">  &quot;alg&quot;: &quot;HS256&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对头部做base64编码，就可以得到头部字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>签名 Signature</strong></li>
+</ul>
+<p>将头部字符串和载荷字符串用’.’连接到一起得到下面字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcm9tX3VzZXIiOiJCIiwidGFyZ2V0X3VzZXIiOiJBIn0</span><br></pre></td></tr></table></figure>
+<p>在对其做上面说的HS256签名算法做加密，我们可以为其提供一个加密的密钥，最后加密后得到的字符串就是我们的签名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rSWamyAYwuHCo7IFAgd1oRpSP7nzL7BF5t7ItqpKViM</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>JWT</strong></li>
+</ul>
+<p>吧上面的合在一起就是我们的最终JWT</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">头部字符串 + &apos;.&apos; + 载荷字符串 + 签名字符串</span><br></pre></td></tr></table></figure>
+<p>载荷字符串部分用于获取身份信息，签名部分用于验证来源是否合法。</p>
+<blockquote>
+<p>JWT不仅可以用于身份认证，还能用于Web应用直接的通信，和单点登录的实现</p>
+</blockquote>
+<h3 id="4-2-JWT做身份认证"><a href="#4-2-JWT做身份认证" class="headerlink" title="4.2 JWT做身份认证"></a>4.2 JWT做身份认证</h3><ol>
+<li>在做第一次认证的时候，将用户信息用作载荷，产生JWT，返回到客户端（用Cookie形式存储）</li>
+<li>每次请求，检查Cookie：a. 是否过期  b. 身份信息是否合法 c. 签名是否合法。如果通过就说明身份认证成功</li>
+</ol>
+<p><img src="/2018/05/08/Web应用安全认证机制/JWT.png" alt="JWT"></p>
+<h2 id="5-微信小程序登录认证与授权"><a href="#5-微信小程序登录认证与授权" class="headerlink" title="5. 微信小程序登录认证与授权"></a>5. 微信小程序登录认证与授权</h2><p>下面是两个做了详细介绍的链接，有空会去做深入研究。</p>
+<p><a href="https://developers.weixin.qq.com/miniprogram/dev/api/api-login.html" target="_blank" rel="noopener">小程序登录</a></p>
+<p><a href="https://www.jianshu.com/p/b9384fc7b04b" target="_blank" rel="noopener">梳理微信小程序登录时序图：授权与 Oauth2.0</a></p>
+<blockquote>
+<p>References:</p>
+<p><a href="https://www.jianshu.com/p/88b7be4657a3" target="_blank" rel="noopener">https://www.jianshu.com/p/88b7be4657a3</a></p>
+<p><a href="http://www.cnblogs.com/xiekeli/p/5607107.html" target="_blank" rel="noopener">http://www.cnblogs.com/xiekeli/p/5607107.html</a></p>
+<p><a href="https://swagger.io/docs/specification/2-0/authentication/" target="_blank" rel="noopener">https://swagger.io/docs/specification/2-0/authentication/</a></p>
+<p><a href="http://blog.leapoahead.com/2015/09/06/understanding-jwt/" target="_blank" rel="noopener">http://blog.leapoahead.com/2015/09/06/understanding-jwt/</a></p>
+<p><a href="http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/" target="_blank" rel="noopener">http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Authentication/" rel="tag"># Authentication</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/08/RESTful风格API理解以及设计/" rel="next" title="RESTful风格API理解以及设计">
+                <i class="fa fa-chevron-left"></i> RESTful风格API理解以及设计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/14/需求分析建模练习/" rel="prev" title="需求分析建模练习">
+                需求分析建模练习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-BA-Basic-access-authentication"><span class="nav-number">2.</span> <span class="nav-text">1. BA (Basic access authentication)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Cookie-Session-Auth"><span class="nav-number">3.</span> <span class="nav-text">2. Cookie/Session Auth</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-OAuth"><span class="nav-number">4.</span> <span class="nav-text">3. OAuth</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-JWT-Json-Web-Tokens"><span class="nav-number">5.</span> <span class="nav-text">4. JWT (Json Web Tokens)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-JWT组成"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 JWT组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-JWT做身份认证"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 JWT做身份认证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-微信小程序登录认证与授权"><span class="nav-number">6.</span> <span class="nav-text">5. 微信小程序登录认证与授权</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

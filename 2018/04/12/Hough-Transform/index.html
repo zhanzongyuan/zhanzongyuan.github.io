@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Computer Vision,Hough Transform,笔记," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="霍夫变换是图像处理中的一种特征提取的技术">
+<meta name="keywords" content="Computer Vision,Hough Transform,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hough Transform">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/04/12/Hough-Transform/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="霍夫变换是图像处理中的一种特征提取的技术">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-19T16:36:29.477Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hough Transform">
+<meta name="twitter:description" content="霍夫变换是图像处理中的一种特征提取的技术">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/04/12/Hough-Transform/"/>
+
+
+
+
+
+  <title>Hough Transform | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/04/12/Hough-Transform/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hough Transform</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-12T10:46:37+08:00">
+                2018-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  霍夫变换是图像处理中的一种特征提取的技术
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1. 基础知识"></a>1. 基础知识</h2><h3 id="1-1-curve-fitting-和-interpolation"><a href="#1-1-curve-fitting-和-interpolation" class="headerlink" title="1.1 curve fitting 和 interpolation"></a>1.1 curve fitting 和 interpolation</h3><ul>
+<li>拟合<ul>
+<li>用一个数学模型拟合离散数据的过程</li>
+<li>目标是为了获得一个数学模型与离散数据点之间的平均误差最小化</li>
+<li>所有数据点不一定刚好在这个数学模型上</li>
+</ul>
+</li>
+<li>插值<ul>
+<li>绘制出一条光滑的曲线，保证所有数据点都在这条曲线上</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-最小二乘法"><a href="#1-2-最小二乘法" class="headerlink" title="1.2 最小二乘法"></a>1.2 最小二乘法</h3><p>最小二乘法是用于近似求解方程组的线性代数方法</p>
+<ul>
+<li>曲线拟合最小化平均误差<ul>
+<li>等价于导函数为零</li>
+<li>等价于求解方程组<ul>
+<li>使用最小二乘求最小二乘解：</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+Ax = b \\
+A^TA x = A^T b \\
+(A^TA)' A^TAx = (A^TA)' A^T b  \\
+x =  (A^TA)' A^T b</script><h3 id="1-3-curve-fitting运用于图像边缘建模"><a href="#1-3-curve-fitting运用于图像边缘建模" class="headerlink" title="1.3 curve fitting运用于图像边缘建模"></a>1.3 curve fitting运用于图像边缘建模</h3><p>对已有的边缘图中的边缘像素点用直线建模</p>
+<ul>
+<li>存在困难<ul>
+<li>多条直线如何通过fitting拟合？哪些点属于要拟合的这个子集（枚举？不可能）</li>
+<li>噪声点对线性拟合的影响</li>
+<li>缺失点问题</li>
+</ul>
+</li>
+<li>解决问题思想：voting<ul>
+<li>不可能穷尽所有子集去拟合直线</li>
+<li>用特征点去投票，投模型</li>
+<li>噪声也可能投票，但是投票是规则的，不影响</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Hough-Transform-（霍夫变换）"><a href="#2-Hough-Transform-（霍夫变换）" class="headerlink" title="2. Hough Transform （霍夫变换）"></a>2. Hough Transform （霍夫变换）</h2><h3 id="2-1-image-space-到-hough-space"><a href="#2-1-image-space-到-hough-space" class="headerlink" title="2.1 image space 到 hough space"></a>2.1 image space 到 hough space</h3><ul>
+<li>image space：图像空间是指原图像的二维空间（用坐标$(x, y)$ 表示），对于image space中的某一条直线可以用$y = m_0 x + b_0$ 表示。</li>
+<li>hough space：霍夫空间，也叫参数空间，是指上述直线中$(m_0, b_0)$构成的空间</li>
+<li>映射关系（当hough变换是在直线坐标系下时）：</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>image space(x, y)</th>
+<th>hough space(m, b)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直线：$y = m_0x+b_0$</td>
+<td>点：$(m_0, b_0)$</td>
+</tr>
+<tr>
+<td>点：$(x_0, y_0)$</td>
+<td>直线：$b = -x_0m+y_0$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>hough空间的直线：理解成在image空间里过某一点可能的直线的所有可能$m, b$ 的点构成的直线</p>
+<p>hough空间的直线交点：理解成image空间中分别过两个点的所有直线中，重合的情况，即image空间中两点确定一条线</p>
+<h3 id="2-2-hough变换可能的存在的问题"><a href="#2-2-hough变换可能的存在的问题" class="headerlink" title="2.2 hough变换可能的存在的问题"></a>2.2 hough变换可能的存在的问题</h3><p>如何表示image space中竖直的直线？</p>
+<p>解决：hough space用极坐标参数，在image space用极坐标表示一条直线</p>
+<p>$极坐标系直线方程：r = a<em>cos\theta + b</em> sin\theta，表示过极坐标点(r, \theta) ，且与极坐标点与原点的连线垂直的直线，则(a, b)可以当做hough 空间$</p>
+<h3 id="2-3-hough变换机制"><a href="#2-3-hough变换机制" class="headerlink" title="2.3 hough变换机制"></a>2.3 hough变换机制</h3><blockquote>
+<p>image space是离散的，是一个个单位像素点组成的</p>
+<p>hough space同理，可以用一个个cell表示，初始为0</p>
+</blockquote>
+<p>在image space（已经canndy处理），然后对每个边缘像素点hough变换得到对应曲线，在hough space中曲线位置的cell（像素点）的值+1处理。</p>
+<p>最后hough space会得到一个灰度图，最亮的cell（像素点）就是一个peak，就是代表一个image space中的直线。</p>
+<ul>
+<li>Difficulties<ul>
+<li>hough space的cell多大（分辨率多大？）</li>
+<li>最终用多少条直线<ul>
+<li>通过筛选灰度值高的peak</li>
+<li>对筛选后的点做聚类</li>
+</ul>
+</li>
+<li>哪个点属于哪个直线<ul>
+<li>选择哪些点里直线近，近的就确定直线，并去掉那些确定后的点</li>
+<li>选择剩下的点重新做hough</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Computer-Vision/" rel="tag"># Computer Vision</a>
+          
+            <a href="/tags/Hough-Transform/" rel="tag"># Hough Transform</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/11/UML绘图学习/" rel="next" title="UML绘图学习">
+                <i class="fa fa-chevron-left"></i> UML绘图学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/14/图像检测的神经网络模型发展总结/" rel="prev" title="图像检测的神经网络模型发展总结">
+                图像检测的神经网络模型发展总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基础知识"><span class="nav-number">1.</span> <span class="nav-text">1. 基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-curve-fitting-和-interpolation"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 curve fitting 和 interpolation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-最小二乘法"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 最小二乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-curve-fitting运用于图像边缘建模"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 curve fitting运用于图像边缘建模</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Hough-Transform-（霍夫变换）"><span class="nav-number">2.</span> <span class="nav-text">2. Hough Transform （霍夫变换）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-image-space-到-hough-space"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 image space 到 hough space</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-hough变换可能的存在的问题"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 hough变换可能的存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-hough变换机制"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 hough变换机制</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

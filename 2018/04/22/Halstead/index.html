@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Halstead,软件测试," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Halstead 复杂度">
+<meta name="keywords" content="Halstead,软件测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Halstead 复杂度">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/04/22/Halstead/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="Halstead 复杂度">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-28T06:35:45.367Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Halstead 复杂度">
+<meta name="twitter:description" content="Halstead 复杂度">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/04/22/Halstead/"/>
+
+
+
+
+
+  <title>Halstead 复杂度 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/04/22/Halstead/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Halstead 复杂度</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T09:38:41+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Halstead 复杂度
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-Halstead"><a href="#1-Halstead" class="headerlink" title="1. Halstead"></a>1. Halstead</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h3><p>Halstead complexity measures（霍尔斯特德软件复杂度度量方法）是一种软件度量方法。</p>
+<blockquote>
+<p>霍尔斯特德：软件复杂度度量，应该要反映不同的程序语言中算法的实现方式，又要独立于使用的平台语言。这些度量可以由静态代码中的计算而得。</p>
+</blockquote>
+<h3 id="1-2-计算"><a href="#1-2-计算" class="headerlink" title="1.2 计算"></a>1.2 计算</h3><p>Halstead根据语句行的操作符和操作数的数量计算程序复杂度</p>
+<ul>
+<li>操作符和操作数的数量越大，程序结构越复杂<ul>
+<li><strong>操作符</strong>包括语言<strong>保留字</strong>、<strong>程序调用</strong>、<strong>数学运算符</strong>、以及有关<strong>分隔符</strong></li>
+<li><strong>操作数</strong>可以是<strong>常数</strong>和<strong>变量</strong></li>
+</ul>
+</li>
+<li>Halstead复杂度度量<ul>
+<li>设$n_1$表示程序中不同的操作符个数，$n_2$表示不同操作数的个数，$N_1$表示程序中出现的操作符的总数，$N_2$表示程序中出现操作数的总数</li>
+<li>Halstead 程序词汇表长度 Program vacabulary: $n = n_1 + n_2$</li>
+<li>实际Halstead长度 Program length: $N = N_1 + N_2$ </li>
+<li>以N^表示程序的预测长度 Calculated program length: N^ $= n_1 log_2(n_1) + n_2 log_2(n_2) $ </li>
+<li>Halstead的重要结论之一是：程序的时间长度N和预测长度N^非常接近，这表明即时程序还未编写完y呢预先估算出程序的实际长度N</li>
+<li>其他计算公式<ol>
+<li>程序的体积，容量 Volume: $V = (N) log_2(n)$ ，表示程序的词汇复杂度</li>
+<li>程序级别 Level: $\text {L^} = (2/n_1) \times (n_2/N_2)$ ，表示程序最紧凑形式的程序量和实际程序量的比，反映程序的效率</li>
+<li>程序难度 Difficult: $D = 1 / \text {L^}$ ， 表示程序算法的困难程度</li>
+<li>编程工作量 Effort: $ E = V \times D = V / \text {L^} $ </li>
+<li>智能级别 $I = \text {L^} \times E$ </li>
+<li>语言级别 $ L’ = \text {L^} \times \text {L^} \times V$</li>
+<li>编程时间(hours) $\text{T^} = E / (S\times f), \ \ \  S = 60\times 60, f = 18$  </li>
+<li>平均语句大小 $N/语句数$</li>
+<li>程序错误预测值 $ B = N \times log_2 (n_1 + n_2)/3000$ </li>
+</ol>
+</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>仅考虑程序数据量和程序体积，不考虑程序控制流的情况。</li>
+<li>不能从根本上反映程序复杂性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Example"><a href="#2-Example" class="headerlink" title="2. Example"></a>2. Example</h2><ul>
+<li>计算下列程序的 Halstead 复杂度的10项内容</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">float</span> a, b, c, mean;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%f %f %f"</span>, &amp;a, &amp;b, &amp;c);</span><br><span class="line">    mean = a * b * c;</span><br><span class="line">    mean = <span class="built_in">pow</span>(mean, <span class="number">1.0</span> / <span class="number">3.0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Geometric Mean = %f"</span>, mean);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>数值</th>
+<th>项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不同的操作符个数 $n_1$</td>
+<td>18</td>
+<td><code>#,include, &lt;&gt;, stdio.h, math.h, int, main, (), {}, float, scanf, &amp;, =, *, pow, /, printf, return</code></td>
+</tr>
+<tr>
+<td>不同的操作数个数 $n_2$</td>
+<td>9</td>
+<td><code>a, b, c, mean, &quot;%f %f %f&quot;, 1.0, 3.0, &quot;Geometric Mean = %f&quot;, 0</code></td>
+</tr>
+<tr>
+<td>操作符个数 $N_1$</td>
+<td>28</td>
+<td>-</td>
+</tr>
+<tr>
+<td>操作数个数 $N_2$</td>
+<td>19</td>
+<td>-</td>
+</tr>
+<tr>
+<td>程序词汇表长度 $n = n_1 + n_2$</td>
+<td>27</td>
+<td>-</td>
+</tr>
+<tr>
+<td>简单长度 $N = N_1 + N_2$</td>
+<td>47</td>
+<td>-</td>
+</tr>
+<tr>
+<td>程序预测长度 $\text{N^} = n_1log(n_1) + n_2log(n_2)$</td>
+<td>106.389629896</td>
+<td>-</td>
+</tr>
+<tr>
+<td>程序的体积，容量 Volume: $V = (N) log_2(n)$</td>
+<td>67.2740969155</td>
+<td>-</td>
+</tr>
+<tr>
+<td>程序级别 Level: $\text {L^} = (2/n_1) \times (n_2/N_2)$</td>
+<td>0.05263157894</td>
+<td>-</td>
+</tr>
+<tr>
+<td>程序难度 Difficult: $D = 1 / \text {L^}$</td>
+<td>19</td>
+<td>-</td>
+</tr>
+<tr>
+<td>编程工作量 Effort: $ E = V \times D = V / \text {L^} $</td>
+<td>1278.13</td>
+<td>-</td>
+</tr>
+<tr>
+<td>智能级别 $I = \text {L^} \times E$</td>
+<td>67.2740969155</td>
+<td>-</td>
+</tr>
+<tr>
+<td>语言级别 $ L’ = \text {L^} \times \text {L^} \times V$</td>
+<td>0.18181696</td>
+<td>-</td>
+</tr>
+<tr>
+<td>编程时间(hours) $\text{T^} = E / (S\times f), \ \ \  S = 60\times 60, f = 18$</td>
+<td>0.01972222222</td>
+<td>-</td>
+</tr>
+<tr>
+<td>平均语句大小=$N/语句数$</td>
+<td>5.222222222</td>
+<td>-</td>
+</tr>
+<tr>
+<td>程序错误预测值 $ B = N \times log_2 (n_1 + n_2)/3000$</td>
+<td>0.07449323753</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Halstead/" rel="tag"># Halstead</a>
+          
+            <a href="/tags/软件测试/" rel="tag"># 软件测试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/18/jupyter-notebook远程连接/" rel="next" title="jupyter notebook远程连接">
+                <i class="fa fa-chevron-left"></i> jupyter notebook远程连接
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/28/领域建模与数据库建模实践/" rel="prev" title="领域建模与数据库建模实践">
+                领域建模与数据库建模实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Halstead"><span class="nav-number">1.</span> <span class="nav-text">1. Halstead</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-计算"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Example"><span class="nav-number">2.</span> <span class="nav-text">2. Example</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

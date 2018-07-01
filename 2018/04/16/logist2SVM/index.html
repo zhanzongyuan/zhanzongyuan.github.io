@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Logistic Regression,SVM," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="逻辑回归和SVM的cost函数设计思想几乎是一致的">
+<meta name="keywords" content="Logistic Regression,SVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从逻辑回归的角度看SVM">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/04/16/logist2SVM/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="逻辑回归和SVM的cost函数设计思想几乎是一致的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/16/logist2SVM/logistic.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/16/logist2SVM/loss.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/16/logist2SVM/loss1.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/16/logist2SVM/loss2.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/16/logist2SVM/logistic-loss.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/16/logist2SVM/SVM-loss.png">
+<meta property="og:updated_time" content="2018-04-23T03:03:42.807Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从逻辑回归的角度看SVM">
+<meta name="twitter:description" content="逻辑回归和SVM的cost函数设计思想几乎是一致的">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/04/16/logist2SVM/logistic.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/04/16/logist2SVM/"/>
+
+
+
+
+
+  <title>从逻辑回归的角度看SVM | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/04/16/logist2SVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从逻辑回归的角度看SVM</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-16T11:35:36+08:00">
+                2018-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  逻辑回归和SVM的cost函数设计思想几乎是一致的
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>SVM是一种线性分类方法，数据量少的时候效果相对较好</p>
+<p>线性模型选择经验：<em>对于数据量大的线性方法，其实效果是差不多的，区别在于是否算法能够并行化，是否可以做到实时处理</em></p>
+</blockquote>
+<h2 id="1-逻辑回归回顾"><a href="#1-逻辑回归回顾" class="headerlink" title="1 逻辑回归回顾"></a>1 逻辑回归回顾</h2><h3 id="1-1-logistic数学模型"><a href="#1-1-logistic数学模型" class="headerlink" title="1.1 logistic数学模型"></a>1.1 logistic数学模型</h3><p>逻辑回归的模型是S型曲线模型（sigmoid），所以一般使用的模型函数是$h(\theta^Tx) = \frac 1 {1+e^{\theta^Tx}}$</p>
+<p>有时可以对$\theta^Tx$前面加个参数调整S形状。</p>
+<blockquote>
+<p>为什么叫logistic？</p>
+<p>摘自统计学习方法：</p>
+<p><img src="/2018/04/16/logist2SVM/logistic.png" alt="logistic"></p>
+</blockquote>
+<h3 id="1-2-损失函数"><a href="#1-2-损失函数" class="headerlink" title="1.2 损失函数"></a>1.2 损失函数</h3><p>为了衡量模型的好坏我们需要提出一个<strong>准则</strong>，即loss模型对样本预测结果的<strong>损失函数</strong></p>
+<p>对某个样本$(x_i, y_i)$预测结果的效果判断 :</p>
+<script type="math/tex; mode=display">
+L(\theta) = \begin{cases} - log(h_{\theta}(x_i)) & \quad \text{if } y_i = 1 \\
+-log(1- h_{\theta}(x_i)) & \quad \text{if } y_i = 0 \end{cases}</script><p>合并形式：</p>
+<script type="math/tex; mode=display">
+L(\theta) = - (y_i log(h_{\theta}(x_i)) + (1-y_i) log(1-h_{\theta}(x_i)))</script><blockquote>
+<p>损失函数为什么是取对数呢？</p>
+<ol>
+<li>从图形方面考虑是为了使得产生下面两种loss形状</li>
+</ol>
+<p><img src="/2018/04/16/logist2SVM/loss.png" alt="loss"></p>
+<ol>
+<li>符合最大熵模型中的一种极大似然估计的方法👇</li>
+</ol>
+</blockquote>
+<script type="math/tex; mode=display">
+L(\theta) = \prod h(\theta^Tx_i)^{y_i} h(\theta^Tx_i)^{1-y_i} \\
+-log(L(\theta)) = -(y_0*log(h(\theta^Tx_0)) + (1-y_0)*log(h(\theta^Tx_0))+….)</script><h2 id="2-SVM"><a href="#2-SVM" class="headerlink" title="2. SVM"></a>2. SVM</h2><h3 id="2-1-SVM的损失函数"><a href="#2-1-SVM的损失函数" class="headerlink" title="2.1 SVM的损失函数"></a>2.1 SVM的损失函数</h3><p>回顾logistic回归的损失函数的图像如下（这里应该是曲线的）</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><img src="/2018/04/16/logist2SVM/loss1.png" alt="loss1"></th>
+<th><img src="/2018/04/16/logist2SVM/loss2.png" alt="loss2"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="/2018/04/16/logist2SVM/logistic-loss.png" alt="SVM-loss"></p>
+<p>当在SVM的情况下的loss是：</p>
+<p><img src="/2018/04/16/logist2SVM/SVM-loss.png" alt="SVM-loss"></p>
+<p>可以看到一个是loss的输入不同，一个是$h(\theta^Tx)​$，一个是$\theta^Tx​$；另一个是$cost_0, cost_1​$的不同，logistic回归的loss是log函数的平滑曲线，SVM的loss函数是直的折线</p>
+<blockquote>
+<p>折线表达式如何表示？$cost_1(z) = max{0, \text {xxx}}$</p>
+<p>对loss形状的修改可以换成类似的其他函数，这样就可以开发成别的算法</p>
+</blockquote>
+<h3 id="2-2-SVM模型"><a href="#2-2-SVM模型" class="headerlink" title="2.2 SVM模型"></a>2.2 SVM模型</h3><blockquote>
+<p> SVM模型Loss表达式中各个式子的含义，推导出SVM模型的几何含义</p>
+</blockquote>
+<ul>
+<li><p>$min \frac 1 2 \theta^2$ 这是$\theta$的模的平方</p>
+</li>
+<li><p>模型目标</p>
+<script type="math/tex; mode=display">
+\begin{cases}\theta^Tx^{(i)} \ge 1 & \quad \text {if } y^{(i)} = 1 \\
+\theta^Tx^{(i)} \le -1 & \quad \text {if } y^{(i)} = 0 \end{cases}</script></li>
+</ul>
+<ul>
+<li>这里的$\theta^Tx^{(i)}$ 可以看做是$x$向量在$\theta$向量上面的投影与$\theta$的模的乘积，而这里的$\theta$就当作支持向量机里面超平面的法向量（超平面就是将样本安照标签分类的平面）</li>
+<li><p>模型解释：模型是一个超平面$\theta$ ，对于在这个超平面两侧的平面$\theta^Tx = 1, \ \theta^Tx = -1$，将数据分类到这两个平面两侧，所以要满足:</p>
+<ul>
+<li><script type="math/tex; mode=display">
+\begin{cases}\theta^Tx^{(i)} \ge 1 & \quad \text {if } y^{(i)} = 1 \\
+\theta^Tx^{(i)} \le -1 & \quad \text {if } y^{(i)} = 0 \end{cases}</script></li>
+<li><p>而要求两个平面之间的距离尽量大，这两个平面之间的距离（margin）就是$\frac 2 {|\theta|}$ ，所以最大化$\frac 2 {|\theta|} $，可以转换为最小化$\frac 1 2 \theta^2$ ，即$min \frac 1 2 \theta^2$ </p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>通过上面的分析，我们可以看到SVM的几何含义就是：找出一个超平面使得将样本点按照标签分类，同时使得离超平面最近的样本点的距离最远（margin足够大）。</li>
+</ul>
+<h3 id="2-3-Insparable-Data-Hinge-Loss"><a href="#2-3-Insparable-Data-Hinge-Loss" class="headerlink" title="2.3 Insparable Data - Hinge Loss"></a>2.3 Insparable Data - Hinge Loss</h3><blockquote>
+<p>对于部分线性不可分的样本点，如何处理？</p>
+<p>：容许一定的错误，加入错误惩罚机制，使得尽量分开数据点</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Logistic-Regression/" rel="tag"># Logistic Regression</a>
+          
+            <a href="/tags/SVM/" rel="tag"># SVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/14/图像检测的神经网络模型发展总结/" rel="next" title="图像检测的神经网络模型发展总结">
+                <i class="fa fa-chevron-left"></i> 图像检测的神经网络模型发展总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/18/Anaconda/" rel="prev" title="Anaconda入门知识">
+                Anaconda入门知识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-逻辑回归回顾"><span class="nav-number">1.</span> <span class="nav-text">1 逻辑回归回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-logistic数学模型"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 logistic数学模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-损失函数"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 损失函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-SVM"><span class="nav-number">2.</span> <span class="nav-text">2. SVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-SVM的损失函数"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 SVM的损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-SVM模型"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 SVM模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Insparable-Data-Hinge-Loss"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Insparable Data - Hinge Loss</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

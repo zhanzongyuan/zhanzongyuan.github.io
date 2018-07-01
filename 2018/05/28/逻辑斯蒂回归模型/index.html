@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="逻辑斯蒂回归," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="逻辑斯蒂分布函数：$F(X\leq x) = \frac 1 {1 + e^{\frac {x-\mu } {\gamma} }}$">
+<meta name="keywords" content="逻辑斯蒂回归">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逻辑斯蒂回归模型">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/05/28/逻辑斯蒂回归模型/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="逻辑斯蒂分布函数：$F(X\leq x) = \frac 1 {1 + e^{\frac {x-\mu } {\gamma} }}$">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/28/逻辑斯蒂回归模型/Screen%20Shot%202018-05-29%20at%203.52.27%20PM.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/28/逻辑斯蒂回归模型/Screen%20Shot%202018-06-01%20at%2012.44.25%20AM.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/05/28/逻辑斯蒂回归模型/Screen%20Shot%202018-06-01%20at%2012.49.51%20AM.png">
+<meta property="og:updated_time" content="2018-05-31T16:50:37.925Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="逻辑斯蒂回归模型">
+<meta name="twitter:description" content="逻辑斯蒂分布函数：$F(X\leq x) = \frac 1 {1 + e^{\frac {x-\mu } {\gamma} }}$">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/05/28/逻辑斯蒂回归模型/Screen%20Shot%202018-05-29%20at%203.52.27%20PM.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/05/28/逻辑斯蒂回归模型/"/>
+
+
+
+
+
+  <title>逻辑斯蒂回归模型 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/05/28/逻辑斯蒂回归模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">逻辑斯蒂回归模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T23:37:58+08:00">
+                2018-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>逻辑斯蒂分布函数：$F(X\leq x) = \frac 1 {1 + e^{\frac {x-\mu } {\gamma} }}$ </p>
+<p><img src="/2018/05/28/逻辑斯蒂回归模型/Screen Shot 2018-05-29 at 3.52.27 PM.png" alt="Screen Shot 2018-05-29 at 3.52.27 PM"></p>
+<a id="more"></a>
+<h2 id="一、二项逻辑斯蒂回归模型"><a href="#一、二项逻辑斯蒂回归模型" class="headerlink" title="一、二项逻辑斯蒂回归模型"></a>一、二项逻辑斯蒂回归模型</h2><h3 id="1-1-概率角度"><a href="#1-1-概率角度" class="headerlink" title="1.1 概率角度"></a>1.1 概率角度</h3><p>二项逻辑斯蒂回归模型是如下条件概率分布：</p>
+<script type="math/tex; mode=display">
+P(Y=0| x) = \frac 1 {1 + exp(w·x + b)} \\
+P(Y=1| x) = \frac {w·x + b} {1 + exp(w·x+b)} \\
+x \in R^n ,\ Y \in \{0, 1\} ,\ w \in R^n ,\ b \in R</script><p>这里的$x$是输入，$Y$是输出，$w, b$是训练变量</p>
+<h3 id="1-2-回归角度"><a href="#1-2-回归角度" class="headerlink" title="1.2 回归角度"></a>1.2 回归角度</h3><blockquote>
+<p> 普通的线性模型适用于线性回归问题</p>
+<p>当遇到分类问题时，相当于线性回归的输出值域变为${0, 1}$，所以单位阶跃函数可以说是一个理想的选择，但是这个函数并不是可导的，所以在求解最优模型的过程中，我们无法使用梯度下降的方法</p>
+<p>所以就用一个形状类似”S”的函数来近似单位阶跃函数，用这个函数将值域映射到$[0, 1]$，这是个连续的区间。</p>
+<p>所以就使用了对数几率函数$g(z) = \frac 1 {1+e^{-z}}$ </p>
+</blockquote>
+<p>二项逻辑斯蒂回归模型是一个预测样本$x$标签$y\in[0,1]$的函数，弥补了线性函数在二分类问题上的不足，将原本$w·x+b \in R$的线性模型值域，映射到$[0, 1]$这个值域范围：</p>
+<script type="math/tex; mode=display">
+h_\theta(x) = g(\theta^T x)  ,\ \text {这里x是齐次坐标，} \theta^T x \text {相当于} w·x+b\\
+g(z) = \frac 1 {1+e^{-z}}</script><p>所以有：$h_{\theta}(x) = \frac 1 {1 + e ^{- \theta^Tx}}$ </p>
+<p><br></p>
+<p><strong>转化为线性回归问题</strong>：</p>
+<p>曾经尝试过通过解析几何的方式，解逻辑斯蒂回归模型解析解</p>
+<p>令$h_\theta (x) = y$ ，则可以得到 $ ln \frac y {1-y} = \theta^T x$ 这个形式，这样就可以列矩阵方程组解$\theta$的值，其中需要将标注由0 映射为0.0001， 由1映射为0.9999，由于分母不能为零，相当于把标签化为概率。实际上这样操作得到的精度不高</p>
+<p><br></p>
+<p><strong>对数几率</strong>：上面出现的 $ln \frac y {1-y}$，如果将y视为x为正样本的概率，则$\frac y {1-y}$就是几率，而$ln \frac y {1-y}$就是对数几率也叫logit。从这个角度看，也是相当于把原本二值标签通过对数几率映射到$R$ ，使得用线性回归拟合对数几率。（所以是对对数几率的回归，也叫logit regression）</p>
+<h2 id="二、模型选择的策略"><a href="#二、模型选择的策略" class="headerlink" title="二、模型选择的策略"></a>二、模型选择的策略</h2><blockquote>
+<p>上面的内容提出了逻辑斯蒂回归模型，对于同一个逻辑斯蒂回归模型，有无数种可能的$w, b, (\theta)$ ，所以要对模型$h_{w_i, b_i}$ 做出评价，评价这个模型的好坏，才能进入模型的学习阶段。这个评价的准则，就是一种模型选择的策略</p>
+</blockquote>
+<p>通过把模型输出$y$看作是正样本的概率，如1.1中的模型角度。为解这个概率模型，我们选择”极大似然法“，对模型中参数评价好坏。</p>
+<p>模型中，每个样本$x<em>i$的正样本概率：$p(y_i = 1 | x_i) = h</em>\theta(x<em>i)$ ，负样本概率$p(y_i = 0| x_i) = 1-h</em>\theta(x_i)$ </p>
+<p>所以极大似然估计，模型中参数为$w, b$的可能性为：$l(w, b) = \prod [y·p(y_i = 1| x_i) + (1-y)·p(y_i = 0 | x_i)]$ ，其中$y·p(y_i = 1| x_i) + (1-y)·p(y_i = 0 | x_i)$是似然项。一般会化成对数似然函数求解$max\ l(w, b)$ ：</p>
+<script type="math/tex; mode=display">
+l(w, b) = \sum log(y·p(y_i = 1| x_i) + (1-y)·p(y_i = 0 | x_i))</script><p>所以这个对数似然函数即为我们的策略：$l(w, b)$，希望最大化对数似然函数</p>
+<p><br></p>
+<p><strong>损失函数</strong>：</p>
+<p>在通常情况下，我们偏向于将模型选择的策略视为一个模型的损失函数，并且希望这个损失函数越小越好。所以为了上述对数似然函数安装损失函数的方式理解，我们加入负号：把最大化对数似然函数任务转换成最小化损失函数$l(w, b) =-\sum log(y·p(y_i = 1| x_i) + (1-y)·p(y_i = 0|x_i))$ </p>
+<p>py老师的机器学习课程上，将其表述为：$J(\theta) = - \frac 1 m \sum<em>{i=1}^m [y^{(i)}log h</em>\theta(x^{(i)}) + (1-y^{(i)} log (1 - h_\theta(x^{(i)})))$ ，本质上是一样的</p>
+<h2 id="三、学习的算法"><a href="#三、学习的算法" class="headerlink" title="三、学习的算法"></a>三、学习的算法</h2><blockquote>
+<p>有了模型（假设空间），有了策略（模型评估），现在需要的就是用一套算法去学习出评价最优的模型</p>
+<p>通过上述两点的总结，这里我们把模型的学习算法目标归结为最小化损失函数的最优化问题</p>
+<p>按照最优化的观点看，目标函数（损失函数）是凸函数，因此多种优化算法都能够适用，保证可以找到全局最优解。常见算法有：梯度下降法（SGD）、迭代尺度法（IIS）、牛顿法（BGFS）或拟牛顿法（L-BGFS）。牛顿法或拟牛顿法一般收敛速度更快。</p>
+</blockquote>
+<p>这里我们探讨梯度下降算法，核心公式：</p>
+<script type="math/tex; mode=display">
+\theta_{i+1} = \theta_i - \alpha \frac {\partial J(\theta)} {\partial \theta_j}</script><p>难度不大，只需要对$J(\theta)$求各维参数的导数即可：</p>
+<script type="math/tex; mode=display">
+\frac {\partial J(\theta)} {\partial \theta_j} = \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)}</script><h2 id="四、正则项"><a href="#四、正则项" class="headerlink" title="四、正则项"></a>四、正则项</h2><blockquote>
+<p>引入正则化项的目的是为了防止过拟合问题。</p>
+<p>根据奥卡姆剃刀原则，解决同样的问题的模型中，尽量选择简单的模型</p>
+<p>正则化项就是为了降低LR模型中系数的复杂度</p>
+</blockquote>
+<p>解决过拟合的两种方法：</p>
+<ol>
+<li>降低特征的数量<ol>
+<li>手工筛选特征</li>
+<li>模型选择算法</li>
+</ol>
+</li>
+<li>正则化<ol>
+<li>保留特征，但是减小特征的大小</li>
+<li>效果很好，如果我们有很多特征，保留每个特征都能为预测y做贡献</li>
+</ol>
+</li>
+</ol>
+<h3 id="4-1-为-J-theta-引入正则化项"><a href="#4-1-为-J-theta-引入正则化项" class="headerlink" title="4.1 为$J(\theta)$引入正则化项"></a>4.1 为$J(\theta)$引入正则化项</h3><p><img src="/2018/05/28/逻辑斯蒂回归模型/Screen Shot 2018-06-01 at 12.44.25 AM.png" alt="Screen Shot 2018-06-01 at 12.44.25 AM"></p>
+<p>这样的正则化项迫使得模型的参数$\theta$尽可能的小。为此我们还需要重新求导，重新计算梯度公式：</p>
+<p><img src="/2018/05/28/逻辑斯蒂回归模型/Screen Shot 2018-06-01 at 12.49.51 AM.png" alt="Screen Shot 2018-06-01 at 12.49.51 AM"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/逻辑斯蒂回归/" rel="tag"># 逻辑斯蒂回归</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/14/需求分析建模练习/" rel="next" title="需求分析建模练习">
+                <i class="fa fa-chevron-left"></i> 需求分析建模练习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/29/Dual-Glance模型/" rel="prev" title="Dual-Glance模型">
+                Dual-Glance模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、二项逻辑斯蒂回归模型"><span class="nav-number">1.</span> <span class="nav-text">一、二项逻辑斯蒂回归模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-概率角度"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 概率角度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-回归角度"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 回归角度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、模型选择的策略"><span class="nav-number">2.</span> <span class="nav-text">二、模型选择的策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、学习的算法"><span class="nav-number">3.</span> <span class="nav-text">三、学习的算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、正则项"><span class="nav-number">4.</span> <span class="nav-text">四、正则项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-为-J-theta-引入正则化项"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 为$J(\theta)$引入正则化项</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

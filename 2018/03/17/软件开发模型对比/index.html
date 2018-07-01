@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="软件开发模型," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="软件开发模型比较、UP模型特点分析、IT项目管理工具">
+<meta name="keywords" content="软件开发模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件开发模型对比">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/03/17/软件开发模型对比/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="软件开发模型比较、UP模型特点分析、IT项目管理工具">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/03/17/软件开发模型对比/Kanban.png">
+<meta property="og:updated_time" content="2018-04-19T15:40:26.061Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件开发模型对比">
+<meta name="twitter:description" content="软件开发模型比较、UP模型特点分析、IT项目管理工具">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/03/17/软件开发模型对比/Kanban.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/03/17/软件开发模型对比/"/>
+
+
+
+
+
+  <title>软件开发模型对比 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/03/17/软件开发模型对比/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件开发模型对比</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-17T09:17:07+08:00">
+                2018-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  软件开发模型比较、UP模型特点分析、IT项目管理工具
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-简答题"><a href="#1-简答题" class="headerlink" title="1. 简答题"></a>1. 简答题</h2><h3 id="1-1-简述瀑布模型、增量模型、螺旋模型（含原型方法）的优缺点。"><a href="#1-1-简述瀑布模型、增量模型、螺旋模型（含原型方法）的优缺点。" class="headerlink" title="1.1 简述瀑布模型、增量模型、螺旋模型（含原型方法）的优缺点。"></a>1.1 简述瀑布模型、增量模型、螺旋模型（含原型方法）的优缺点。</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>瀑布模型</td>
+<td>- 定义软件开发基本流程与活动<br>- 降低软件开发的复杂程度，提供软件开发过程的透明性，提供软件开发过程的可管理性<br>- 推迟软件实现，强调软件实现前必须进行分析和设计工作<br>- 以项目的阶段评审和文档控制为手段有效的对整个开发过程进行指导，保证了阶段之间的正确衔接，能够及时发现并纠正开发过程中存在的缺陷，使产品达到预期的质量要求</td>
+<td>- 依赖问题：前面需求模糊，后面工作出现问题<br>- 容错问题：在后期发现需求问题，工作量难以接受<br>- 资源调配问题：只是技能需求不同，人员数量要求不同<br>- 强调过程活动的线性顺序<br>- 缺乏灵活性，特别是无法解决软件需求不明确或不准确的问题<br>- 风险控制能力弱<br>- 瀑布模型中的软件活动是文档驱动的，当阶段之间规定过多的文档是，会极大增加系统工作量<br>- 管理人员如果仅仅以文档的完成情况来评估项目的完成进度，往往会产生错误的结论</td>
+</tr>
+<tr>
+<td>增量模型</td>
+<td>- 增强客户对系统的信心<br>- 降低系统失败风险<br>- 提高系统可靠性<br>- 提高系统稳定性和可维护性</td>
+<td>- 增量粒度难以选择<br>- 确定所有的基本业务服务比较困难</td>
+</tr>
+<tr>
+<td>螺旋模型（含原型方法）</td>
+<td>- 可以很好地接受需求的改变<br>- 使用和拓展原型方法<br>- 需求可以被更准确的分析<br>- 使用者可以很早看到系统的原型，以此做出早期的评估<br>- 开发过程可以被分为很小的部分，风险在早期做出评估，达到更好的风险管理</td>
+<td>- 管理过程是复杂的<br>- 项目的结束难以预估<br>- 不太适合小项目<br>- 风险分析需要相当的成本耗费，只适合投资较大的规模软件项目<br>- 大量的中间阶段产生大量的文档<br>- 失误的风险分析可能带来更大的风险</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<h3 id="1-2-简述-UP-的三大特点，其中哪些内容体现了用户驱动的开发，哪些内容体现风险驱动的开发？"><a href="#1-2-简述-UP-的三大特点，其中哪些内容体现了用户驱动的开发，哪些内容体现风险驱动的开发？" class="headerlink" title="1.2 简述 UP 的三大特点，其中哪些内容体现了用户驱动的开发，哪些内容体现风险驱动的开发？"></a>1.2 简述 UP 的三大特点，其中哪些内容体现了用户驱动的开发，哪些内容体现风险驱动的开发？</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>三大特点</th>
+<th>1. 迭代增量的（Iterative and Evolutionary）：<br>        工程初始阶段的知识是不完全的，不全面的。这种方式的优点在于：在初始阶段后逐步趋向稳定；有效的管理需求的变换；持续集成；尽早接触整个系统；在线风险评估<br>2. 架构为中心的（Architecture Centric）：<br>        架构讨论关于软件系统总体结构、结构元素之间的接口、结构元素之间的合作以及他们的行为来表示。架构为中心指的是围绕某个软件架构为中心进行开发，架构为中心勾勒出了一系统概貌，提供一套成熟的有组织的框架使用，有利于重用<br>3. 案例驱动的（Use Case Driven）：<br>        案例是指，一个时期被分为一系列动作，一个动作同时有很多个参与者参与，这些动作的共同结果是可视化的，帮助参与者更好的达到他们的目标。案例驱动指，开发团队的开发，从需求分析到编码和测试都是应用案例的方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户驱动的开发</td>
+<td>案例驱动开发：通过案例的方法，使得每个阶段的内容可视化，有助于协调用户明确需求<br>迭代增量的开发：尽早接触整个系统，使得成功可以看见</td>
+</tr>
+<tr>
+<td>风险驱动的开发</td>
+<td>迭代增量的开发：有助于风险评估<br>架构为中心开发：使用现有的开发架构有利于降低风险性，提高开发效率</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<h3 id="1-3-UP-四个阶段的划分准则是什么？关键的里程碑是什么？"><a href="#1-3-UP-四个阶段的划分准则是什么？关键的里程碑是什么？" class="headerlink" title="1.3 UP 四个阶段的划分准则是什么？关键的里程碑是什么？"></a>1.3 UP 四个阶段的划分准则是什么？关键的里程碑是什么？</h3><p>四个阶段的划分准则是：依据各个阶段能达到的成果或者是目标</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>成果或目标</th>
+<th>里程碑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>初始阶段（Inception）</td>
+<td>1. 为系统建立<strong>业务案例</strong>，确定<strong>项目边界</strong><br><strong>- 业务案例</strong>：项目验收规范、风险评估、所需资源估计、阶段计划<br><strong>- 确定项目边界</strong>：识别所以与系统交互的外部实体、定义外部是体育系统的交互特性（识别外部角色、识别所以用力并详细描述一些重要的用例）</td>
+<td>（生命周期目标里程碑的相关文档）<br>1. <strong>项目构想文档</strong><br>2. <strong>原型用例模型</strong><br>3. <strong>原始业务风险评估</strong><br>4. <strong>一个或者多个原型</strong><br>5. <strong>原始业务案例</strong></td>
+</tr>
+<tr>
+<td>精化阶段（Elaboration）</td>
+<td>1. <strong>分析问题领域</strong><br>2. <strong>建立健全的体系结构基础</strong><br>3. <strong>编制项目计划</strong><br>4. <strong>完成项目中高风险需求部分的开发</strong></td>
+<td>（生命周期体系结构里程碑）<br>1. <strong>风险分析文档</strong><br>2. <strong>软件体系结构基准</strong><br>3. <strong>项目计划</strong><br>4. <strong>可执行的进化原型</strong><br>5. <strong>初始版本的用户手册</strong></td>
+</tr>
+<tr>
+<td>构建阶段（Construction）</td>
+<td>1. <strong>完成所有剩余的技术构件</strong><br>2. <strong>稳定业务需求功能的开发</strong><br>3. <strong>集成为产品</strong><br>4. <strong>详细测试所有功能</strong></td>
+<td>（执行功能里程碑）<br>1. <strong>可运行的软件产品</strong><br>2. <strong>用户手册</strong></td>
+</tr>
+<tr>
+<td>交付阶段（Transition）</td>
+<td>1. 确保软件对最终用户是可用的<br>- <strong>为发布准备的产品测试</strong><br>- <strong>基于用户反馈的少量调整</strong></td>
+<td>（产品发布里程碑）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<h3 id="1-4-IT-项目管理中，“工期、质量、范围-内容”-三个元素中，在合同固定条件下，为什么说“范围-内容”是项目团队是易于控制的"><a href="#1-4-IT-项目管理中，“工期、质量、范围-内容”-三个元素中，在合同固定条件下，为什么说“范围-内容”是项目团队是易于控制的" class="headerlink" title="1.4 IT 项目管理中，“工期、质量、范围/内容” 三个元素中，在合同固定条件下，为什么说“范围/内容”是项目团队是易于控制的"></a>1.4 IT 项目管理中，“工期、质量、范围/内容” 三个元素中，在合同固定条件下，为什么说“范围/内容”是项目团队是易于控制的</h3><p>“范围/内容”的控制与项目管理中的要素成本的控制有关，范围/内容越大所需工程成本越高，而在合同固定的条件下，合同不能随意更改，说明工程项目的客户需求是固定的，对于项目的开发而言代表项目前期的需求确定，以及甲方提供成本是确定的。</p>
+<p>所以对于有经验的项目团队，由于过往项目的完成经验，可以根据合同需求，以及成本，分析项目合理的范围。所以，这对于项目团队是易于控制的。</p>
+<p><br></p>
+<h3 id="1-5-为什么说，UP-为企业按固定节奏生产、固定周期发布软件产品提供了依据？"><a href="#1-5-为什么说，UP-为企业按固定节奏生产、固定周期发布软件产品提供了依据？" class="headerlink" title="1.5 为什么说，UP 为企业按固定节奏生产、固定周期发布软件产品提供了依据？"></a>1.5 为什么说，UP 为企业按固定节奏生产、固定周期发布软件产品提供了依据？</h3><p>UP的软件生命周期从时间上分为四个阶段，每个阶段包括一个主要的里程碑。阶段是两个主要里程碑的分隔，在各个阶段结束时，执行评估阶段目标是否满足以决定是否进入下一个阶段。因此RUP提供了固定节奏的生产。<br>UP是一个风险驱动的生命周期模型，为了有效地控制风险，UP以渐进的方式进行演进，首先解决高风险的问题，这主要是通过迭代来实现。在软件生命周期中，每个阶段可以划分为多个迭代，每个迭代确定一个内部里程碑（或一个发布）。因此，UP也为固定周期发布软件产品提供了依据。</p>
+<p><br></p>
+<h2 id="2-项目管理使用"><a href="#2-项目管理使用" class="headerlink" title="2. 项目管理使用"></a>2. 项目管理使用</h2><ul>
+<li>使用截图工具（png格式输出），展现你团队的任务 Kanban，请注意以下要求<ul>
+<li>每个人的任务是明确的。即一周后可以看到具体成果</li>
+<li>每个人的任务是1-2项。</li>
+<li>至少包含一个团队活动任务</li>
+</ul>
+</li>
+</ul>
+<p>Our Kanban</p>
+<p><img src="/2018/03/17/软件开发模型对比/Kanban.png" alt="Kanban"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/软件开发模型/" rel="tag"># 软件开发模型</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/09/软件工程关键词概览/" rel="next" title="软件工程关键词概览">
+                <i class="fa fa-chevron-left"></i> 软件工程关键词概览
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/31/卷积神经网络入门总结/" rel="prev" title="卷积神经网络入门总结">
+                卷积神经网络入门总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简答题"><span class="nav-number">1.</span> <span class="nav-text">1. 简答题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-简述瀑布模型、增量模型、螺旋模型（含原型方法）的优缺点。"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 简述瀑布模型、增量模型、螺旋模型（含原型方法）的优缺点。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-简述-UP-的三大特点，其中哪些内容体现了用户驱动的开发，哪些内容体现风险驱动的开发？"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 简述 UP 的三大特点，其中哪些内容体现了用户驱动的开发，哪些内容体现风险驱动的开发？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-UP-四个阶段的划分准则是什么？关键的里程碑是什么？"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 UP 四个阶段的划分准则是什么？关键的里程碑是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-IT-项目管理中，“工期、质量、范围-内容”-三个元素中，在合同固定条件下，为什么说“范围-内容”是项目团队是易于控制的"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 IT 项目管理中，“工期、质量、范围/内容” 三个元素中，在合同固定条件下，为什么说“范围/内容”是项目团队是易于控制的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-为什么说，UP-为企业按固定节奏生产、固定周期发布软件产品提供了依据？"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 为什么说，UP 为企业按固定节奏生产、固定周期发布软件产品提供了依据？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-项目管理使用"><span class="nav-number">2.</span> <span class="nav-text">2. 项目管理使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

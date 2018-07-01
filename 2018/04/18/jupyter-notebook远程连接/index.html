@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SSH,jupyter notebook,nohup," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="jupyter notebook远程连接服务器">
+<meta name="keywords" content="SSH,jupyter notebook,nohup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jupyter notebook远程连接">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/04/18/jupyter-notebook远程连接/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="jupyter notebook远程连接服务器">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-07T16:11:06.560Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jupyter notebook远程连接">
+<meta name="twitter:description" content="jupyter notebook远程连接服务器">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/04/18/jupyter-notebook远程连接/"/>
+
+
+
+
+
+  <title>jupyter notebook远程连接 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/04/18/jupyter-notebook远程连接/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">jupyter notebook远程连接</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T15:17:55+08:00">
+                2018-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  jupyter notebook远程连接服务器
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>在服务器上跑代码是件略微复杂的事情，一般来说有下面两种做法：</p>
+<ol>
+<li>在本地调试完代码后，把本地的代码通过持续集成（CI）或者scp命令或者git的方式远程部署到服务器上。</li>
+<li>直接在远程终端的vim等命令行编辑器编辑远程终端代码，这对于不熟悉vim操作的人来说是不友好的，而且还需要预先安装vim的各种插件以方便编码。</li>
+</ol>
+<p>最近在集群里面跑python的代码的我就想到，能不能把我熟悉的jupyter notebook通过ssh结合起来，转发向远程终端jupyter notebook端口访问的http请求，使得在本地的notebook轻松调试远程终端的代码。</p>
+<h2 id="2-基础"><a href="#2-基础" class="headerlink" title="2. 基础"></a>2. 基础</h2><h3 id="2-1-jupyter-notebook"><a href="#2-1-jupyter-notebook" class="headerlink" title="2.1 jupyter notebook"></a>2.1 jupyter notebook</h3><blockquote>
+<p>The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.</p>
+<p>Jupyter Notebook是一款开放源代码的Web应用程序，允许您创建和共享包含实时代码，方程式，可视化和叙述文本的文档。用途包括：数据清理和转换，数值模拟，统计建模，数据可视化，机器学习等等。</p>
+</blockquote>
+<ol>
+<li>安装jupyter notebook 这里不做赘述：<a href="https://stackoverflow.com/questions/30492623/using-both-python-2-x-and-python-3-x-in-ipython-notebook" target="_blank" rel="noopener">conda环境安装</a></li>
+<li>运行：<code>jupyter notebook</code> 则会开启一个服务器监听本地的一个端口，同时会产生一个token。如果浏览器访问这个端口则需要输入当前token，则可以进入notebook的界面。</li>
+</ol>
+<p>如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook --no-browser --port=8890  <span class="comment"># 指定无须自动打开浏览器；指定端口8890</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-bash重定向命令"><a href="#2-2-bash重定向命令" class="headerlink" title="2.2 bash重定向命令"></a>2.2 bash重定向命令</h3><blockquote>
+<p>预先讲解后面可能用到的bash重定向内容</p>
+<p>一般情况下，每个 Unix/Linux 命令运行时都会打开三个文件：</p>
+<ul>
+<li>标准输入文件(stdin)：stdin的文件描述符为0，Unix程序默认从stdin读取数据。</li>
+<li>标准输出文件(stdout)：stdout 的文件描述符为1，Unix程序默认向stdout输出数据。</li>
+<li>标准错误文件(stderr)：stderr的文件描述符为2，Unix程序会向stderr流中写入错误信息。</li>
+</ul>
+<p>默认情况下，command &gt; file 将 stdout 重定向到 file，command &lt; file 将stdin 重定向到 file。</p>
+<p>References: <a href="http://www.runoob.com/linux/linux-shell-io-redirections.html" target="_blank" rel="noopener">http://www.runoob.com/linux/linux-shell-io-redirections.html</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">command1 &gt; file1 <span class="comment"># 将command1产生的打印结果覆盖输出到file1中</span></span><br><span class="line">command1 &gt;&gt; file1 <span class="comment"># 将command1产生的打印结果连接输出到file1中</span></span><br><span class="line">command1 &lt; file1 <span class="comment"># 将file1重定向到command1中，如 cat &lt; file1</span></span><br><span class="line">n &gt;&amp; m <span class="comment"># 将输出文件n和m合并</span></span><br><span class="line"><span class="comment"># 需要注意的是文件描述符 0 通常是标准输入（STDIN），1 是标准输出（STDOUT），2 是标准错误输出（STDERR）。如果希望将 stdout 和 stderr 合并后重定向到 file，可以这样写command &gt; file 2&gt;&amp;1</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-nohup命令"><a href="#2-3-nohup命令" class="headerlink" title="2.3 nohup命令"></a>2.3 nohup命令</h3><blockquote>
+<p>nohup就是不挂起的意思( not hang up)，该命令可以在你退出帐户/关闭终端之后，使进程忽略hang up信号，继续运行</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nohup <span class="built_in">command</span>	<span class="comment"># 将输出重定向到nohup.out文件</span></span><br><span class="line">nohup <span class="built_in">command</span> &amp; <span class="comment"># 加入&amp;放入后台运行</span></span><br><span class="line">nohup <span class="built_in">command</span> &gt;filename 2&gt;&amp;1 &amp; <span class="comment"># 标准输出和错误输出重定位到文件。</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-4-SSH"><a href="#2-4-SSH" class="headerlink" title="2.4 SSH"></a>2.4 SSH</h3><blockquote>
+<p>SSH 是一种加密协议，用于网络主机之间的远程登录</p>
+<p>SSH协议下的<strong>口令登录</strong>过程：远程主机将自己的公钥发给用户，用户用该公钥加密登录口令，发送给远程主机，远程主机用自己的密钥解密，验证用户登录口令是否正确。（这过程中的信息及时是明文的，被截获了也无法破解）</p>
+<p>还有一种是<strong>公钥登录</strong>：用户本地生成公钥和私钥（生成私钥时可以设置本地口令），然后把公钥给远程主机；当进行用户登录时，远程主机将随机字符发送给用户，用户用私钥加密返回密文给远程主机，如果主机用公钥可以解密得到原来的随机字符，就可以验证用户身份，给予登录权限。</p>
+</blockquote>
+<p>相关命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen <span class="comment"># 生成本地 ~/.ssh 文件夹下的公钥和密钥</span></span><br><span class="line">ssh-copy-id user@host  <span class="comment"># 将公钥发送给远程主机，用于公钥登录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ubuntu启动ssh服务</span></span><br><span class="line">service ssh restart</span><br><span class="line"><span class="comment"># debian启动ssh服务</span></span><br><span class="line">/etc/init.d/ssh restart</span><br><span class="line"></span><br><span class="line">ssh user@host <span class="string">'mkdir -p .ssh &amp;&amp; cat &gt;&gt; .ssh/authorized_keys'</span> &lt; ~/.ssh/id_rsa.pub  <span class="comment"># 将本地id_rsa.pub文件里的公钥复制到远程终端中的authorized_keys文件末尾</span></span><br><span class="line"></span><br><span class="line">ssh -L port1:host2:port2 host3  <span class="comment"># host2是相对host3而言，如果host2=127.0.0.1就相当于是host3</span></span><br><span class="line">ssh -N -L 127.0.0.1:8892:127.0.0.1:8892 user@host  <span class="comment"># -N 连接后不进入远程终端。-L 通过第三个服务器转发两个端口之间的数</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-SSH远程连接jupyter-notebook"><a href="#3-SSH远程连接jupyter-notebook" class="headerlink" title="3. SSH远程连接jupyter notebook"></a>3. SSH远程连接jupyter notebook</h2><ol>
+<li>在远程服务器运行：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup jupyter notebook --no-browser --port=34922 &gt; ~/jupyter.txt 2&gt;&amp;1 &amp; <span class="comment"># 后台开启远程服务器的jupyter notebook，并将输出放到jupyter.txt文件里。</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>这时jupyter notebook的服务端口和token就会在jupyter.txt里面，所以将其拷贝到本地</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp user@host:~/jupyter.txt ./  &amp;&amp; cat jupyter.txt <span class="comment"># scp远程拷贝文件到本地，同时显示jupyter.txt的内容</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>在那道jupyter.txt的内容之后，就可以直接创建SSH转发连接（这里假如在34922端口开启的notebook）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -N -L 34922:127.0.0.1:34992 user@host <span class="comment"># ssh转发连接</span></span><br></pre></td></tr></table></figure>
+<p>最后就可以在本地浏览器里粘贴jupyter.txt里面的地址：<a href="http://localhost:34992?token=333402uhdixx，在浏览器进入远程终端的notebook。" target="_blank" rel="noopener">http://localhost:34992?token=333402uhdixx，在浏览器进入远程终端的notebook。</a></p>
+<ul>
+<li>总结<ul>
+<li>尽管过程略微繁琐，但是学到的一些基础知识还是很多的，这里我一般都是写到.sh脚本里面直接运行，所以可能会稍微简化了这个过程</li>
+<li>现在在尝试用更简单的步骤访问，所以有改进肯定会在此更新，敬请期待。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-（续）jupyter-notebook远程访问"><a href="#4-（续）jupyter-notebook远程访问" class="headerlink" title="4. （续）jupyter notebook远程访问"></a>4. （续）jupyter notebook远程访问</h3><p>之前的ssh连接的方法绕了一个大弯，原因是jupyter notebook启动时候的配置指定本地访问，但是其实可以指定任意ip访问，所以可以直接在外部访问。其次通过修改配置文件，还能修改密码，具体教程就不写了。如下👇</p>
+<p><a href="https://zhuanlan.zhihu.com/p/27339792" target="_blank" rel="noopener">给jupyter设置密码以能远程访问的方法</a></p>
+<blockquote>
+<p>References:</p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-sshforward/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-cn-sshforward/</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2011/12/ssh_port_forwarding.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2011/12/ssh_port_forwarding.html</a></p>
+<p>jupyter ssh远程转发实战：<a href="https://blog.csdn.net/yijuan_hw/article/details/68945694" target="_blank" rel="noopener">https://blog.csdn.net/yijuan_hw/article/details/68945694</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SSH/" rel="tag"># SSH</a>
+          
+            <a href="/tags/jupyter-notebook/" rel="tag"># jupyter notebook</a>
+          
+            <a href="/tags/nohup/" rel="tag"># nohup</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/18/CUDA/" rel="next" title="CUDA和cuDNN">
+                <i class="fa fa-chevron-left"></i> CUDA和cuDNN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/22/Halstead/" rel="prev" title="Halstead 复杂度">
+                Halstead 复杂度 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1. 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基础"><span class="nav-number">2.</span> <span class="nav-text">2. 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-jupyter-notebook"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 jupyter notebook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-bash重定向命令"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 bash重定向命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-nohup命令"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 nohup命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-SSH"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 SSH</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-SSH远程连接jupyter-notebook"><span class="nav-number">3.</span> <span class="nav-text">3. SSH远程连接jupyter notebook</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-（续）jupyter-notebook远程访问"><span class="nav-number">3.1.</span> <span class="nav-text">4. （续）jupyter notebook远程访问</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

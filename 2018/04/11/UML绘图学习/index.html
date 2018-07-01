@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="UML,用例建模,backlog,业务建模," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="UML绘制用例图、业务流程图">
+<meta name="keywords" content="UML,用例建模,backlog,业务建模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UML绘图学习">
+<meta property="og:url" content="http://zhanzongyuan.github.io/2018/04/11/UML绘图学习/index.html">
+<meta property="og:site_name" content="zhanzongyuan&#39;s blog">
+<meta property="og:description" content="UML绘制用例图、业务流程图">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/11/UML绘图学习/Reserve%20Hotel.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/11/UML绘图学习/携程.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/11/UML绘图学习/业务建模.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/11/UML绘图学习/ATM.png">
+<meta property="og:image" content="http://zhanzongyuan.github.io/2018/04/11/UML绘图学习/淘宝.png">
+<meta property="og:updated_time" content="2018-05-04T07:50:28.203Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UML绘图学习">
+<meta name="twitter:description" content="UML绘制用例图、业务流程图">
+<meta name="twitter:image" content="http://zhanzongyuan.github.io/2018/04/11/UML绘图学习/Reserve%20Hotel.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhanzongyuan.github.io/2018/04/11/UML绘图学习/"/>
+
+
+
+
+
+  <title>UML绘图学习 | zhanzongyuan's blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhanzongyuan's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Coding blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zhanzongyuan.github.io/2018/04/11/UML绘图学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanZongYuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhanzongyuan's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">UML绘图学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-11T22:28:28+08:00">
+                2018-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机科学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  UML绘制用例图、业务流程图
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-团队作业"><a href="#1-团队作业" class="headerlink" title="1. 团队作业"></a>1. 团队作业</h2><ul>
+<li><a href="https://github.com/Zhidan-System/Dashboard" target="_blank" rel="noopener">项目Dashboard</a></li>
+</ul>
+<ul>
+<li><a href="https://github.com/Zhidan-System/Dashboard/blob/master/docs/Inception/Software-Requirement-Specification.md" target="_blank" rel="noopener">软件规格说明书（含用例）</a></li>
+</ul>
+<h2 id="2-个人作业"><a href="#2-个人作业" class="headerlink" title="2. 个人作业"></a>2. 个人作业</h2><h3 id="2-1-用例建模"><a href="#2-1-用例建模" class="headerlink" title="2.1 用例建模"></a>2.1 用例建模</h3><blockquote>
+<p>用例( Use Case )是一种描述产品需求的方法，使用用例的方法来描述产品需求的过程就是用例模型，用例模型是由用例图和每一个用例的详细描述文档所组成的。</p>
+<p>用例建模是UML建模的一部分，它也是UML里最基础的部分。用例建模的最主要功能就是用来表达系统的功能性需求或行为。用例图重点描述用户需求。 它描述需求、用户和主要组件之间的关系。 </p>
+</blockquote>
+<p>a. 阅读 Asg_RH 文档，绘制用例图。 按 Task1 要求，请使用工具 UMLet，截图格式务必是 png 并控制尺寸</p>
+<p><img src="/2018/04/11/UML绘图学习/Reserve Hotel.png" alt="Reserve Hotel"></p>
+<p>b. 选择你熟悉的定旅馆在线服务系统（或移动 APP），如绘制用例图。并满足以下要求：</p>
+<ul>
+<li>对比 Asg_RH 用例图，请用色彩标注出创新用例或子用例</li>
+<li>尽可能识别外部系统，并用色彩标注新的外部系统和服务</li>
+</ul>
+<p><img src="/2018/04/11/UML绘图学习/携程.png" alt="携程"></p>
+<p>c. 对比两个时代、不同地区产品的用例图，总结在项目早期，发现创新的思路与方法</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>相同用例/系统</th>
+<th>不同用用例/系统</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. 搜索酒店<br>2. 预订住房<br>3. 支付<br>4. 取消订单<br>5. 输入筛选条件<br>6. 选择房间<br>7. 提交订单<br>8. 确认订单信息</td>
+<td>1. 短信系统<br>2. 交通地图系统<br>3. 搜索地标周边酒店<br>4. 查看酒店交通地图<br>5. 收藏酒店<br>6. 线下支付<br>7. 选择套餐</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>创新思路和方法：</p>
+<ol>
+<li>将服务打包化，类似套餐之类的服务集合，减少部分用例，体验更好</li>
+<li>考虑实际中客户可能面对的问题，尽可能在一个app中提供解决方法（如：交通路线图）</li>
+<li>对于支付方式，应该提供更多的选择</li>
+<li>在原有的用例图基础上，添加创新性子用例，添加创新性父用例</li>
+</ol>
+<p>d. 请使用 SCRUM 方法，在（任务b）用例图基础上，编制某定旅馆开发的需求 （backlog 产品特性）</p>
+<blockquote>
+<p><code>SCRUM</code>：敏捷开发</p>
+<p><code>backlog</code>：产品backlog由所有的功能特性，包括业务功能，非业务功能（技术、架构和工程实践相关），提升点以及缺陷的修复等组成。这些内容也是将来产品版本发布的主要内容。<br>一个完整的backlog是一个的蓝图，可以根据它来把产品改造成为我们期望的样子。 但是在Scrum中，Backlog是根据产品和产品使用环境的演化而不断演化的。所以Backlog是动态的，我们会持续的改变它去确保我们的产品是最合理的，最有竞争力的，最有价值的。 </p>
+<p>当我们去看产品的backlog的时候，优先级是一个重要的视角，优先级越高的backlog需要越清晰，越详细。对于优先级低的backlog，详细程度会越低，直到几乎我们不能认为它是一个backlog项（非常低的优先级，只相当于一个占位符，来用做提醒）。</p>
+<p><code>backlog</code>列表包含以下字段</p>
+<p><strong>ID</strong> 是统一的标识符，自增的数字</p>
+<p><strong>名称</strong> 是简短的、描述性的需求(故事、特性)名；它必须要含义明确，这样开发人员和产品负责人才能大致明白是什么东西，以跟其他需求(故事、特性)区分开。</p>
+<p><strong>估算</strong> 对每个backlog项做估算（包括成本，复杂度，风险，功能点）。优先级越高的Backlog估算要越精确，在估算的过程中可能会导致backlog的优先顺序有可能随之发生变化（对于那些很重要，并且可以快速解决的问题可以先做）。 我们要经常做估算。</p>
+<p><strong>优先顺序（重要性）</strong>每个backlog项都有优先级，这些backlog项按照优先次序排行队列放在backlog列表中。在评估的过程中</p>
+<p><strong>如何演示</strong> 指大致描述一下在验收时，如何才能进行演示，本质就是一个简单的测试规范</p>
+<p><strong>注释</strong> 指相关信息、解释说明和对其它资料的引用等等。一般都非常简短或没有。</p>
+</blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Est</th>
+<th>Imp</th>
+<th>How to do demo</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>创建住宿订单</td>
+<td>100</td>
+<td>10</td>
+<td>demo1: 选择酒店，选择日期房间，选择入住人数，最后确认订单;<br>demo2: 取消最后订单</td>
+<td>无</td>
+</tr>
+<tr>
+<td>2</td>
+<td>支付住宿订单</td>
+<td>100</td>
+<td>10</td>
+<td>demo1: 点击支付，在第三方支付界面确认支付，支付成功；<br>demo2: 取消支付</td>
+<td>无</td>
+</tr>
+<tr>
+<td>3</td>
+<td>搜索酒店</td>
+<td>80</td>
+<td>10</td>
+<td>demo1: 点击搜索框，输入酒店名<br>demo2: 点击地标，搜索地标附近酒店<br>demo3: 选择城市，搜索酒店<br>demo4: 选择筛选条件，搜索酒店</td>
+<td>无</td>
+</tr>
+<tr>
+<td>4</td>
+<td>收藏酒店</td>
+<td>50</td>
+<td>2</td>
+<td>demo1: 进入酒店信息界面，点击收藏酒店</td>
+<td>无</td>
+</tr>
+<tr>
+<td>5</td>
+<td>查看酒店交通路线图</td>
+<td>50</td>
+<td>10</td>
+<td>demo1: 进入酒店信息界面，点击附近交通路线图</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>注册</td>
+<td>50</td>
+<td>2</td>
+<td>demo1: 点击注册，输入注册信息，确认注册</td>
+<td>无</td>
+</tr>
+<tr>
+<td>7</td>
+<td>登录</td>
+<td>50</td>
+<td>2</td>
+<td>demo1: 输入账户密码，点击登录</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-2-业务建模"><a href="#2-2-业务建模" class="headerlink" title="2.2 业务建模"></a>2.2 业务建模</h3><blockquote>
+<p><strong>业务建模</strong>是指对商业（或非商业）组织及其运作的<a href="http://wiki.mbalib.com/wiki/%E6%B5%81%E7%A8%8B" target="_blank" rel="noopener">流程</a>进行的建模过程。</p>
+<p>wiki: <strong>业务流程模型和标记法</strong>（<strong>BPMN</strong>, <strong>Business Process Model and Notation</strong>）<a href="https://zh.wikipedia.org/wiki/%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%A0%87%E8%AE%B0%E6%B3%95#endnote_%E8%AF%91%E6%B3%A81a" target="_blank" rel="noopener">[译注1]</a>是<a href="https://zh.wikipedia.org/wiki/%E5%B7%A5%E4%BD%9C%E6%B5%81" target="_blank" rel="noopener">工作流</a>中特定<a href="https://zh.wikipedia.org/wiki/%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B" target="_blank" rel="noopener">业务流程</a>的<a href="https://zh.wikipedia.org/wiki/%E4%BF%A1%E6%81%AF%E5%8F%AF%E8%A7%86%E5%8C%96" target="_blank" rel="noopener">图形化表示法</a>。</p>
+<p>BPMN有以下4个基本元素：</p>
+<ol>
+<li>流对象（Flow Objects）：包括事件、活动、网关，是BPMN中的核心元素；</li>
+<li>连接对象（Connecting Objects）：包括顺序流、消息流、关联；</li>
+<li>泳道（Swimlanes）：包括池和道两种类型；</li>
+<li>人工信息（Artifacts）：包括数据对象、组、注释</li>
+</ol>
+</blockquote>
+<p>a. 在（任务b）基础上，用活动图建模找酒店用例。简述利用流程图发现子用例的方法。</p>
+<ul>
+<li>这里我对对创建住宿订单进行业务建模</li>
+</ul>
+<p><img src="/2018/04/11/UML绘图学习/业务建模.png" alt="业务建模"></p>
+<p>寻找子用例的方法：</p>
+<ol>
+<li>在每个控制流处尝试添加“是否xxx”的条件选择，以为活动图添加创新用例活动</li>
+<li>为每个控制流中间过程做细分，尝试能否分的更细更多的子活动</li>
+</ol>
+<p>b. 选择你身边的银行 ATM，用活动图描绘取款业务流程</p>
+<p><img src="/2018/04/11/UML绘图学习/ATM.png" alt="业务建模"></p>
+<p>c. 查找淘宝退货业务官方文档，使用多泳道图，表达客户、淘宝网、淘宝商家服务系统、商家等用户和系统协同完成退货业务的过程。分析客户要完成退货业务，在淘宝网上需要实现哪些系统用例</p>
+<p><img src="/2018/04/11/UML绘图学习/淘宝.png" alt="淘宝"></p>
+<h3 id="2-3-用例文本编写"><a href="#2-3-用例文本编写" class="headerlink" title="2.3 用例文本编写"></a>2.3 用例文本编写</h3><blockquote>
+<p>用例文本三种形式：brief、casual、full</p>
+</blockquote>
+<p>在大作业基础上，分析三种用例文本的优点和缺点</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>用例文本</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>brief</td>
+<td>简单快速</td>
+<td>无法描述复杂用例内容</td>
+</tr>
+<tr>
+<td>casual</td>
+<td>编制简单，可以包含一定复杂的用例信息</td>
+<td>无法描述过于复杂的用例内容</td>
+</tr>
+<tr>
+<td>full</td>
+<td>用例描述完整，详细</td>
+<td>编制耗时长，需要多次迭代</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/UML/" rel="tag"># UML</a>
+          
+            <a href="/tags/用例建模/" rel="tag"># 用例建模</a>
+          
+            <a href="/tags/backlog/" rel="tag"># backlog</a>
+          
+            <a href="/tags/业务建模/" rel="tag"># 业务建模</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/11/pytorch/" rel="next" title="Pytorch学习笔记">
+                <i class="fa fa-chevron-left"></i> Pytorch学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/12/Hough-Transform/" rel="prev" title="Hough Transform">
+                Hough Transform <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhanZongYuan</p>
+              <p class="site-description motion-element" itemprop="description">Learning everyday!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-团队作业"><span class="nav-number">1.</span> <span class="nav-text">1. 团队作业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-个人作业"><span class="nav-number">2.</span> <span class="nav-text">2. 个人作业</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-用例建模"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 用例建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-业务建模"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 业务建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-用例文本编写"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 用例文本编写</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanZongYuan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
