@@ -117,8 +117,8 @@
 <meta property="og:description" content="Go开发CLI实用程序初体验">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pg2vkewkk.bkt.clouddn.com/18-10-4/74495865.jpg">
-<meta property="og:image" content="http://pg2vkewkk.bkt.clouddn.com/18-10-11/53247950.jpg">
-<meta property="og:updated_time" content="2018-10-11T05:36:40.370Z">
+<meta property="og:image" content="http://pg2vkewkk.bkt.clouddn.com/selpg%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84%283%29.png">
+<meta property="og:updated_time" content="2018-10-11T07:00:52.536Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go开发CLI实用程序初体验">
 <meta name="twitter:description" content="Go开发CLI实用程序初体验">
@@ -347,7 +347,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-10-11 13:36:40" itemprop="dateModified" datetime="2018-10-11T13:36:40+08:00">2018-10-11</time>
+                <time title="Modified: 2018-10-11 15:00:52" itemprop="dateModified" datetime="2018-10-11T15:00:52+08:00">2018-10-11</time>
               
             
           </span>
@@ -423,7 +423,7 @@
 <p>​    <code>[option &lt;arg&gt;]</code>表示选项参数（每一个选项不一定都有选项参数），每个选项参数使用短选项，即用<code>-</code>加上一个字母表示。部分选项参数必须出现，以确保程序正常运行，部分是可选的。</p>
 <p>​      <code>[--]</code>后面的<code>&lt;arg&gt;</code>表示命令的输入参数，而不是选项或者选项参数。</p>
 <p>​    了解了接口标准以及CLI程序命令结构后，你可以尝试用所学的知识分析常用的命令行程序的参数说明。通过这些实例更能加深理解和记忆。例如，下面以macos的<code>tree</code>这个cli工具的为例进行解析：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> man tree</span><br><span class="line"></span><br><span class="line">tree [-acdfghilnpqrstuvxACDFQNSUX] [-L level [-R]] [-H baseHREF] [-T title] [-o filename] [--nolinks] [-P pattern] [-I pattern] [--inodes] [--device] [--noreport] [--dirsfirst] [--version] [--help] [--filelimit ] [--si] [--prune] [--du] [--timefmt format] [--matchdirs] [--] [directory ...]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> [-acdfghilnpqrstuvxACDFQNSUX]: 没选项参数的短选项, -a, -c, -d,...</span><br><span class="line"><span class="meta">#</span> [-option &lt;arg&gt;]: 带参数的选项</span><br><span class="line"><span class="meta">#</span> [--option]: 部分长选项</span><br><span class="line"><span class="meta">#</span> [--] [directory ...]: ‘--’以后多个文件夹名作为tree这个命令的输入参数，而不是选项或者是选项参数。</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> man tree</span></span><br><span class="line"></span><br><span class="line">tree [-acdfghilnpqrstuvxACDFQNSUX] [-L level [-R]] [-H baseHREF] [-T title] [-o filename] [--nolinks] [-P pattern] [-I pattern] [--inodes] [--device] [--noreport] [--dirsfirst] [--version] [--help] [--filelimit ] [--si] [--prune] [--du] [--timefmt format] [--matchdirs] [--] [directory ...]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> [-acdfghilnpqrstuvxACDFQNSUX]: 没选项参数的短选项, -a, -c, -d,...</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> [-option &lt;arg&gt;]: 带参数的选项</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> [--option]: 部分长选项</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> [--] [directory ...]: ‘--’以后多个文件夹名作为tree这个命令的输入参数，而不是选项或者是选项参数。</span></span><br></pre></td></tr></table></figure>
 <p><em>（设计命令行程序的过程中，参数解析器一般都有现成的工具，如，C程序中的getopt()函数，Python中的argparse包，Golang程序中的flag、pflag等。你只需考虑你所遵循的标准，选择合适的工具进行解析）</em></p>
 <h3 id="1-2-CLI程序输入输出"><a href="#1-2-CLI程序输入输出" class="headerlink" title="1.2 CLI程序输入输出"></a>1.2 CLI程序输入输出</h3><p>​    CLI程序需要符合系统环境下stdin、stdout、stderr的准则，即使用stdin、stdout、stderr作为程序的输入输出，这样CLI程序才能在终端灵活的使用<strong>管道</strong>、<strong>重定向</strong>等方式控制输出输出。</p>
 <p>​    <strong>stdin（标准输入）</strong>：对于运行的目标CLI程序而言，输入来自两种：<strong>1. 指定输入</strong>：命令结构<code>[command] [option &lt;arg&gt;]... [--] &lt;arg&gt;</code>中<code>[command]</code>之后的所有内容（包括选项，选项参数，非选项参数），作为指定输入。<strong>2. stdin（标准输入）</strong>：从stdin获取参数，具体有以下三种stdin的输入方式：</p>
@@ -500,23 +500,23 @@
 <li><p><strong>统一输出接口</strong>：由于flag<code>-d</code>的存在，所以输出有两种形式：输出到打印机、输出到Stdout。所以这里设计使用io.Writer作为输出流处理的接口。（这里打印机的输出利用了io.Pipe()实现go程与主线程之间的通信）。</p>
 </li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 衔接输入输出接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">processStream</span><span class="params">(in io.Reader, out io.Writer)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 衔接输入输出接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SelectPage</span><span class="params">(in io.Reader, out io.Writer, opts SelectOptions)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol>
-<li><p><strong>统一页码计算</strong>：换页标识符<code>pageendFlag byte</code>、每页换页标识符固定数<code>limitFlag int</code>。如：</p>
+<li><p><strong>统一页码计算</strong>：换页标识符<code>EndFlag byte</code>、每页换页标识符固定数<code>limitFlag int</code>。如：</p>
 <ul>
-<li><p><code>-l10</code>等价于<code>pageendFlag=&#39;\n&#39;, limitFlag = 10</code></p>
+<li><p><code>-l10</code>等价于<code>EndFlag=&#39;\n&#39;, FlagLimit = 10</code></p>
 </li>
-<li><p><code>-f</code>等价于<code>pageendFlag=&#39;\f&#39;, limitFlag = 1</code></p>
+<li><p><code>-f</code>等价于<code>EndFlag=&#39;\f&#39;, FlagLimit = 1</code></p>
 </li>
-<li><p>默认情况下<code>pageendFlag=&#39;\n&#39;, limitFlag</code></p>
+<li><p>默认情况下<code>EndFlag=&#39;\n&#39;, FlagLimit = 72</code></p>
 </li>
 </ul>
 <p>实际在<code>processStream</code>处理字节流时，函数内会通过这两个变量计算当前页码，就可以在<code>-f</code>  <code>-l x</code>这两个不同的模式下统一计算页码</p>
 </li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取limitFlag, pageendFlag</span></span><br><span class="line">limitFlag = *limitLine</span><br><span class="line"><span class="keyword">if</span> *pagebreakFlag &#123;</span><br><span class="line">    limitFlag = <span class="number">1</span></span><br><span class="line">    pageendFlag = <span class="keyword">byte</span>(<span class="string">'\f'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取FlagLimit, EndFlag</span></span><br><span class="line">selpgOpts.FlagLimit = *limitLine</span><br><span class="line">	<span class="keyword">if</span> *pagebreakFlag &#123;</span><br><span class="line">		selpgOpts.FlagLimit = <span class="number">1</span></span><br><span class="line">		selpgOpts.EndFlag = <span class="keyword">byte</span>(<span class="string">'\f'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>接口设计如图所示：</p>
-<p><img src="http://pg2vkewkk.bkt.clouddn.com/18-10-11/53247950.jpg" alt=""></p>
+<p><img src="http://pg2vkewkk.bkt.clouddn.com/selpg%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84%283%29.png" alt=""></p>
 <h3 id="2-4-部分细节"><a href="#2-4-部分细节" class="headerlink" title="2.4 部分细节"></a>2.4 部分细节</h3><p><strong>go程并发调用打印机</strong>：调用<code>lp -dDestination</code>需要利用<code>os.exec</code>包中<code>Command</code>的方法调用shell命令。我这里创建了一个go程调用的打印机命令，那么这里就会出现问题：<strong>go程中<code>lp</code>的输入怎么从主线程获取呢？</strong>答案是：用<code>io.Pipe()</code>生成的管道将<code>lp</code>的输入读取与主线程中<code>processStream</code>中的输出写入连接，实现go程与主线程读写内容的传递。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create lp printer to the destination</span></span><br><span class="line">reader, writer := io.Pipe()</span><br><span class="line">out = writer</span><br><span class="line"><span class="keyword">go</span> runPrinter(reader, quit)</span><br><span class="line"><span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    writer.Close()  <span class="comment">// IO同步</span></span><br><span class="line">    <span class="keyword">if</span> err := &lt;-quit; err != <span class="literal">nil</span> &#123;  <span class="comment">// 退出同步</span></span><br><span class="line">        exitCode = <span class="number">2</span></span><br><span class="line">        log.Fatal(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
 <p><strong>go程IO同步&amp;终止同步</strong>：go程相当于一个与主线程相对独立的子线程，我们在操作系统中学到多个线程之间通信的方式有两种：shared memory（共享内存）、message passing（消息传递），go语言也为我们提供了共享内存的方式传递信息：channel，channel相当于go程和主线程都能访问的一段buffer。当线程读取一个空channel时线程会被阻塞直到其他线程写入channel（注意：此时channel非空，因为有线程在channel上等待），该线程才不会继续阻塞，同理写入一个空channel时也是一样的。</p>
