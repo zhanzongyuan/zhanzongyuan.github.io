@@ -116,12 +116,13 @@
 <meta property="og:site_name" content="zhanzongyuan&#39;s blog">
 <meta property="og:description" content="Go开发CLI实用程序初体验">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pg2vkewkk.bkt.clouddn.com/18-10-4/17950729.jpg">
-<meta property="og:updated_time" content="2018-10-04T15:40:48.055Z">
+<meta property="og:image" content="http://pg2vkewkk.bkt.clouddn.com/18-10-4/74495865.jpg">
+<meta property="og:image" content="http://pg2vkewkk.bkt.clouddn.com/18-10-11/53247950.jpg">
+<meta property="og:updated_time" content="2018-10-11T03:46:17.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go开发CLI实用程序初体验">
 <meta name="twitter:description" content="Go开发CLI实用程序初体验">
-<meta name="twitter:image" content="http://pg2vkewkk.bkt.clouddn.com/18-10-4/17950729.jpg">
+<meta name="twitter:image" content="http://pg2vkewkk.bkt.clouddn.com/18-10-4/74495865.jpg">
 
 
 
@@ -329,12 +330,24 @@
                 
               
 
-              <time title="Created: 2018-10-04 22:29:25 / Modified: 23:40:48" itemprop="dateCreated datePublished" datetime="2018-10-04T22:29:25+08:00">2018-10-04</time>
+              <time title="Created: 2018-10-04 22:29:25" itemprop="dateCreated datePublished" datetime="2018-10-04T22:29:25+08:00">2018-10-04</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-11 11:46:17" itemprop="dateModified" datetime="2018-10-11T11:46:17+08:00">2018-10-11</time>
               
             
           </span>
@@ -387,10 +400,156 @@
       
 
       
-        <p><img src="http://pg2vkewkk.bkt.clouddn.com/18-10-4/17950729.jpg" alt=""></p>
-<p>阅读这篇博文你将了解到POSIX、GNU在命令行程序约定的不同，还能看到使用Golang逐步实现一个简单的CLI实用程序的过程。</p>
+        <p><img src="http://pg2vkewkk.bkt.clouddn.com/18-10-4/74495865.jpg" alt=""></p>
+<p>​    阅读这篇博文你将了解POSIX、GNU的命令行程序标准，还能看到我用Golang逐步实现一个简单的CLI实用程序的过程。<a href="https://github.com/zhanzongyuan/selpg" target="_blank" rel="noopener">仓库地址</a></p>
 <a id="more"></a>
-<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>to be continue</p>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><h3 id="1-1-POSIX标准"><a href="#1-1-POSIX标准" class="headerlink" title="1.1 POSIX标准"></a>1.1 POSIX标准</h3><p>​    <strong>POSIX</strong>（Portable Operating System Interface）可移植操作系统接口，是一个应用程序接口的标准，包括CLI和UI应用程序的接口，其制定目的是为了提高系统之间的相容性（即应用程序在不同系统之间的可移植性）</p>
+<blockquote>
+<p><strong>可移植作業系統接口</strong>（英语：Portable Operating System Interface，縮寫為<strong>POSIX</strong>），是<a href="https://zh.wikipedia.org/wiki/IEEE" target="_blank" rel="noopener">IEEE</a>为要在各种<a href="https://zh.wikipedia.org/wiki/UNIX" target="_blank" rel="noopener">UNIX</a><a href="https://zh.wikipedia.org/wiki/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener">操作系统</a>上运行软件，而定义<a href="https://zh.wikipedia.org/wiki/API" target="_blank" rel="noopener">API</a>的一系列互相关联的标准的总称。</p>
+<p><strong>X</strong>则表明其对Unix API的传承</p>
+<p>—— <a href="https://zh.wikipedia.org/wiki/POSIX" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/POSIX</a></p>
+</blockquote>
+<p>​    </p>
+<p>​    <strong>POSIX命令行程序接口规范</strong>：POSIX制定了命令行程序接口规范，其中CLI规范细节很值得程序员了解一下，能加深平时使用的cli命令的理解，而不是埋头苦干。本文的CLI程序设计也将遵循Unix规范，即SUS。<a href="https://en.wikipedia.org/wiki/Single_UNIX_Specification" target="_blank" rel="noopener">SUS</a>同样遵循POSIX中CLI的设计规范，而Unix的规范有很多版本，为了简化问题，设计将直接参考POSIX的CLI程序参数规范，以及GNU标准提出的拓展部分（GNU于CLI的约定更加常见，GNU基于POSIX规范上拓展了长选项的选择，如：<code>--help, --verbose</code>）👇</p>
+<blockquote>
+<p>POSIX标准参考：</p>
+<p> <a href="https://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html" target="_blank" rel="noopener">Program Argument Syntax Conventions</a></p>
+<p><a href="https://wenku.baidu.com/view/c7cf91ee5ef7ba0d4a733b58.html" target="_blank" rel="noopener">Linux命令行程序设计</a></p>
+</blockquote>
+<p>​    <strong>CLI程序命令语法结构</strong>：<code>[command] [option &lt;arg&gt;]... [--] &lt;arg&gt;</code> or  <code>[命令] [选项 &lt;选项参数&gt;]... [--] &lt;非选项参数&gt;</code><br>​    上述是个人总结的cli程序命令基本结构，可以用作分析命令时的参考模式，而不是普遍规律。</p>
+<p>​    <code>[option &lt;arg&gt;]</code>表示选项参数（每一个选项不一定都有选项参数），每个选项参数使用短选项，即用<code>-</code>加上一个字母表示。部分选项参数必须出现，以确保程序正常运行，部分是可选的。</p>
+<p>​      <code>[--]</code>后面的<code>&lt;arg&gt;</code>表示命令的输入参数，而不是选项或者选项参数。</p>
+<p>​    了解了接口标准以及CLI程序命令结构后，你可以尝试用所学的知识分析常用的命令行程序的参数说明。通过这些实例更能加深理解和记忆。例如，下面以macos的<code>tree</code>这个cli工具的为例进行解析：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> man tree</span></span><br><span class="line"></span><br><span class="line">tree [-acdfghilnpqrstuvxACDFQNSUX] [-L level [-R]] [-H baseHREF] [-T title] [-o filename] [--nolinks] [-P pattern] [-I pattern] [--inodes] [--device] [--noreport] [--dirsfirst] [--version] [--help] [--filelimit ] [--si] [--prune] [--du] [--timefmt format] [--matchdirs] [--] [directory ...]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> [-acdfghilnpqrstuvxACDFQNSUX]: 没选项参数的短选项, -a, -c, -d,...</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> [-option &lt;arg&gt;]: 带参数的选项</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> [--option]: 部分长选项</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> [--] [directory ...]: ‘--’以后多个文件夹名作为tree这个命令的输入参数，而不是选项或者是选项参数。</span></span><br></pre></td></tr></table></figure>
+<p><em>（设计命令行程序的过程中，参数解析器一般都有现成的工具，如，C程序中的getopt()函数，Python中的argparse包，Golang程序中的flag、pflag等。你只需考虑你所遵循的标准，选择合适的工具进行解析）</em></p>
+<h3 id="1-2-CLI程序输入输出"><a href="#1-2-CLI程序输入输出" class="headerlink" title="1.2 CLI程序输入输出"></a>1.2 CLI程序输入输出</h3><p>​    CLI程序需要符合系统环境下stdin、stdout、stderr的准则，即使用stdin、stdout、stderr作为程序的输入输出，这样CLI程序才能在终端灵活的使用<strong>管道</strong>、<strong>重定向</strong>等方式控制输出输出。</p>
+<p>​    <strong>stdin（标准输入）</strong>：对于运行的目标CLI程序而言，输入来自两种：<strong>1. 指定输入</strong>：命令结构<code>[command] [option &lt;arg&gt;]... [--] &lt;arg&gt;</code>中<code>[command]</code>之后的所有内容（包括选项，选项参数，非选项参数），作为指定输入。<strong>2. stdin（标准输入）</strong>：从stdin获取参数，具体有以下三种stdin的输入方式：</p>
+<ul>
+<li><p><code>[command]</code> 通过用户键盘：相当于C里的scanf</p>
+</li>
+<li><p><code>[command] &lt; file</code>重定向：将文件内容重定向到stdin</p>
+</li>
+<li><p><code>[other_command] | [command]</code>管道：将前一个命令的stdout传输到后一个命令的stdin </p>
+</li>
+</ul>
+<p>​    <strong>stdout（标准输出）</strong>：CLI程序的输出都是到stdout中。与stdin类似，有三种stdout输出方式。</p>
+<ul>
+<li><p>终端打印</p>
+</li>
+<li><p><code>[command] &gt; file</code>重定向：将文件内容重定向到stdout</p>
+</li>
+<li><p><code>[command] | [other_command]</code>管道：将前一个命令的stdout传输到后一个命令的stdin </p>
+<p><strong>stderr（标准错误）</strong>：两种方式</p>
+</li>
+<li><p>终端打印</p>
+</li>
+<li>重定向：<ul>
+<li><code>[command] 2&gt; error_file</code>：重定向到文件</li>
+<li><code>[command] &gt;output_file 2&gt;error_file</code>：与stdout分开重定向</li>
+<li><code>[command] &gt;output_file 2&gt;&amp;1</code>：加入<code>2&gt;&amp;1</code>表示stdout、stderr重定向到同一个位置</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-flag-pflag"><a href="#1-3-flag-pflag" class="headerlink" title="1.3 flag pflag"></a>1.3 flag pflag</h3><ul>
+<li>flag</li>
+</ul>
+<p>官方提供flag包，解析命令行程序参数，详情见<a href="https://godoc.org/flag" target="_blank" rel="noopener">flag文档</a>。flag包只提供以下几种参数输入形式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-flag</span><br><span class="line">-flag=x  <span class="comment">// boolean: -flag=false, int -flag=0</span></span><br><span class="line">-flag x  <span class="comment">// non-boolean flags only</span></span><br><span class="line"></span><br><span class="line">--flag</span><br><span class="line">--flag=x  </span><br><span class="line">--flag x <span class="comment">// non-boolean flags only</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Flag parsing stops just before the first non-flag argument (“-“ is a non-flag argument) or after the terminator “—“.</p>
+</blockquote>
+<p>flag包还提供两个有用的接口，以自定义从参数中获取新类型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Value <span class="keyword">interface</span> &#123;</span><br><span class="line">    String() <span class="keyword">string</span></span><br><span class="line">    Set(<span class="keyword">string</span>) error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>（有兴趣的同学可以读一下flag源码，设计的结构和思路还是很值得一读的）</em></p>
+<ul>
+<li>pflag</li>
+</ul>
+<p>pflag是Go的第三方拓展包，实现了POSIX/GUN标准，相对于官方的flag拓展更加完整</p>
+<blockquote>
+<p> Package pflag is a drop-in replacement for Go’s flag package, implementing POSIX/GNU-style —flags. </p>
+<p> pflag is compatible with the GNU extensions to the POSIX recommendations for command-line options. See <a href="http://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html" target="_blank" rel="noopener">http://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html</a> </p>
+</blockquote>
+<p>使用import name可以一样使用flag作为包名</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> flag <span class="string">"github.com/spf13/pflag"</span></span><br></pre></td></tr></table></figure>
+<p>exported的函数接口都与flag一致，详情见<a href="https://godoc.org/github.com/spf13/pflag" target="_blank" rel="noopener">pflag官方文档</a>。能够解析如下几种命令行参数形式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">--flag    <span class="comment">// boolean flags only</span></span><br><span class="line">--flag=x</span><br><span class="line"></span><br><span class="line"><span class="comment">// boolean flags</span></span><br><span class="line">-f</span><br><span class="line">-abc</span><br><span class="line"><span class="comment">// non-boolean flags</span></span><br><span class="line">-n <span class="number">1234</span></span><br><span class="line">-Ifile</span><br><span class="line"><span class="comment">// mixed</span></span><br><span class="line">-abcs <span class="string">"hello"</span> <span class="comment">// 表示 -a -b -c -s "hello"</span></span><br><span class="line">-abcn1234  <span class="comment">// 表示 -a -b -c -n 1234</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、设计selpg程序结构"><a href="#二、设计selpg程序结构" class="headerlink" title="二、设计selpg程序结构"></a>二、设计selpg程序结构</h2><blockquote>
+<p>selpg需求：<a href="https://www.ibm.com/developerworks/cn/linux/shell/clutil/index.html" target="_blank" rel="noopener">开发 Linux 命令行实用程序</a></p>
+<p>go cmd tools参考：<a href="https://github.com/golang/go/tree/master/src/cmd/gofmt" target="_blank" rel="noopener">gofmt</a> </p>
+<p>项目仓库：<a href="https://github.com/zhanzongyuan/selpg" target="_blank" rel="noopener">zhanzongyuan/selpg</a></p>
+<p>设计一个简单的CLI程序，才能真正体会到到golang接口的思想、go程的并发控制、golang错误处理的规范</p>
+</blockquote>
+<h3 id="2-1-flag有效性"><a href="#2-1-flag有效性" class="headerlink" title="2.1 flag有效性"></a>2.1 flag有效性</h3><p>使用pflag获取命令行flag</p>
+<ul>
+<li>检查<code>-s</code> <code>-e</code>合法性以及存在性</li>
+<li>检查<code>-f</code> <code>-l</code>没有同时存在</li>
+</ul>
+<h3 id="2-2-输入有效性"><a href="#2-2-输入有效性" class="headerlink" title="2.2 输入有效性"></a>2.2 输入有效性</h3><p>存在两种输入的方式：文件读入、Stdin（管道、重定向），所以通过判断是否存在文件名判断输入方式</p>
+<ol>
+<li><p><strong>文件读入</strong>：文件存在性、可读状态校验</p>
+</li>
+<li><p><strong>Stdin校验</strong>：当无文件名时，确保Stdin输入方式只能通过管道或者重定向的方式，不允许Stdin来自用户输入（防止程序一直等待用户输入）</p>
+</li>
+</ol>
+<h3 id="2-3-统一处理接口"><a href="#2-3-统一处理接口" class="headerlink" title="2.3 统一处理接口"></a>2.3 统一处理接口</h3><ol>
+<li><p><strong>统一输入接口</strong>：统一两种输入方式（os.File、os.Stdin），可以利用Golang的接口特性，用io.Reader作为输入流处理的接口。</p>
+</li>
+<li><p><strong>统一输出接口</strong>：由于flag<code>-d</code>的存在，所以输出有两种形式：输出到打印机、输出到Stdout。所以这里设计使用io.Writer作为输出流处理的接口。（这里打印机的输出利用了io.Pipe()实现go程与主线程之间的通信）。</p>
+</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 衔接输入输出接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">processStream</span><span class="params">(in io.Reader, out io.Writer)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p><strong>统一页码计算</strong>：换页标识符<code>pageendFlag byte</code>、每页换页标识符固定数<code>limitFlag int</code>。如：</p>
+<ul>
+<li><p><code>-l10</code>等价于<code>pageendFlag=&#39;\n&#39;, limitFlag = 10</code></p>
+</li>
+<li><p><code>-f</code>等价于<code>pageendFlag=&#39;\f&#39;, limitFlag = 1</code></p>
+</li>
+<li><p>默认情况下<code>pageendFlag=&#39;\n&#39;, limitFlag</code></p>
+</li>
+</ul>
+<p>实际在<code>processStream</code>处理字节流时，函数内会通过这两个变量计算当前页码，就可以在<code>-f</code>  <code>-l x</code>这两个不同的模式下统一计算页码</p>
+</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取limitFlag, pageendFlag</span></span><br><span class="line">limitFlag = *limitLine</span><br><span class="line"><span class="keyword">if</span> *pagebreakFlag &#123;</span><br><span class="line">    limitFlag = <span class="number">1</span></span><br><span class="line">    pageendFlag = <span class="keyword">byte</span>(<span class="string">'\f'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接口设计如图所示：</p>
+<p><img src="http://pg2vkewkk.bkt.clouddn.com/18-10-11/53247950.jpg" alt=""></p>
+<h3 id="2-4-部分细节"><a href="#2-4-部分细节" class="headerlink" title="2.4 部分细节"></a>2.4 部分细节</h3><p><strong>go程并发调用打印机</strong>：调用<code>lp -dDestination</code>需要利用<code>os.exec</code>包中<code>Command</code>的方法调用shell命令。我这里创建了一个go程调用的打印机命令，那么这里就会出现问题：<strong>go程中<code>lp</code>的输入怎么从主线程获取呢？</strong>答案是：用<code>io.Pipe()</code>生成的管道将<code>lp</code>的输入读取与主线程中<code>processStream</code>中的输出写入连接，实现go程与主线程读写内容的传递。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create lp printer to the destination</span></span><br><span class="line">reader, writer := io.Pipe()</span><br><span class="line">out = writer</span><br><span class="line"><span class="keyword">go</span> runPrinter(reader, quit)</span><br><span class="line"><span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    writer.Close()  <span class="comment">// IO同步</span></span><br><span class="line">    <span class="keyword">if</span> err := &lt;-quit; err != <span class="literal">nil</span> &#123;  <span class="comment">// 退出同步</span></span><br><span class="line">        exitCode = <span class="number">2</span></span><br><span class="line">        log.Fatal(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+<p><strong>go程IO同步&amp;终止同步</strong>：go程相当于一个与主线程相对独立的子线程，我们在操作系统中学到多个线程之间通信的方式有两种：shared memory（共享内存）、message passing（消息传递），go语言也为我们提供了共享内存的方式传递信息：channel，channel相当于go程和主线程都能访问的一段buffer。当线程读取一个空channel时线程会被阻塞直到其他线程写入channel（注意：此时channel非空，因为有线程在channel上等待），该线程才不会继续阻塞，同理写入一个空channel时也是一样的。</p>
+<p><code>io.Pipe()</code>提供了一个管道的概念，在我的理解里，<strong>管道相当于一个无限buffer的channel</strong>，写者可以一直向管道里写，只要有内容读者就会一直从管道里读取内容。如果管道是空的，这时读者读取时将等待写者，这时没人写入管道就会出现死锁错误。管道的两端还可以分别Close，关闭一端，另一端就不能继续读或者写，所以Close相当于通知另一端不要继续等（阻塞），可以用于读写同步控制。</p>
+<p>上方的代码里defer中的Close()就是告诉go程端的读者不用继续读了，已经写完了。最后，我们还能看到<code>runPrinter(reader, quit)</code>里面的quit用于控制主线程和go程终止同步，同时还有go程错误传递的作用，利用<code>chan error</code>类型将go程终止前出现的err传递到主线程。</p>
+<h2 id="三、完善项目"><a href="#三、完善项目" class="headerlink" title="三、完善项目"></a>三、完善项目</h2><blockquote>
+<p>涉及测试、文档、版本控制等go项目相关问题</p>
+</blockquote>
+<h3 id="3-1-测试"><a href="#3-1-测试" class="headerlink" title="3.1 测试"></a>3.1 测试</h3><p>go官方提供了<code>go test</code>的工具自动化的测试，详情见：<a href="https://godoc.org/testing#example-B-RunParallel" target="_blank" rel="noopener">package testing</a></p>
+<blockquote>
+<p>在测试<code>-dDestination</code>时可以安装<a href="http://terokarvinen.com/2011/print-pdf-from-command-line-cups-pdf-lpr-p-pdf" target="_blank" rel="noopener">cups-pdf</a>的pdf printer代替打印机，安装成功后pdf printer的destination就是<code>PDF</code>（使用时<code>-dPDF</code>）。于是就能把服务器打印出来的pdf文件下载下来看看效果。</p>
+</blockquote>
+<h3 id="3-2-文档"><a href="#3-2-文档" class="headerlink" title="3.2 文档"></a>3.2 文档</h3><p>go官方通过<code>godoc</code>的工具，我们可以在项目目录下编写doc.go（注释即文档，参考<a href="https://github.com/golang/go/tree/master/src/cmd/gofmt" target="_blank" rel="noopener">gofmt</a>）</p>
+<p>当在系统安装完毕后可以运行：<code>godoc selpg</code>查看文档</p>
+<blockquote>
+<p> 见<a href="https://godoc.org/golang.org/x/tools/cmd/godoc" target="_blank" rel="noopener">godoc文档</a></p>
+</blockquote>
+<h3 id="3-3-版本控制"><a href="#3-3-版本控制" class="headerlink" title="3.3 版本控制"></a>3.3 版本控制</h3><p>有许多工具课用用于go的版本控制，go版本控制的演变也是个有意思的过程，前人写过的go管理文章已经相当丰富，有兴趣了解的可以戳戳下面的文章。我最终选择vgo作为一个依赖版本管理的工具（毕竟已经提出提案将vgo整合到go中，统一go的版本管理）。</p>
+<blockquote>
+<p><a href="http://www.infoq.com/cn/articles/history-go-package-management" target="_blank" rel="noopener">Go包管理的前世今生</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/33935373" target="_blank" rel="noopener">也许 Go 开发可以更简单！Go += Package Versioning</a></p>
+<p><a href="https://research.swtch.com/vgo" target="_blank" rel="noopener">Go &amp; Versioning</a></p>
+</blockquote>
+<p><strong>vgo使用流程</strong>：</p>
+<ol>
+<li>获取vgo</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u golang.org/x/vgo</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在项目目录下创建<code>go.mod</code>（类似于js里的package.json，里面有详细的版本信息）</li>
+<li>项目当前目录下<code>vgo build</code></li>
+<li>最后<code>vgo list -m all</code>可以看到所有依赖的第三方包以及版本信息</li>
+</ol>
+<blockquote>
+<p><a href="http://terokarvinen.com/2011/print-pdf-from-command-line-cups-pdf-lpr-p-pdf" target="_blank" rel="noopener">http://terokarvinen.com/2011/print-pdf-from-command-line-cups-pdf-lpr-p-pdf</a>)</p>
+</blockquote>
 
       
     </div>
@@ -742,7 +901,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、前言"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、前言"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-POSIX标准"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 POSIX标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-CLI程序输入输出"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 CLI程序输入输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-flag-pflag"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 flag pflag</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、设计selpg程序结构"><span class="nav-number">2.</span> <span class="nav-text">二、设计selpg程序结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-flag有效性"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 flag有效性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-输入有效性"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 输入有效性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-统一处理接口"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 统一处理接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-部分细节"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 部分细节</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、完善项目"><span class="nav-number">3.</span> <span class="nav-text">三、完善项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-测试"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-文档"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-版本控制"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 版本控制</span></a></li></ol></li></ol></div>
             
 
           </div>
