@@ -118,7 +118,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pg2vkewkk.bkt.clouddn.com/18-10-4/74495865.jpg">
 <meta property="og:image" content="http://pg2vkewkk.bkt.clouddn.com/18-10-11/53247950.jpg">
-<meta property="og:updated_time" content="2018-10-11T03:46:17.704Z">
+<meta property="og:updated_time" content="2018-10-11T05:36:40.370Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go开发CLI实用程序初体验">
 <meta name="twitter:description" content="Go开发CLI实用程序初体验">
@@ -347,7 +347,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-10-11 11:46:17" itemprop="dateModified" datetime="2018-10-11T11:46:17+08:00">2018-10-11</time>
+                <time title="Modified: 2018-10-11 13:36:40" itemprop="dateModified" datetime="2018-10-11T13:36:40+08:00">2018-10-11</time>
               
             
           </span>
@@ -401,7 +401,10 @@
 
       
         <p><img src="http://pg2vkewkk.bkt.clouddn.com/18-10-4/74495865.jpg" alt=""></p>
-<p>​    阅读这篇博文你将了解POSIX、GNU的命令行程序标准，还能看到我用Golang逐步实现一个简单的CLI实用程序的过程。<a href="https://github.com/zhanzongyuan/selpg" target="_blank" rel="noopener">仓库地址</a></p>
+<p>​    阅读这篇博文你将了解POSIX、GNU的命令行程序标准，还能看到我用Golang逐步实现一个简单的CLI实用程序的过程。</p>
+<blockquote>
+<p> 👉 <a href="https://github.com/zhanzongyuan/selpg" target="_blank" rel="noopener">仓库地址</a></p>
+</blockquote>
 <a id="more"></a>
 <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><h3 id="1-1-POSIX标准"><a href="#1-1-POSIX标准" class="headerlink" title="1.1 POSIX标准"></a>1.1 POSIX标准</h3><p>​    <strong>POSIX</strong>（Portable Operating System Interface）可移植操作系统接口，是一个应用程序接口的标准，包括CLI和UI应用程序的接口，其制定目的是为了提高系统之间的相容性（即应用程序在不同系统之间的可移植性）</p>
 <blockquote>
@@ -420,7 +423,7 @@
 <p>​    <code>[option &lt;arg&gt;]</code>表示选项参数（每一个选项不一定都有选项参数），每个选项参数使用短选项，即用<code>-</code>加上一个字母表示。部分选项参数必须出现，以确保程序正常运行，部分是可选的。</p>
 <p>​      <code>[--]</code>后面的<code>&lt;arg&gt;</code>表示命令的输入参数，而不是选项或者选项参数。</p>
 <p>​    了解了接口标准以及CLI程序命令结构后，你可以尝试用所学的知识分析常用的命令行程序的参数说明。通过这些实例更能加深理解和记忆。例如，下面以macos的<code>tree</code>这个cli工具的为例进行解析：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> man tree</span></span><br><span class="line"></span><br><span class="line">tree [-acdfghilnpqrstuvxACDFQNSUX] [-L level [-R]] [-H baseHREF] [-T title] [-o filename] [--nolinks] [-P pattern] [-I pattern] [--inodes] [--device] [--noreport] [--dirsfirst] [--version] [--help] [--filelimit ] [--si] [--prune] [--du] [--timefmt format] [--matchdirs] [--] [directory ...]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> [-acdfghilnpqrstuvxACDFQNSUX]: 没选项参数的短选项, -a, -c, -d,...</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> [-option &lt;arg&gt;]: 带参数的选项</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> [--option]: 部分长选项</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> [--] [directory ...]: ‘--’以后多个文件夹名作为tree这个命令的输入参数，而不是选项或者是选项参数。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> man tree</span><br><span class="line"></span><br><span class="line">tree [-acdfghilnpqrstuvxACDFQNSUX] [-L level [-R]] [-H baseHREF] [-T title] [-o filename] [--nolinks] [-P pattern] [-I pattern] [--inodes] [--device] [--noreport] [--dirsfirst] [--version] [--help] [--filelimit ] [--si] [--prune] [--du] [--timefmt format] [--matchdirs] [--] [directory ...]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> [-acdfghilnpqrstuvxACDFQNSUX]: 没选项参数的短选项, -a, -c, -d,...</span><br><span class="line"><span class="meta">#</span> [-option &lt;arg&gt;]: 带参数的选项</span><br><span class="line"><span class="meta">#</span> [--option]: 部分长选项</span><br><span class="line"><span class="meta">#</span> [--] [directory ...]: ‘--’以后多个文件夹名作为tree这个命令的输入参数，而不是选项或者是选项参数。</span><br></pre></td></tr></table></figure>
 <p><em>（设计命令行程序的过程中，参数解析器一般都有现成的工具，如，C程序中的getopt()函数，Python中的argparse包，Golang程序中的flag、pflag等。你只需考虑你所遵循的标准，选择合适的工具进行解析）</em></p>
 <h3 id="1-2-CLI程序输入输出"><a href="#1-2-CLI程序输入输出" class="headerlink" title="1.2 CLI程序输入输出"></a>1.2 CLI程序输入输出</h3><p>​    CLI程序需要符合系统环境下stdin、stdout、stderr的准则，即使用stdin、stdout、stderr作为程序的输入输出，这样CLI程序才能在终端灵活的使用<strong>管道</strong>、<strong>重定向</strong>等方式控制输出输出。</p>
 <p>​    <strong>stdin（标准输入）</strong>：对于运行的目标CLI程序而言，输入来自两种：<strong>1. 指定输入</strong>：命令结构<code>[command] [option &lt;arg&gt;]... [--] &lt;arg&gt;</code>中<code>[command]</code>之后的所有内容（包括选项，选项参数，非选项参数），作为指定输入。<strong>2. stdin（标准输入）</strong>：从stdin获取参数，具体有以下三种stdin的输入方式：</p>
