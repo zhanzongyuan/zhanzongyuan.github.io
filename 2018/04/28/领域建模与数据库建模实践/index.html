@@ -402,91 +402,91 @@
       
 
       
-        <h2 id="1-领域建模"><a href="#1-领域建模" class="headerlink" title="1. 领域建模"></a>1. 领域建模</h2><blockquote>
+        <h2 id="1-&#x9886;&#x57DF;&#x5EFA;&#x6A21;"><a href="#1-&#x9886;&#x57DF;&#x5EFA;&#x6A21;" class="headerlink" title="1. &#x9886;&#x57DF;&#x5EFA;&#x6A21;"></a>1. &#x9886;&#x57DF;&#x5EFA;&#x6A21;</h2><blockquote>
 <p>References from Wiki: </p>
 <p>A domain model is a system of abstractions that describes selected aspects of a sphere of knowledge, influence or activity (a domain<a href="https://en.wikipedia.org/wiki/Domain_model#cite_note-3" target="_blank" rel="noopener">[3]</a>). The model can then be used to solve problems related to that domain. The domain model is a representation of meaningful real-world concepts pertinent to the domain that need to be modelled in software. The concepts include the data involved in the business and rules the business uses in relation to that data.</p>
 <p>A domain model generally uses the vocabulary of the domain, thus allowing a representation of the model to be communicated to non-technical stakeholders.</p>
-<p>领域模型是描述知识领域，影响领域或活动领域（领域）的抽象系统。该模型可以用来解决与该域相关的问题。领域模型是与需要在软件中建模的领域相关的有意义的现实世界概念的表示。这些概念包括涉及业务的数据和业务使用的与该数据相关的规则。<br>领域模型通常使用领域的词汇表，从而允许将模型的表示传达给非技术利益相关者。</p>
+<p>&#x9886;&#x57DF;&#x6A21;&#x578B;&#x662F;&#x63CF;&#x8FF0;&#x77E5;&#x8BC6;&#x9886;&#x57DF;&#xFF0C;&#x5F71;&#x54CD;&#x9886;&#x57DF;&#x6216;&#x6D3B;&#x52A8;&#x9886;&#x57DF;&#xFF08;&#x9886;&#x57DF;&#xFF09;&#x7684;&#x62BD;&#x8C61;&#x7CFB;&#x7EDF;&#x3002;&#x8BE5;&#x6A21;&#x578B;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x89E3;&#x51B3;&#x4E0E;&#x8BE5;&#x57DF;&#x76F8;&#x5173;&#x7684;&#x95EE;&#x9898;&#x3002;&#x9886;&#x57DF;&#x6A21;&#x578B;&#x662F;&#x4E0E;&#x9700;&#x8981;&#x5728;&#x8F6F;&#x4EF6;&#x4E2D;&#x5EFA;&#x6A21;&#x7684;&#x9886;&#x57DF;&#x76F8;&#x5173;&#x7684;&#x6709;&#x610F;&#x4E49;&#x7684;&#x73B0;&#x5B9E;&#x4E16;&#x754C;&#x6982;&#x5FF5;&#x7684;&#x8868;&#x793A;&#x3002;&#x8FD9;&#x4E9B;&#x6982;&#x5FF5;&#x5305;&#x62EC;&#x6D89;&#x53CA;&#x4E1A;&#x52A1;&#x7684;&#x6570;&#x636E;&#x548C;&#x4E1A;&#x52A1;&#x4F7F;&#x7528;&#x7684;&#x4E0E;&#x8BE5;&#x6570;&#x636E;&#x76F8;&#x5173;&#x7684;&#x89C4;&#x5219;&#x3002;<br>&#x9886;&#x57DF;&#x6A21;&#x578B;&#x901A;&#x5E38;&#x4F7F;&#x7528;&#x9886;&#x57DF;&#x7684;&#x8BCD;&#x6C47;&#x8868;&#xFF0C;&#x4ECE;&#x800C;&#x5141;&#x8BB8;&#x5C06;&#x6A21;&#x578B;&#x7684;&#x8868;&#x793A;&#x4F20;&#x8FBE;&#x7ED9;&#x975E;&#x6280;&#x672F;&#x5229;&#x76CA;&#x76F8;&#x5173;&#x8005;&#x3002;</p>
 </blockquote>
 <ul>
-<li>a. 阅读 Asg_RH 文档，按用例构建领域模型。<ul>
-<li>按 Task2 要求，请使用工具 UMLet，截图格式务必是 png 并控制尺寸</li>
-<li>说明：请不要受 PCMEF 层次结构影响。你需要识别实体（E）和 中介实体（M，也称状态实体）<ul>
-<li>在单页面应用（如 vue）中，E 一般与数据库构建有关， M 一般与 <a href="https://cn.vuejs.org/v2/guide/state-management.html" target="_blank" rel="noopener">store 模式</a> 有关</li>
-<li>在 java web 应用中，E 一般与数据库构建有关， M 一般与 session 有关</li>
+<li>a. &#x9605;&#x8BFB; Asg_RH &#x6587;&#x6863;&#xFF0C;&#x6309;&#x7528;&#x4F8B;&#x6784;&#x5EFA;&#x9886;&#x57DF;&#x6A21;&#x578B;&#x3002;<ul>
+<li>&#x6309; Task2 &#x8981;&#x6C42;&#xFF0C;&#x8BF7;&#x4F7F;&#x7528;&#x5DE5;&#x5177; UMLet&#xFF0C;&#x622A;&#x56FE;&#x683C;&#x5F0F;&#x52A1;&#x5FC5;&#x662F; png &#x5E76;&#x63A7;&#x5236;&#x5C3A;&#x5BF8;</li>
+<li>&#x8BF4;&#x660E;&#xFF1A;&#x8BF7;&#x4E0D;&#x8981;&#x53D7; PCMEF &#x5C42;&#x6B21;&#x7ED3;&#x6784;&#x5F71;&#x54CD;&#x3002;&#x4F60;&#x9700;&#x8981;&#x8BC6;&#x522B;&#x5B9E;&#x4F53;&#xFF08;E&#xFF09;&#x548C; &#x4E2D;&#x4ECB;&#x5B9E;&#x4F53;&#xFF08;M&#xFF0C;&#x4E5F;&#x79F0;&#x72B6;&#x6001;&#x5B9E;&#x4F53;&#xFF09;<ul>
+<li>&#x5728;&#x5355;&#x9875;&#x9762;&#x5E94;&#x7528;&#xFF08;&#x5982; vue&#xFF09;&#x4E2D;&#xFF0C;E &#x4E00;&#x822C;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x6784;&#x5EFA;&#x6709;&#x5173;&#xFF0C; M &#x4E00;&#x822C;&#x4E0E; <a href="https://cn.vuejs.org/v2/guide/state-management.html" target="_blank" rel="noopener">store &#x6A21;&#x5F0F;</a> &#x6709;&#x5173;</li>
+<li>&#x5728; java web &#x5E94;&#x7528;&#x4E2D;&#xFF0C;E &#x4E00;&#x822C;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x6784;&#x5EFA;&#x6709;&#x5173;&#xFF0C; M &#x4E00;&#x822C;&#x4E0E; session &#x6709;&#x5173;</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<p> <a href="http://blog.zhanzy.xyz/2018/04/11/UML绘图学习/" target="_blank" rel="noopener">Asg_RH 用例图回顾</a></p>
-<p><a href="http://umlet.com/changes.htm" target="_blank" rel="noopener">UMLet下载</a></p>
+<p> <a href="http://blog.zhanzy.xyz/2018/04/11/UML&#x7ED8;&#x56FE;&#x5B66;&#x4E60;/" target="_blank" rel="noopener">Asg_RH &#x7528;&#x4F8B;&#x56FE;&#x56DE;&#x987E;</a></p>
+<p><a href="http://umlet.com/changes.htm" target="_blank" rel="noopener">UMLet&#x4E0B;&#x8F7D;</a></p>
 <p>UMLet usage:  <code>cd UMLet &amp;&amp; bash umlet.sh # Linux and Unix bash shell command</code></p>
 </blockquote>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th>用例</th>
-<th>领域模型</th>
+<th>&#x7528;&#x4F8B;</th>
+<th>&#x9886;&#x57DF;&#x6A21;&#x578B;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Search hotel  by city</td>
-<td><img src="/2018/04/28/领域建模与数据库建模实践/search_hotel.png" alt="search_hotel"></td>
+<td><img src="/2018/04/28/&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x5EFA;&#x6A21;&#x5B9E;&#x8DF5;/search_hotel.png" alt="search_hotel"></td>
 </tr>
 <tr>
 <td>Make reservation with hotel and room type</td>
-<td><img src="/2018/04/28/领域建模与数据库建模实践/create_reservation.png" alt="create_reservation"></td>
+<td><img src="/2018/04/28/&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x5EFA;&#x6A21;&#x5B9E;&#x8DF5;/create_reservation.png" alt="create_reservation"></td>
 </tr>
 <tr>
 <td>Pay for basket with reservation</td>
-<td><img src="/2018/04/28/领域建模与数据库建模实践/payment.png" alt="payment"></td>
+<td><img src="/2018/04/28/&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x5EFA;&#x6A21;&#x5B9E;&#x8DF5;/payment.png" alt="payment"></td>
 </tr>
 </tbody>
 </table>
 </div>
-<h2 id="2-数据库建模"><a href="#2-数据库建模" class="headerlink" title="2. 数据库建模"></a>2. 数据库建模</h2><blockquote>
+<h2 id="2-&#x6570;&#x636E;&#x5E93;&#x5EFA;&#x6A21;"><a href="#2-&#x6570;&#x636E;&#x5E93;&#x5EFA;&#x6A21;" class="headerlink" title="2. &#x6570;&#x636E;&#x5E93;&#x5EFA;&#x6A21;"></a>2. &#x6570;&#x636E;&#x5E93;&#x5EFA;&#x6A21;</h2><blockquote>
 <p>References from Wiki:</p>
 <p>A <strong>database model</strong> is a type of <a href="https://en.wikipedia.org/wiki/Data_model" target="_blank" rel="noopener">data model</a> that determines the logical structure of a <a href="https://en.wikipedia.org/wiki/Database" target="_blank" rel="noopener">database</a> and fundamentally determines in which manner <a href="https://en.wikipedia.org/wiki/Data" target="_blank" rel="noopener">data</a> can be stored, organized and manipulated. The most popular example of a database model is the <a href="https://en.wikipedia.org/wiki/Relational_model" target="_blank" rel="noopener">relational model</a>, which uses a table-based format.</p>
-<p>数据库模型是一种数据模型，它决定了数据库的逻辑结构，从根本上决定了数据可以存储，组织和操作的方式。数据库模型最流行的例子是关系模型，它使用基于表格的格式。</p>
+<p>&#x6570;&#x636E;&#x5E93;&#x6A21;&#x578B;&#x662F;&#x4E00;&#x79CD;&#x6570;&#x636E;&#x6A21;&#x578B;&#xFF0C;&#x5B83;&#x51B3;&#x5B9A;&#x4E86;&#x6570;&#x636E;&#x5E93;&#x7684;&#x903B;&#x8F91;&#x7ED3;&#x6784;&#xFF0C;&#x4ECE;&#x6839;&#x672C;&#x4E0A;&#x51B3;&#x5B9A;&#x4E86;&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x5B58;&#x50A8;&#xFF0C;&#x7EC4;&#x7EC7;&#x548C;&#x64CD;&#x4F5C;&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x6570;&#x636E;&#x5E93;&#x6A21;&#x578B;&#x6700;&#x6D41;&#x884C;&#x7684;&#x4F8B;&#x5B50;&#x662F;&#x5173;&#x7CFB;&#x6A21;&#x578B;&#xFF0C;&#x5B83;&#x4F7F;&#x7528;&#x57FA;&#x4E8E;&#x8868;&#x683C;&#x7684;&#x683C;&#x5F0F;&#x3002;</p>
 </blockquote>
 <ul>
-<li>b. 数据库建模(E-R 模型)<ul>
-<li>按 Task 3 要求，给出系统的 E-R 模型（数据逻辑模型）</li>
-<li>建模工具 PowerDesigner（简称PD） 或开源工具 <a href="http://www.codebydesign.com/" target="_blank" rel="noopener">OpenSystemArchitect</a></li>
-<li>不负责的链接 <a href="http://www.cnblogs.com/mcgrady/archive/2013/05/25/3098588.html" target="_blank" rel="noopener">http://www.cnblogs.com/mcgrady/archive/2013/05/25/3098588.html</a></li>
-<li>导出 Mysql 物理数据库的脚本</li>
-<li>简单叙说 数据库逻辑模型 与 领域模型 的异同</li>
+<li>b. &#x6570;&#x636E;&#x5E93;&#x5EFA;&#x6A21;(E-R &#x6A21;&#x578B;)<ul>
+<li>&#x6309; Task 3 &#x8981;&#x6C42;&#xFF0C;&#x7ED9;&#x51FA;&#x7CFB;&#x7EDF;&#x7684; E-R &#x6A21;&#x578B;&#xFF08;&#x6570;&#x636E;&#x903B;&#x8F91;&#x6A21;&#x578B;&#xFF09;</li>
+<li>&#x5EFA;&#x6A21;&#x5DE5;&#x5177; PowerDesigner&#xFF08;&#x7B80;&#x79F0;PD&#xFF09; &#x6216;&#x5F00;&#x6E90;&#x5DE5;&#x5177; <a href="http://www.codebydesign.com/" target="_blank" rel="noopener">OpenSystemArchitect</a></li>
+<li>&#x4E0D;&#x8D1F;&#x8D23;&#x7684;&#x94FE;&#x63A5; <a href="http://www.cnblogs.com/mcgrady/archive/2013/05/25/3098588.html" target="_blank" rel="noopener">http://www.cnblogs.com/mcgrady/archive/2013/05/25/3098588.html</a></li>
+<li>&#x5BFC;&#x51FA; Mysql &#x7269;&#x7406;&#x6570;&#x636E;&#x5E93;&#x7684;&#x811A;&#x672C;</li>
+<li>&#x7B80;&#x5355;&#x53D9;&#x8BF4; &#x6570;&#x636E;&#x5E93;&#x903B;&#x8F91;&#x6A21;&#x578B; &#x4E0E; &#x9886;&#x57DF;&#x6A21;&#x578B; &#x7684;&#x5F02;&#x540C;</li>
 </ul>
 </li>
 </ul>
 <ol>
-<li>下面是用Mysql Workbench绘制的ER图</li>
+<li>&#x4E0B;&#x9762;&#x662F;&#x7528;Mysql Workbench&#x7ED8;&#x5236;&#x7684;ER&#x56FE;</li>
 </ol>
-<p><img src="/2018/04/28/领域建模与数据库建模实践/ER.png" alt="ER"></p>
+<p><img src="/2018/04/28/&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x5EFA;&#x6A21;&#x5B9E;&#x8DF5;/ER.png" alt="ER"></p>
 <ol>
-<li>Mysql Workbench导出的脚本：<a href="assets/Asg_Hotel.sql">Asg_Hotel.sql</a></li>
+<li>Mysql Workbench&#x5BFC;&#x51FA;&#x7684;&#x811A;&#x672C;&#xFF1A;<a href="assets/Asg_Hotel.sql">Asg_Hotel.sql</a></li>
 </ol>
 <ol>
-<li>比较数据逻辑模型和领域建模异同</li>
+<li>&#x6BD4;&#x8F83;&#x6570;&#x636E;&#x903B;&#x8F91;&#x6A21;&#x578B;&#x548C;&#x9886;&#x57DF;&#x5EFA;&#x6A21;&#x5F02;&#x540C;</li>
 </ol>
 <div class="table-container">
 <table>
 <thead>
 <tr>
 <th></th>
-<th>同</th>
-<th>异</th>
+<th>&#x540C;</th>
+<th>&#x5F02;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>数据逻辑模型和领域模型</td>
-<td>1. 以识别主体为绘制的开端，以填充属性为结束<br>2. 主体对象之间都是用一条直线表示关联关系</td>
-<td>1. 数据逻辑模型包含更多接近底层数据类型的内容，领域模型则更加语义化一些，没有定义数据类型<br>2. 数据逻辑模型对一对多、多对多的情况的描绘可能需要中间实体，领域模型可以直接表示一对多的情况</td>
+<td>&#x6570;&#x636E;&#x903B;&#x8F91;&#x6A21;&#x578B;&#x548C;&#x9886;&#x57DF;&#x6A21;&#x578B;</td>
+<td>1. &#x4EE5;&#x8BC6;&#x522B;&#x4E3B;&#x4F53;&#x4E3A;&#x7ED8;&#x5236;&#x7684;&#x5F00;&#x7AEF;&#xFF0C;&#x4EE5;&#x586B;&#x5145;&#x5C5E;&#x6027;&#x4E3A;&#x7ED3;&#x675F;<br>2. &#x4E3B;&#x4F53;&#x5BF9;&#x8C61;&#x4E4B;&#x95F4;&#x90FD;&#x662F;&#x7528;&#x4E00;&#x6761;&#x76F4;&#x7EBF;&#x8868;&#x793A;&#x5173;&#x8054;&#x5173;&#x7CFB;</td>
+<td>1. &#x6570;&#x636E;&#x903B;&#x8F91;&#x6A21;&#x578B;&#x5305;&#x542B;&#x66F4;&#x591A;&#x63A5;&#x8FD1;&#x5E95;&#x5C42;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x9886;&#x57DF;&#x6A21;&#x578B;&#x5219;&#x66F4;&#x52A0;&#x8BED;&#x4E49;&#x5316;&#x4E00;&#x4E9B;&#xFF0C;&#x6CA1;&#x6709;&#x5B9A;&#x4E49;&#x6570;&#x636E;&#x7C7B;&#x578B;<br>2. &#x6570;&#x636E;&#x903B;&#x8F91;&#x6A21;&#x578B;&#x5BF9;&#x4E00;&#x5BF9;&#x591A;&#x3001;&#x591A;&#x5BF9;&#x591A;&#x7684;&#x60C5;&#x51B5;&#x7684;&#x63CF;&#x7ED8;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x4E2D;&#x95F4;&#x5B9E;&#x4F53;&#xFF0C;&#x9886;&#x57DF;&#x6A21;&#x578B;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8868;&#x793A;&#x4E00;&#x5BF9;&#x591A;&#x7684;&#x60C5;&#x51B5;</td>
 </tr>
 </tbody>
 </table>

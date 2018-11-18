@@ -397,134 +397,134 @@
       
 
       
-        <h2 id="1-Halstead"><a href="#1-Halstead" class="headerlink" title="1. Halstead"></a>1. Halstead</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h3><p>Halstead complexity measures（霍尔斯特德软件复杂度度量方法）是一种软件度量方法。</p>
+        <h2 id="1-Halstead"><a href="#1-Halstead" class="headerlink" title="1. Halstead"></a>1. Halstead</h2><h3 id="1-1-&#x6982;&#x5FF5;"><a href="#1-1-&#x6982;&#x5FF5;" class="headerlink" title="1.1 &#x6982;&#x5FF5;"></a>1.1 &#x6982;&#x5FF5;</h3><p>Halstead complexity measures&#xFF08;&#x970D;&#x5C14;&#x65AF;&#x7279;&#x5FB7;&#x8F6F;&#x4EF6;&#x590D;&#x6742;&#x5EA6;&#x5EA6;&#x91CF;&#x65B9;&#x6CD5;&#xFF09;&#x662F;&#x4E00;&#x79CD;&#x8F6F;&#x4EF6;&#x5EA6;&#x91CF;&#x65B9;&#x6CD5;&#x3002;</p>
 <blockquote>
-<p>霍尔斯特德：软件复杂度度量，应该要反映不同的程序语言中算法的实现方式，又要独立于使用的平台语言。这些度量可以由静态代码中的计算而得。</p>
+<p>&#x970D;&#x5C14;&#x65AF;&#x7279;&#x5FB7;&#xFF1A;&#x8F6F;&#x4EF6;&#x590D;&#x6742;&#x5EA6;&#x5EA6;&#x91CF;&#xFF0C;&#x5E94;&#x8BE5;&#x8981;&#x53CD;&#x6620;&#x4E0D;&#x540C;&#x7684;&#x7A0B;&#x5E8F;&#x8BED;&#x8A00;&#x4E2D;&#x7B97;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#xFF0C;&#x53C8;&#x8981;&#x72EC;&#x7ACB;&#x4E8E;&#x4F7F;&#x7528;&#x7684;&#x5E73;&#x53F0;&#x8BED;&#x8A00;&#x3002;&#x8FD9;&#x4E9B;&#x5EA6;&#x91CF;&#x53EF;&#x4EE5;&#x7531;&#x9759;&#x6001;&#x4EE3;&#x7801;&#x4E2D;&#x7684;&#x8BA1;&#x7B97;&#x800C;&#x5F97;&#x3002;</p>
 </blockquote>
-<h3 id="1-2-计算"><a href="#1-2-计算" class="headerlink" title="1.2 计算"></a>1.2 计算</h3><p>Halstead根据语句行的操作符和操作数的数量计算程序复杂度</p>
+<h3 id="1-2-&#x8BA1;&#x7B97;"><a href="#1-2-&#x8BA1;&#x7B97;" class="headerlink" title="1.2 &#x8BA1;&#x7B97;"></a>1.2 &#x8BA1;&#x7B97;</h3><p>Halstead&#x6839;&#x636E;&#x8BED;&#x53E5;&#x884C;&#x7684;&#x64CD;&#x4F5C;&#x7B26;&#x548C;&#x64CD;&#x4F5C;&#x6570;&#x7684;&#x6570;&#x91CF;&#x8BA1;&#x7B97;&#x7A0B;&#x5E8F;&#x590D;&#x6742;&#x5EA6;</p>
 <ul>
-<li>操作符和操作数的数量越大，程序结构越复杂<ul>
-<li><strong>操作符</strong>包括语言<strong>保留字</strong>、<strong>程序调用</strong>、<strong>数学运算符</strong>、以及有关<strong>分隔符</strong></li>
-<li><strong>操作数</strong>可以是<strong>常数</strong>和<strong>变量</strong></li>
+<li>&#x64CD;&#x4F5C;&#x7B26;&#x548C;&#x64CD;&#x4F5C;&#x6570;&#x7684;&#x6570;&#x91CF;&#x8D8A;&#x5927;&#xFF0C;&#x7A0B;&#x5E8F;&#x7ED3;&#x6784;&#x8D8A;&#x590D;&#x6742;<ul>
+<li><strong>&#x64CD;&#x4F5C;&#x7B26;</strong>&#x5305;&#x62EC;&#x8BED;&#x8A00;<strong>&#x4FDD;&#x7559;&#x5B57;</strong>&#x3001;<strong>&#x7A0B;&#x5E8F;&#x8C03;&#x7528;</strong>&#x3001;<strong>&#x6570;&#x5B66;&#x8FD0;&#x7B97;&#x7B26;</strong>&#x3001;&#x4EE5;&#x53CA;&#x6709;&#x5173;<strong>&#x5206;&#x9694;&#x7B26;</strong></li>
+<li><strong>&#x64CD;&#x4F5C;&#x6570;</strong>&#x53EF;&#x4EE5;&#x662F;<strong>&#x5E38;&#x6570;</strong>&#x548C;<strong>&#x53D8;&#x91CF;</strong></li>
 </ul>
 </li>
-<li>Halstead复杂度度量<ul>
-<li>设$n_1$表示程序中不同的操作符个数，$n_2$表示不同操作数的个数，$N_1$表示程序中出现的操作符的总数，$N_2$表示程序中出现操作数的总数</li>
-<li>Halstead 程序词汇表长度 Program vacabulary: $n = n_1 + n_2$</li>
-<li>实际Halstead长度 Program length: $N = N_1 + N_2$ </li>
-<li>以N^表示程序的预测长度 Calculated program length: N^ $= n_1 log_2(n_1) + n_2 log_2(n_2) $ </li>
-<li>Halstead的重要结论之一是：程序的时间长度N和预测长度N^非常接近，这表明即时程序还未编写完y呢预先估算出程序的实际长度N</li>
-<li>其他计算公式<ol>
-<li>程序的体积，容量 Volume: $V = (N) log_2(n)$ ，表示程序的词汇复杂度</li>
-<li>程序级别 Level: $\text {L^} = (2/n_1) \times (n_2/N_2)$ ，表示程序最紧凑形式的程序量和实际程序量的比，反映程序的效率</li>
-<li>程序难度 Difficult: $D = 1 / \text {L^}$ ， 表示程序算法的困难程度</li>
-<li>编程工作量 Effort: $ E = V \times D = V / \text {L^} $ </li>
-<li>智能级别 $I = \text {L^} \times E$ </li>
-<li>语言级别 $ L’ = \text {L^} \times \text {L^} \times V$</li>
-<li>编程时间(hours) $\text{T^} = E / (S\times f), \ \ \  S = 60\times 60, f = 18$  </li>
-<li>平均语句大小 $N/语句数$</li>
-<li>程序错误预测值 $ B = N \times log_2 (n_1 + n_2)/3000$ </li>
+<li>Halstead&#x590D;&#x6742;&#x5EA6;&#x5EA6;&#x91CF;<ul>
+<li>&#x8BBE;$n_1$&#x8868;&#x793A;&#x7A0B;&#x5E8F;&#x4E2D;&#x4E0D;&#x540C;&#x7684;&#x64CD;&#x4F5C;&#x7B26;&#x4E2A;&#x6570;&#xFF0C;$n_2$&#x8868;&#x793A;&#x4E0D;&#x540C;&#x64CD;&#x4F5C;&#x6570;&#x7684;&#x4E2A;&#x6570;&#xFF0C;$N_1$&#x8868;&#x793A;&#x7A0B;&#x5E8F;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x64CD;&#x4F5C;&#x7B26;&#x7684;&#x603B;&#x6570;&#xFF0C;$N_2$&#x8868;&#x793A;&#x7A0B;&#x5E8F;&#x4E2D;&#x51FA;&#x73B0;&#x64CD;&#x4F5C;&#x6570;&#x7684;&#x603B;&#x6570;</li>
+<li>Halstead &#x7A0B;&#x5E8F;&#x8BCD;&#x6C47;&#x8868;&#x957F;&#x5EA6; Program vacabulary: $n = n_1 + n_2$</li>
+<li>&#x5B9E;&#x9645;Halstead&#x957F;&#x5EA6; Program length: $N = N_1 + N_2$ </li>
+<li>&#x4EE5;N^&#x8868;&#x793A;&#x7A0B;&#x5E8F;&#x7684;&#x9884;&#x6D4B;&#x957F;&#x5EA6; Calculated program length: N^ $= n_1 log_2(n_1) + n_2 log_2(n_2) $ </li>
+<li>Halstead&#x7684;&#x91CD;&#x8981;&#x7ED3;&#x8BBA;&#x4E4B;&#x4E00;&#x662F;&#xFF1A;&#x7A0B;&#x5E8F;&#x7684;&#x65F6;&#x95F4;&#x957F;&#x5EA6;N&#x548C;&#x9884;&#x6D4B;&#x957F;&#x5EA6;N^&#x975E;&#x5E38;&#x63A5;&#x8FD1;&#xFF0C;&#x8FD9;&#x8868;&#x660E;&#x5373;&#x65F6;&#x7A0B;&#x5E8F;&#x8FD8;&#x672A;&#x7F16;&#x5199;&#x5B8C;y&#x5462;&#x9884;&#x5148;&#x4F30;&#x7B97;&#x51FA;&#x7A0B;&#x5E8F;&#x7684;&#x5B9E;&#x9645;&#x957F;&#x5EA6;N</li>
+<li>&#x5176;&#x4ED6;&#x8BA1;&#x7B97;&#x516C;&#x5F0F;<ol>
+<li>&#x7A0B;&#x5E8F;&#x7684;&#x4F53;&#x79EF;&#xFF0C;&#x5BB9;&#x91CF; Volume: $V = (N) log_2(n)$ &#xFF0C;&#x8868;&#x793A;&#x7A0B;&#x5E8F;&#x7684;&#x8BCD;&#x6C47;&#x590D;&#x6742;&#x5EA6;</li>
+<li>&#x7A0B;&#x5E8F;&#x7EA7;&#x522B; Level: $\text {L^} = (2/n_1) \times (n_2/N_2)$ &#xFF0C;&#x8868;&#x793A;&#x7A0B;&#x5E8F;&#x6700;&#x7D27;&#x51D1;&#x5F62;&#x5F0F;&#x7684;&#x7A0B;&#x5E8F;&#x91CF;&#x548C;&#x5B9E;&#x9645;&#x7A0B;&#x5E8F;&#x91CF;&#x7684;&#x6BD4;&#xFF0C;&#x53CD;&#x6620;&#x7A0B;&#x5E8F;&#x7684;&#x6548;&#x7387;</li>
+<li>&#x7A0B;&#x5E8F;&#x96BE;&#x5EA6; Difficult: $D = 1 / \text {L^}$ &#xFF0C; &#x8868;&#x793A;&#x7A0B;&#x5E8F;&#x7B97;&#x6CD5;&#x7684;&#x56F0;&#x96BE;&#x7A0B;&#x5EA6;</li>
+<li>&#x7F16;&#x7A0B;&#x5DE5;&#x4F5C;&#x91CF; Effort: $ E = V \times D = V / \text {L^} $ </li>
+<li>&#x667A;&#x80FD;&#x7EA7;&#x522B; $I = \text {L^} \times E$ </li>
+<li>&#x8BED;&#x8A00;&#x7EA7;&#x522B; $ L&#x2019; = \text {L^} \times \text {L^} \times V$</li>
+<li>&#x7F16;&#x7A0B;&#x65F6;&#x95F4;(hours) $\text{T^} = E / (S\times f), \ \ \  S = 60\times 60, f = 18$  </li>
+<li>&#x5E73;&#x5747;&#x8BED;&#x53E5;&#x5927;&#x5C0F; $N/&#x8BED;&#x53E5;&#x6570;$</li>
+<li>&#x7A0B;&#x5E8F;&#x9519;&#x8BEF;&#x9884;&#x6D4B;&#x503C; $ B = N \times log_2 (n_1 + n_2)/3000$ </li>
 </ol>
 </li>
 </ul>
 </li>
-<li>缺点<ul>
-<li>仅考虑程序数据量和程序体积，不考虑程序控制流的情况。</li>
-<li>不能从根本上反映程序复杂性。</li>
+<li>&#x7F3A;&#x70B9;<ul>
+<li>&#x4EC5;&#x8003;&#x8651;&#x7A0B;&#x5E8F;&#x6570;&#x636E;&#x91CF;&#x548C;&#x7A0B;&#x5E8F;&#x4F53;&#x79EF;&#xFF0C;&#x4E0D;&#x8003;&#x8651;&#x7A0B;&#x5E8F;&#x63A7;&#x5236;&#x6D41;&#x7684;&#x60C5;&#x51B5;&#x3002;</li>
+<li>&#x4E0D;&#x80FD;&#x4ECE;&#x6839;&#x672C;&#x4E0A;&#x53CD;&#x6620;&#x7A0B;&#x5E8F;&#x590D;&#x6742;&#x6027;&#x3002;</li>
 </ul>
 </li>
 </ul>
 <h2 id="2-Example"><a href="#2-Example" class="headerlink" title="2. Example"></a>2. Example</h2><ul>
-<li>计算下列程序的 Halstead 复杂度的10项内容</li>
+<li>&#x8BA1;&#x7B97;&#x4E0B;&#x5217;&#x7A0B;&#x5E8F;&#x7684; Halstead &#x590D;&#x6742;&#x5EA6;&#x7684;10&#x9879;&#x5185;&#x5BB9;</li>
 </ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">float</span> a, b, c, mean;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%f %f %f"</span>, &amp;a, &amp;b, &amp;c);</span><br><span class="line">    mean = a * b * c;</span><br><span class="line">    mean = <span class="built_in">pow</span>(mean, <span class="number">1.0</span> / <span class="number">3.0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Geometric Mean = %f"</span>, mean);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="keyword">float</span> a, b, c, mean;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%f %f %f&quot;</span>, &amp;a, &amp;b, &amp;c);</span><br><span class="line">    mean = a * b * c;</span><br><span class="line">    mean = <span class="built_in">pow</span>(mean, <span class="number">1.0</span> / <span class="number">3.0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Geometric Mean = %f&quot;</span>, mean);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th>指标</th>
-<th>数值</th>
-<th>项</th>
+<th>&#x6307;&#x6807;</th>
+<th>&#x6570;&#x503C;</th>
+<th>&#x9879;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>不同的操作符个数 $n_1$</td>
+<td>&#x4E0D;&#x540C;&#x7684;&#x64CD;&#x4F5C;&#x7B26;&#x4E2A;&#x6570; $n_1$</td>
 <td>18</td>
 <td><code>#,include, &lt;&gt;, stdio.h, math.h, int, main, (), {}, float, scanf, &amp;, =, *, pow, /, printf, return</code></td>
 </tr>
 <tr>
-<td>不同的操作数个数 $n_2$</td>
+<td>&#x4E0D;&#x540C;&#x7684;&#x64CD;&#x4F5C;&#x6570;&#x4E2A;&#x6570; $n_2$</td>
 <td>9</td>
 <td><code>a, b, c, mean, &quot;%f %f %f&quot;, 1.0, 3.0, &quot;Geometric Mean = %f&quot;, 0</code></td>
 </tr>
 <tr>
-<td>操作符个数 $N_1$</td>
+<td>&#x64CD;&#x4F5C;&#x7B26;&#x4E2A;&#x6570; $N_1$</td>
 <td>28</td>
 <td>-</td>
 </tr>
 <tr>
-<td>操作数个数 $N_2$</td>
+<td>&#x64CD;&#x4F5C;&#x6570;&#x4E2A;&#x6570; $N_2$</td>
 <td>19</td>
 <td>-</td>
 </tr>
 <tr>
-<td>程序词汇表长度 $n = n_1 + n_2$</td>
+<td>&#x7A0B;&#x5E8F;&#x8BCD;&#x6C47;&#x8868;&#x957F;&#x5EA6; $n = n_1 + n_2$</td>
 <td>27</td>
 <td>-</td>
 </tr>
 <tr>
-<td>简单长度 $N = N_1 + N_2$</td>
+<td>&#x7B80;&#x5355;&#x957F;&#x5EA6; $N = N_1 + N_2$</td>
 <td>47</td>
 <td>-</td>
 </tr>
 <tr>
-<td>程序预测长度 $\text{N^} = n_1log(n_1) + n_2log(n_2)$</td>
+<td>&#x7A0B;&#x5E8F;&#x9884;&#x6D4B;&#x957F;&#x5EA6; $\text{N^} = n_1log(n_1) + n_2log(n_2)$</td>
 <td>106.389629896</td>
 <td>-</td>
 </tr>
 <tr>
-<td>程序的体积，容量 Volume: $V = (N) log_2(n)$</td>
+<td>&#x7A0B;&#x5E8F;&#x7684;&#x4F53;&#x79EF;&#xFF0C;&#x5BB9;&#x91CF; Volume: $V = (N) log_2(n)$</td>
 <td>67.2740969155</td>
 <td>-</td>
 </tr>
 <tr>
-<td>程序级别 Level: $\text {L^} = (2/n_1) \times (n_2/N_2)$</td>
+<td>&#x7A0B;&#x5E8F;&#x7EA7;&#x522B; Level: $\text {L^} = (2/n_1) \times (n_2/N_2)$</td>
 <td>0.05263157894</td>
 <td>-</td>
 </tr>
 <tr>
-<td>程序难度 Difficult: $D = 1 / \text {L^}$</td>
+<td>&#x7A0B;&#x5E8F;&#x96BE;&#x5EA6; Difficult: $D = 1 / \text {L^}$</td>
 <td>19</td>
 <td>-</td>
 </tr>
 <tr>
-<td>编程工作量 Effort: $ E = V \times D = V / \text {L^} $</td>
+<td>&#x7F16;&#x7A0B;&#x5DE5;&#x4F5C;&#x91CF; Effort: $ E = V \times D = V / \text {L^} $</td>
 <td>1278.13</td>
 <td>-</td>
 </tr>
 <tr>
-<td>智能级别 $I = \text {L^} \times E$</td>
+<td>&#x667A;&#x80FD;&#x7EA7;&#x522B; $I = \text {L^} \times E$</td>
 <td>67.2740969155</td>
 <td>-</td>
 </tr>
 <tr>
-<td>语言级别 $ L’ = \text {L^} \times \text {L^} \times V$</td>
+<td>&#x8BED;&#x8A00;&#x7EA7;&#x522B; $ L&#x2019; = \text {L^} \times \text {L^} \times V$</td>
 <td>0.18181696</td>
 <td>-</td>
 </tr>
 <tr>
-<td>编程时间(hours) $\text{T^} = E / (S\times f), \ \ \  S = 60\times 60, f = 18$</td>
+<td>&#x7F16;&#x7A0B;&#x65F6;&#x95F4;(hours) $\text{T^} = E / (S\times f), \ \ \  S = 60\times 60, f = 18$</td>
 <td>0.01972222222</td>
 <td>-</td>
 </tr>
 <tr>
-<td>平均语句大小=$N/语句数$</td>
+<td>&#x5E73;&#x5747;&#x8BED;&#x53E5;&#x5927;&#x5C0F;=$N/&#x8BED;&#x53E5;&#x6570;$</td>
 <td>5.222222222</td>
 <td>-</td>
 </tr>
 <tr>
-<td>程序错误预测值 $ B = N \times log_2 (n_1 + n_2)/3000$</td>
+<td>&#x7A0B;&#x5E8F;&#x9519;&#x8BEF;&#x9884;&#x6D4B;&#x503C; $ B = N \times log_2 (n_1 + n_2)/3000$</td>
 <td>0.07449323753</td>
 <td>-</td>
 </tr>

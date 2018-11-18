@@ -401,81 +401,81 @@
       
 
       
-        <h2 id="1-状态建模基础"><a href="#1-状态建模基础" class="headerlink" title="1. 状态建模基础"></a>1. 状态建模基础</h2><blockquote>
+        <h2 id="1-&#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x57FA;&#x7840;"><a href="#1-&#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x57FA;&#x7840;" class="headerlink" title="1. &#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x57FA;&#x7840;"></a>1. &#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x57FA;&#x7840;</h2><blockquote>
 <p>References: <a href="http://www.cnblogs.com/ywqu/archive/2009/12/17/1626043.html" target="_blank" rel="noopener">http://www.cnblogs.com/ywqu/archive/2009/12/17/1626043.html</a></p>
 </blockquote>
-<h3 id="1-1-状态建模概念"><a href="#1-1-状态建模概念" class="headerlink" title="1.1 状态建模概念"></a>1.1 状态建模概念</h3><blockquote>
-<p>领域模型描述了问题域中事物及其之间的关系与量化的约束，我们需要进一步验证模型的有效性与完备性，管理这些事物的生命周期成为有效的方法 - 状态建模。它主要解决以下问题：</p>
+<h3 id="1-1-&#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x6982;&#x5FF5;"><a href="#1-1-&#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x6982;&#x5FF5;" class="headerlink" title="1.1 &#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x6982;&#x5FF5;"></a>1.1 &#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x6982;&#x5FF5;</h3><blockquote>
+<p>&#x9886;&#x57DF;&#x6A21;&#x578B;&#x63CF;&#x8FF0;&#x4E86;&#x95EE;&#x9898;&#x57DF;&#x4E2D;&#x4E8B;&#x7269;&#x53CA;&#x5176;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;&#x4E0E;&#x91CF;&#x5316;&#x7684;&#x7EA6;&#x675F;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8FDB;&#x4E00;&#x6B65;&#x9A8C;&#x8BC1;&#x6A21;&#x578B;&#x7684;&#x6709;&#x6548;&#x6027;&#x4E0E;&#x5B8C;&#x5907;&#x6027;&#xFF0C;&#x7BA1;&#x7406;&#x8FD9;&#x4E9B;&#x4E8B;&#x7269;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x6210;&#x4E3A;&#x6709;&#x6548;&#x7684;&#x65B9;&#x6CD5; - &#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x3002;&#x5B83;&#x4E3B;&#x8981;&#x89E3;&#x51B3;&#x4EE5;&#x4E0B;&#x95EE;&#x9898;&#xFF1A;</p>
 <ul>
-<li>从实例的角度识别业务事件，完善、优化业务过程的细节，细化业务过程与领域模型</li>
-<li>给出业务过程合理性与完备性验证</li>
-<li>为程序开发提供业务规范细节</li>
+<li>&#x4ECE;&#x5B9E;&#x4F8B;&#x7684;&#x89D2;&#x5EA6;&#x8BC6;&#x522B;&#x4E1A;&#x52A1;&#x4E8B;&#x4EF6;&#xFF0C;&#x5B8C;&#x5584;&#x3001;&#x4F18;&#x5316;&#x4E1A;&#x52A1;&#x8FC7;&#x7A0B;&#x7684;&#x7EC6;&#x8282;&#xFF0C;&#x7EC6;&#x5316;&#x4E1A;&#x52A1;&#x8FC7;&#x7A0B;&#x4E0E;&#x9886;&#x57DF;&#x6A21;&#x578B;</li>
+<li>&#x7ED9;&#x51FA;&#x4E1A;&#x52A1;&#x8FC7;&#x7A0B;&#x5408;&#x7406;&#x6027;&#x4E0E;&#x5B8C;&#x5907;&#x6027;&#x9A8C;&#x8BC1;</li>
+<li>&#x4E3A;&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x63D0;&#x4F9B;&#x4E1A;&#x52A1;&#x89C4;&#x8303;&#x7EC6;&#x8282;</li>
 </ul>
 </blockquote>
-<h3 id="1-2-UML-状态建模符号体系"><a href="#1-2-UML-状态建模符号体系" class="headerlink" title="1.2 UML 状态建模符号体系"></a>1.2 UML 状态建模符号体系</h3><p>状态图描述一个 <strong>事物或对象</strong> 受 <strong>事件或消息</strong> 刺激产生 可见的状态（属性/属性组合） 的数据变化。</p>
+<h3 id="1-2-UML-&#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x7B26;&#x53F7;&#x4F53;&#x7CFB;"><a href="#1-2-UML-&#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x7B26;&#x53F7;&#x4F53;&#x7CFB;" class="headerlink" title="1.2 UML &#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x7B26;&#x53F7;&#x4F53;&#x7CFB;"></a>1.2 UML &#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x7B26;&#x53F7;&#x4F53;&#x7CFB;</h3><p>&#x72B6;&#x6001;&#x56FE;&#x63CF;&#x8FF0;&#x4E00;&#x4E2A; <strong>&#x4E8B;&#x7269;&#x6216;&#x5BF9;&#x8C61;</strong> &#x53D7; <strong>&#x4E8B;&#x4EF6;&#x6216;&#x6D88;&#x606F;</strong> &#x523A;&#x6FC0;&#x4EA7;&#x751F; &#x53EF;&#x89C1;&#x7684;&#x72B6;&#x6001;&#xFF08;&#x5C5E;&#x6027;/&#x5C5E;&#x6027;&#x7EC4;&#x5408;&#xFF09; &#x7684;&#x6570;&#x636E;&#x53D8;&#x5316;&#x3002;</p>
 <ul>
-<li>基础符号<ul>
-<li>起始状态（Initial）</li>
-<li>终止状态（Final）</li>
-<li>取消/对象取消（Termination）</li>
-<li>状态（State）</li>
-<li>变迁（Transform），含条件（Condition）、事件（Event）和事件处理动作（Action/Handler）</li>
+<li>&#x57FA;&#x7840;&#x7B26;&#x53F7;<ul>
+<li>&#x8D77;&#x59CB;&#x72B6;&#x6001;&#xFF08;Initial&#xFF09;</li>
+<li>&#x7EC8;&#x6B62;&#x72B6;&#x6001;&#xFF08;Final&#xFF09;</li>
+<li>&#x53D6;&#x6D88;/&#x5BF9;&#x8C61;&#x53D6;&#x6D88;&#xFF08;Termination&#xFF09;</li>
+<li>&#x72B6;&#x6001;&#xFF08;State&#xFF09;</li>
+<li>&#x53D8;&#x8FC1;&#xFF08;Transform&#xFF09;&#xFF0C;&#x542B;&#x6761;&#x4EF6;&#xFF08;Condition&#xFF09;&#x3001;&#x4E8B;&#x4EF6;&#xFF08;Event&#xFF09;&#x548C;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x52A8;&#x4F5C;&#xFF08;Action/Handler&#xFF09;</li>
 </ul>
 </li>
-<li>扩展符号<ul>
-<li>复合状态</li>
-<li>信号</li>
+<li>&#x6269;&#x5C55;&#x7B26;&#x53F7;<ul>
+<li>&#x590D;&#x5408;&#x72B6;&#x6001;</li>
+<li>&#x4FE1;&#x53F7;</li>
 </ul>
 </li>
 </ul>
-<p><img src="/2018/05/04/状态建模学习/State.png" alt="State"></p>
+<p><img src="/2018/05/04/&#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x5B66;&#x4E60;/State.png" alt="State"></p>
 <blockquote>
-<p>绘图注意事项：</p>
+<p>&#x7ED8;&#x56FE;&#x6CE8;&#x610F;&#x4E8B;&#x9879;&#xFF1A;</p>
 <ul>
-<li><p>必须有起始状态，通常有终止和取消状态</p>
+<li><p>&#x5FC5;&#x987B;&#x6709;&#x8D77;&#x59CB;&#x72B6;&#x6001;&#xFF0C;&#x901A;&#x5E38;&#x6709;&#x7EC8;&#x6B62;&#x548C;&#x53D6;&#x6D88;&#x72B6;&#x6001;</p>
 </li>
-<li><p>状态命名要用名词短语、动词过去时或正在进行时等具有延续性的词汇</p>
+<li><p>&#x72B6;&#x6001;&#x547D;&#x540D;&#x8981;&#x7528;&#x540D;&#x8BCD;&#x77ED;&#x8BED;&#x3001;&#x52A8;&#x8BCD;&#x8FC7;&#x53BB;&#x65F6;&#x6216;&#x6B63;&#x5728;&#x8FDB;&#x884C;&#x65F6;&#x7B49;&#x5177;&#x6709;&#x5EF6;&#x7EED;&#x6027;&#x7684;&#x8BCD;&#x6C47;</p>
 </li>
-<li><p>在需求分析过程中，尽可能不涉及动作</p>
+<li><p>&#x5728;&#x9700;&#x6C42;&#x5206;&#x6790;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5C3D;&#x53EF;&#x80FD;&#x4E0D;&#x6D89;&#x53CA;&#x52A8;&#x4F5C;</p>
 </li>
 </ul>
 </blockquote>
-<h3 id="1-3-状态建模"><a href="#1-3-状态建模" class="headerlink" title="1.3 状态建模"></a>1.3 状态建模</h3><p>应用场景：</p>
+<h3 id="1-3-&#x72B6;&#x6001;&#x5EFA;&#x6A21;"><a href="#1-3-&#x72B6;&#x6001;&#x5EFA;&#x6A21;" class="headerlink" title="1.3 &#x72B6;&#x6001;&#x5EFA;&#x6A21;"></a>1.3 &#x72B6;&#x6001;&#x5EFA;&#x6A21;</h3><p>&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF1A;</p>
 <ul>
-<li>需求建模。 与客户讨论关键事物的变化过程。 进一步细化 用例图 或 用例场景。</li>
-<li>OOD/P 软件设计。 关键数据的变化；表达状态机；状态机模式（GOF）</li>
+<li>&#x9700;&#x6C42;&#x5EFA;&#x6A21;&#x3002; &#x4E0E;&#x5BA2;&#x6237;&#x8BA8;&#x8BBA;&#x5173;&#x952E;&#x4E8B;&#x7269;&#x7684;&#x53D8;&#x5316;&#x8FC7;&#x7A0B;&#x3002; &#x8FDB;&#x4E00;&#x6B65;&#x7EC6;&#x5316; &#x7528;&#x4F8B;&#x56FE; &#x6216; &#x7528;&#x4F8B;&#x573A;&#x666F;&#x3002;</li>
+<li>OOD/P &#x8F6F;&#x4EF6;&#x8BBE;&#x8BA1;&#x3002; &#x5173;&#x952E;&#x6570;&#x636E;&#x7684;&#x53D8;&#x5316;&#xFF1B;&#x8868;&#x8FBE;&#x72B6;&#x6001;&#x673A;&#xFF1B;&#x72B6;&#x6001;&#x673A;&#x6A21;&#x5F0F;&#xFF08;GOF&#xFF09;</li>
 </ul>
-<p>工作步骤：</p>
+<p>&#x5DE5;&#x4F5C;&#x6B65;&#x9AA4;&#xFF1A;</p>
 <ol>
-<li>确定研究对象<ul>
-<li>这是最难的！系统作为一个对象？所有对象？</li>
-<li>通常是客户关注的业务交易实体，如订单，凭证等</li>
+<li>&#x786E;&#x5B9A;&#x7814;&#x7A76;&#x5BF9;&#x8C61;<ul>
+<li>&#x8FD9;&#x662F;&#x6700;&#x96BE;&#x7684;&#xFF01;&#x7CFB;&#x7EDF;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF1F;&#x6240;&#x6709;&#x5BF9;&#x8C61;&#xFF1F;</li>
+<li>&#x901A;&#x5E38;&#x662F;&#x5BA2;&#x6237;&#x5173;&#x6CE8;&#x7684;&#x4E1A;&#x52A1;&#x4EA4;&#x6613;&#x5B9E;&#x4F53;&#xFF0C;&#x5982;&#x8BA2;&#x5355;&#xFF0C;&#x51ED;&#x8BC1;&#x7B49;</li>
 </ul>
 </li>
-<li>识别状态集合<ul>
-<li>I， F， S={S0…Sk}</li>
-<li>状态不一定是门的开或关闭这样简单属性，可能是属性复杂的组合</li>
-<li>事物中包含的 mode 和 state 属性</li>
+<li>&#x8BC6;&#x522B;&#x72B6;&#x6001;&#x96C6;&#x5408;<ul>
+<li>I&#xFF0C; F&#xFF0C; S={S0&#x2026;Sk}</li>
+<li>&#x72B6;&#x6001;&#x4E0D;&#x4E00;&#x5B9A;&#x662F;&#x95E8;&#x7684;&#x5F00;&#x6216;&#x5173;&#x95ED;&#x8FD9;&#x6837;&#x7B80;&#x5355;&#x5C5E;&#x6027;&#xFF0C;&#x53EF;&#x80FD;&#x662F;&#x5C5E;&#x6027;&#x590D;&#x6742;&#x7684;&#x7EC4;&#x5408;</li>
+<li>&#x4E8B;&#x7269;&#x4E2D;&#x5305;&#x542B;&#x7684; mode &#x548C; state &#x5C5E;&#x6027;</li>
 </ul>
 </li>
-<li>识别事件和变迁条件</li>
-<li>合理性、完整性检查与逻辑分析<ul>
-<li>终点的可达性</li>
-<li>悬挂状态</li>
-<li>循环分析（死循环条件与风险）</li>
-<li>路径分析（最短路径、关键路径、平均距离）</li>
+<li>&#x8BC6;&#x522B;&#x4E8B;&#x4EF6;&#x548C;&#x53D8;&#x8FC1;&#x6761;&#x4EF6;</li>
+<li>&#x5408;&#x7406;&#x6027;&#x3001;&#x5B8C;&#x6574;&#x6027;&#x68C0;&#x67E5;&#x4E0E;&#x903B;&#x8F91;&#x5206;&#x6790;<ul>
+<li>&#x7EC8;&#x70B9;&#x7684;&#x53EF;&#x8FBE;&#x6027;</li>
+<li>&#x60AC;&#x6302;&#x72B6;&#x6001;</li>
+<li>&#x5FAA;&#x73AF;&#x5206;&#x6790;&#xFF08;&#x6B7B;&#x5FAA;&#x73AF;&#x6761;&#x4EF6;&#x4E0E;&#x98CE;&#x9669;&#xFF09;</li>
+<li>&#x8DEF;&#x5F84;&#x5206;&#x6790;&#xFF08;&#x6700;&#x77ED;&#x8DEF;&#x5F84;&#x3001;&#x5173;&#x952E;&#x8DEF;&#x5F84;&#x3001;&#x5E73;&#x5747;&#x8DDD;&#x79BB;&#xFF09;</li>
 </ul>
 </li>
 </ol>
-<h2 id="2-实例"><a href="#2-实例" class="headerlink" title="2. 实例"></a>2. 实例</h2><blockquote>
-<p>建模工具： UMLet 14.1.1 stand-alone</p>
+<h2 id="2-&#x5B9E;&#x4F8B;"><a href="#2-&#x5B9E;&#x4F8B;" class="headerlink" title="2. &#x5B9E;&#x4F8B;"></a>2. &#x5B9E;&#x4F8B;</h2><blockquote>
+<p>&#x5EFA;&#x6A21;&#x5DE5;&#x5177;&#xFF1A; UMLet 14.1.1 stand-alone</p>
 </blockquote>
-<h3 id="2-1-使用-UML-State-Model"><a href="#2-1-使用-UML-State-Model" class="headerlink" title="2.1 使用 UML State Model"></a>2.1 使用 UML State Model</h3><ul>
-<li>建模对象： 参考 Asg_RH 文档， 对 Reservation/Order 对象建模。</li>
-<li>建模要求： 参考练习不能提供足够信息帮助你对订单对象建模，请参考现在 定旅馆 的旅游网站，尽可能分析围绕订单发生的各种情况，直到订单通过销售事件（柜台销售）结束订单。</li>
+<h3 id="2-1-&#x4F7F;&#x7528;-UML-State-Model"><a href="#2-1-&#x4F7F;&#x7528;-UML-State-Model" class="headerlink" title="2.1 &#x4F7F;&#x7528; UML State Model"></a>2.1 &#x4F7F;&#x7528; UML State Model</h3><ul>
+<li>&#x5EFA;&#x6A21;&#x5BF9;&#x8C61;&#xFF1A; &#x53C2;&#x8003; Asg_RH &#x6587;&#x6863;&#xFF0C; &#x5BF9; Reservation/Order &#x5BF9;&#x8C61;&#x5EFA;&#x6A21;&#x3002;</li>
+<li>&#x5EFA;&#x6A21;&#x8981;&#x6C42;&#xFF1A; &#x53C2;&#x8003;&#x7EC3;&#x4E60;&#x4E0D;&#x80FD;&#x63D0;&#x4F9B;&#x8DB3;&#x591F;&#x4FE1;&#x606F;&#x5E2E;&#x52A9;&#x4F60;&#x5BF9;&#x8BA2;&#x5355;&#x5BF9;&#x8C61;&#x5EFA;&#x6A21;&#xFF0C;&#x8BF7;&#x53C2;&#x8003;&#x73B0;&#x5728; &#x5B9A;&#x65C5;&#x9986; &#x7684;&#x65C5;&#x6E38;&#x7F51;&#x7AD9;&#xFF0C;&#x5C3D;&#x53EF;&#x80FD;&#x5206;&#x6790;&#x56F4;&#x7ED5;&#x8BA2;&#x5355;&#x53D1;&#x751F;&#x7684;&#x5404;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x76F4;&#x5230;&#x8BA2;&#x5355;&#x901A;&#x8FC7;&#x9500;&#x552E;&#x4E8B;&#x4EF6;&#xFF08;&#x67DC;&#x53F0;&#x9500;&#x552E;&#xFF09;&#x7ED3;&#x675F;&#x8BA2;&#x5355;&#x3002;</li>
 </ul>
-<p><img src="/2018/05/04/状态建模学习/Asg订单状态图.png" alt="Asg订单状态图"></p>
-<h3 id="2-2-研究淘宝退货流程活动图，对退货业务对象状态建模"><a href="#2-2-研究淘宝退货流程活动图，对退货业务对象状态建模" class="headerlink" title="2.2 研究淘宝退货流程活动图，对退货业务对象状态建模"></a>2.2 研究淘宝退货流程活动图，对退货业务对象状态建模</h3><p><img src="/2018/05/04/状态建模学习/淘宝退款业务订单状态建模.png" alt="淘宝退款业务订单状态建模"></p>
+<p><img src="/2018/05/04/&#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x5B66;&#x4E60;/Asg&#x8BA2;&#x5355;&#x72B6;&#x6001;&#x56FE;.png" alt="Asg&#x8BA2;&#x5355;&#x72B6;&#x6001;&#x56FE;"></p>
+<h3 id="2-2-&#x7814;&#x7A76;&#x6DD8;&#x5B9D;&#x9000;&#x8D27;&#x6D41;&#x7A0B;&#x6D3B;&#x52A8;&#x56FE;&#xFF0C;&#x5BF9;&#x9000;&#x8D27;&#x4E1A;&#x52A1;&#x5BF9;&#x8C61;&#x72B6;&#x6001;&#x5EFA;&#x6A21;"><a href="#2-2-&#x7814;&#x7A76;&#x6DD8;&#x5B9D;&#x9000;&#x8D27;&#x6D41;&#x7A0B;&#x6D3B;&#x52A8;&#x56FE;&#xFF0C;&#x5BF9;&#x9000;&#x8D27;&#x4E1A;&#x52A1;&#x5BF9;&#x8C61;&#x72B6;&#x6001;&#x5EFA;&#x6A21;" class="headerlink" title="2.2 &#x7814;&#x7A76;&#x6DD8;&#x5B9D;&#x9000;&#x8D27;&#x6D41;&#x7A0B;&#x6D3B;&#x52A8;&#x56FE;&#xFF0C;&#x5BF9;&#x9000;&#x8D27;&#x4E1A;&#x52A1;&#x5BF9;&#x8C61;&#x72B6;&#x6001;&#x5EFA;&#x6A21;"></a>2.2 &#x7814;&#x7A76;&#x6DD8;&#x5B9D;&#x9000;&#x8D27;&#x6D41;&#x7A0B;&#x6D3B;&#x52A8;&#x56FE;&#xFF0C;&#x5BF9;&#x9000;&#x8D27;&#x4E1A;&#x52A1;&#x5BF9;&#x8C61;&#x72B6;&#x6001;&#x5EFA;&#x6A21;</h3><p><img src="/2018/05/04/&#x72B6;&#x6001;&#x5EFA;&#x6A21;&#x5B66;&#x4E60;/&#x6DD8;&#x5B9D;&#x9000;&#x6B3E;&#x4E1A;&#x52A1;&#x8BA2;&#x5355;&#x72B6;&#x6001;&#x5EFA;&#x6A21;.png" alt="&#x6DD8;&#x5B9D;&#x9000;&#x6B3E;&#x4E1A;&#x52A1;&#x8BA2;&#x5355;&#x72B6;&#x6001;&#x5EFA;&#x6A21;"></p>
 
       
     </div>

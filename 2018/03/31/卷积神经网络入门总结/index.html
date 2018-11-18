@@ -399,157 +399,157 @@
       
 
       
-        <h2 id="一、基础概念学习"><a href="#一、基础概念学习" class="headerlink" title="一、基础概念学习"></a>一、基础概念学习</h2><h3 id="1-感知机"><a href="#1-感知机" class="headerlink" title="1. 感知机"></a>1. 感知机</h3><h4 id="1-1-感知机模型"><a href="#1-1-感知机模型" class="headerlink" title="1.1 感知机模型"></a>1.1 感知机模型</h4><blockquote>
+        <h2 id="&#x4E00;&#x3001;&#x57FA;&#x7840;&#x6982;&#x5FF5;&#x5B66;&#x4E60;"><a href="#&#x4E00;&#x3001;&#x57FA;&#x7840;&#x6982;&#x5FF5;&#x5B66;&#x4E60;" class="headerlink" title="&#x4E00;&#x3001;&#x57FA;&#x7840;&#x6982;&#x5FF5;&#x5B66;&#x4E60;"></a>&#x4E00;&#x3001;&#x57FA;&#x7840;&#x6982;&#x5FF5;&#x5B66;&#x4E60;</h2><h3 id="1-&#x611F;&#x77E5;&#x673A;"><a href="#1-&#x611F;&#x77E5;&#x673A;" class="headerlink" title="1. &#x611F;&#x77E5;&#x673A;"></a>1. &#x611F;&#x77E5;&#x673A;</h3><h4 id="1-1-&#x611F;&#x77E5;&#x673A;&#x6A21;&#x578B;"><a href="#1-1-&#x611F;&#x77E5;&#x673A;&#x6A21;&#x578B;" class="headerlink" title="1.1 &#x611F;&#x77E5;&#x673A;&#x6A21;&#x578B;"></a>1.1 &#x611F;&#x77E5;&#x673A;&#x6A21;&#x578B;</h4><blockquote>
 <p>$f(x) = sign(w\cdot x+b)$</p>
 </blockquote>
-<p>简单判别模型，输出为正负号</p>
-<h4 id="1-2-感知机学习策略"><a href="#1-2-感知机学习策略" class="headerlink" title="1.2 感知机学习策略"></a>1.2 感知机学习策略</h4><blockquote>
-<p>通过第一范式或第二范式等形式</p>
+<p>&#x7B80;&#x5355;&#x5224;&#x522B;&#x6A21;&#x578B;&#xFF0C;&#x8F93;&#x51FA;&#x4E3A;&#x6B63;&#x8D1F;&#x53F7;</p>
+<h4 id="1-2-&#x611F;&#x77E5;&#x673A;&#x5B66;&#x4E60;&#x7B56;&#x7565;"><a href="#1-2-&#x611F;&#x77E5;&#x673A;&#x5B66;&#x4E60;&#x7B56;&#x7565;" class="headerlink" title="1.2 &#x611F;&#x77E5;&#x673A;&#x5B66;&#x4E60;&#x7B56;&#x7565;"></a>1.2 &#x611F;&#x77E5;&#x673A;&#x5B66;&#x4E60;&#x7B56;&#x7565;</h4><blockquote>
+<p>&#x901A;&#x8FC7;&#x7B2C;&#x4E00;&#x8303;&#x5F0F;&#x6216;&#x7B2C;&#x4E8C;&#x8303;&#x5F0F;&#x7B49;&#x5F62;&#x5F0F;</p>
 </blockquote>
-<p>如第二范式损失函数（残差平方和）：$L(f) =\sum (f(x_i) - y_i)^2 =\sum (\hat {y_i}- y_i)^2$ </p>
-<p>模型的损失函数越低，说明模型越好</p>
-<h4 id="1-3-感知机学习算法"><a href="#1-3-感知机学习算法" class="headerlink" title="1.3 感知机学习算法"></a>1.3 感知机学习算法</h4><h5 id="1-3-1-梯度的概念"><a href="#1-3-1-梯度的概念" class="headerlink" title="1.3.1 梯度的概念"></a>1.3.1 梯度的概念</h5><blockquote>
-<p>即为某函数$F(x_1, x_2, …, x_n)$ 对各个变量求导后得到的向量$\overrightarrow v = [\frac {dF} {dx_1}, \frac {dF} {dx_2}, \frac {dF} {dx_3}, ….. \frac {dF} {dx_n}]$</p>
-<p>方向代表F在点$[x_1, x_2, … x_n]$ 指向F斜率最大的方向（F变大的方向）</p>
+<p>&#x5982;&#x7B2C;&#x4E8C;&#x8303;&#x5F0F;&#x635F;&#x5931;&#x51FD;&#x6570;&#xFF08;&#x6B8B;&#x5DEE;&#x5E73;&#x65B9;&#x548C;&#xFF09;&#xFF1A;$L(f) =\sum (f(x_i) - y_i)^2 =\sum (\hat {y_i}- y_i)^2$ </p>
+<p>&#x6A21;&#x578B;&#x7684;&#x635F;&#x5931;&#x51FD;&#x6570;&#x8D8A;&#x4F4E;&#xFF0C;&#x8BF4;&#x660E;&#x6A21;&#x578B;&#x8D8A;&#x597D;</p>
+<h4 id="1-3-&#x611F;&#x77E5;&#x673A;&#x5B66;&#x4E60;&#x7B97;&#x6CD5;"><a href="#1-3-&#x611F;&#x77E5;&#x673A;&#x5B66;&#x4E60;&#x7B97;&#x6CD5;" class="headerlink" title="1.3 &#x611F;&#x77E5;&#x673A;&#x5B66;&#x4E60;&#x7B97;&#x6CD5;"></a>1.3 &#x611F;&#x77E5;&#x673A;&#x5B66;&#x4E60;&#x7B97;&#x6CD5;</h4><h5 id="1-3-1-&#x68AF;&#x5EA6;&#x7684;&#x6982;&#x5FF5;"><a href="#1-3-1-&#x68AF;&#x5EA6;&#x7684;&#x6982;&#x5FF5;" class="headerlink" title="1.3.1 &#x68AF;&#x5EA6;&#x7684;&#x6982;&#x5FF5;"></a>1.3.1 &#x68AF;&#x5EA6;&#x7684;&#x6982;&#x5FF5;</h5><blockquote>
+<p>&#x5373;&#x4E3A;&#x67D0;&#x51FD;&#x6570;$F(x_1, x_2, &#x2026;, x_n)$ &#x5BF9;&#x5404;&#x4E2A;&#x53D8;&#x91CF;&#x6C42;&#x5BFC;&#x540E;&#x5F97;&#x5230;&#x7684;&#x5411;&#x91CF;$\overrightarrow v = [\frac {dF} {dx_1}, \frac {dF} {dx_2}, \frac {dF} {dx_3}, &#x2026;.. \frac {dF} {dx_n}]$</p>
+<p>&#x65B9;&#x5411;&#x4EE3;&#x8868;F&#x5728;&#x70B9;$[x_1, x_2, &#x2026; x_n]$ &#x6307;&#x5411;F&#x659C;&#x7387;&#x6700;&#x5927;&#x7684;&#x65B9;&#x5411;&#xFF08;F&#x53D8;&#x5927;&#x7684;&#x65B9;&#x5411;&#xFF09;</p>
 </blockquote>
-<h5 id="1-3-2-梯度下降法"><a href="#1-3-2-梯度下降法" class="headerlink" title="1.3.2 梯度下降法"></a>1.3.2 梯度下降法</h5><blockquote>
-<p>为了计算最小化损失函数，即为位于$L$的偏导为零的极小值（假设$L$是可导函数）</p>
+<h5 id="1-3-2-&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;"><a href="#1-3-2-&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;" class="headerlink" title="1.3.2 &#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;"></a>1.3.2 &#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;</h5><blockquote>
+<p>&#x4E3A;&#x4E86;&#x8BA1;&#x7B97;&#x6700;&#x5C0F;&#x5316;&#x635F;&#x5931;&#x51FD;&#x6570;&#xFF0C;&#x5373;&#x4E3A;&#x4F4D;&#x4E8E;$L$&#x7684;&#x504F;&#x5BFC;&#x4E3A;&#x96F6;&#x7684;&#x6781;&#x5C0F;&#x503C;&#xFF08;&#x5047;&#x8BBE;$L$&#x662F;&#x53EF;&#x5BFC;&#x51FD;&#x6570;&#xFF09;</p>
 </blockquote>
 <ol>
-<li>通过解析解求极值</li>
+<li>&#x901A;&#x8FC7;&#x89E3;&#x6790;&#x89E3;&#x6C42;&#x6781;&#x503C;</li>
 </ol>
-<p>使得偏导数为零，列方程组解方程，矩阵方程组求解（计算量大，容易失去精度）</p>
+<p>&#x4F7F;&#x5F97;&#x504F;&#x5BFC;&#x6570;&#x4E3A;&#x96F6;&#xFF0C;&#x5217;&#x65B9;&#x7A0B;&#x7EC4;&#x89E3;&#x65B9;&#x7A0B;&#xFF0C;&#x77E9;&#x9635;&#x65B9;&#x7A0B;&#x7EC4;&#x6C42;&#x89E3;&#xFF08;&#x8BA1;&#x7B97;&#x91CF;&#x5927;&#xFF0C;&#x5BB9;&#x6613;&#x5931;&#x53BB;&#x7CBE;&#x5EA6;&#xFF09;</p>
 <ol>
-<li>通过数值解求极值</li>
+<li>&#x901A;&#x8FC7;&#x6570;&#x503C;&#x89E3;&#x6C42;&#x6781;&#x503C;</li>
 </ol>
-<p>通过迭代更新规则$w = w + \eta \cdot \nabla w$， $b = b + \eta \cdot \nabla b $ </p>
-<p>$\nabla w, \nabla b$ 为梯度，$\eta $ 为学习率</p>
+<p>&#x901A;&#x8FC7;&#x8FED;&#x4EE3;&#x66F4;&#x65B0;&#x89C4;&#x5219;$w = w + \eta \cdot \nabla w$&#xFF0C; $b = b + \eta \cdot \nabla b $ </p>
+<p>$\nabla w, \nabla b$ &#x4E3A;&#x68AF;&#x5EA6;&#xFF0C;$\eta $ &#x4E3A;&#x5B66;&#x4E60;&#x7387;</p>
 <blockquote>
-<p>注意sign不可导</p>
+<p>&#x6CE8;&#x610F;sign&#x4E0D;&#x53EF;&#x5BFC;</p>
 </blockquote>
-<h3 id="2-多层感知网络-人工神经网络（ANN）"><a href="#2-多层感知网络-人工神经网络（ANN）" class="headerlink" title="2. 多层感知网络/人工神经网络（ANN）"></a>2. 多层感知网络/人工神经网络（ANN）</h3><blockquote>
-<p>多层感知机，中将多个感知机单元按照层与层的关系连接输入输出，使得数据在网络中的传输方向是不断向前的，也叫做前向网络；由于类似脑中的神经元拓扑结构，也叫人工神经网络</p>
+<h3 id="2-&#x591A;&#x5C42;&#x611F;&#x77E5;&#x7F51;&#x7EDC;-&#x4EBA;&#x5DE5;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#xFF08;ANN&#xFF09;"><a href="#2-&#x591A;&#x5C42;&#x611F;&#x77E5;&#x7F51;&#x7EDC;-&#x4EBA;&#x5DE5;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#xFF08;ANN&#xFF09;" class="headerlink" title="2. &#x591A;&#x5C42;&#x611F;&#x77E5;&#x7F51;&#x7EDC;/&#x4EBA;&#x5DE5;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#xFF08;ANN&#xFF09;"></a>2. &#x591A;&#x5C42;&#x611F;&#x77E5;&#x7F51;&#x7EDC;/&#x4EBA;&#x5DE5;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#xFF08;ANN&#xFF09;</h3><blockquote>
+<p>&#x591A;&#x5C42;&#x611F;&#x77E5;&#x673A;&#xFF0C;&#x4E2D;&#x5C06;&#x591A;&#x4E2A;&#x611F;&#x77E5;&#x673A;&#x5355;&#x5143;&#x6309;&#x7167;&#x5C42;&#x4E0E;&#x5C42;&#x7684;&#x5173;&#x7CFB;&#x8FDE;&#x63A5;&#x8F93;&#x5165;&#x8F93;&#x51FA;&#xFF0C;&#x4F7F;&#x5F97;&#x6570;&#x636E;&#x5728;&#x7F51;&#x7EDC;&#x4E2D;&#x7684;&#x4F20;&#x8F93;&#x65B9;&#x5411;&#x662F;&#x4E0D;&#x65AD;&#x5411;&#x524D;&#x7684;&#xFF0C;&#x4E5F;&#x53EB;&#x505A;&#x524D;&#x5411;&#x7F51;&#x7EDC;&#xFF1B;&#x7531;&#x4E8E;&#x7C7B;&#x4F3C;&#x8111;&#x4E2D;&#x7684;&#x795E;&#x7ECF;&#x5143;&#x62D3;&#x6251;&#x7ED3;&#x6784;&#xFF0C;&#x4E5F;&#x53EB;&#x4EBA;&#x5DE5;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;</p>
 </blockquote>
-<h4 id="2-1-激励函数"><a href="#2-1-激励函数" class="headerlink" title="2.1 激励函数"></a>2.1 激励函数</h4><blockquote>
-<p>激励函数为模型添加非线性化</p>
+<h4 id="2-1-&#x6FC0;&#x52B1;&#x51FD;&#x6570;"><a href="#2-1-&#x6FC0;&#x52B1;&#x51FD;&#x6570;" class="headerlink" title="2.1 &#x6FC0;&#x52B1;&#x51FD;&#x6570;"></a>2.1 &#x6FC0;&#x52B1;&#x51FD;&#x6570;</h4><blockquote>
+<p>&#x6FC0;&#x52B1;&#x51FD;&#x6570;&#x4E3A;&#x6A21;&#x578B;&#x6DFB;&#x52A0;&#x975E;&#x7EBF;&#x6027;&#x5316;</p>
 </blockquote>
-<p>多层网络中对感知机做出了改进，激励函数改用一个S型函数（sigmoid），$S(x) = \frac 1 {1 + e^{-x}}$，解决$sign(x)$不可导的问题，</p>
-<h4 id="2-2-网络结构"><a href="#2-2-网络结构" class="headerlink" title="2.2 网络结构"></a>2.2 网络结构</h4><blockquote>
-<p>一层由多个感知机单元组成，上一层结构的所有感知机的输出将输入当前层每个神经元</p>
-<p>即为每个神经元需要以上一层所有神经元的输出作为输入，所以也就全连接</p>
+<p>&#x591A;&#x5C42;&#x7F51;&#x7EDC;&#x4E2D;&#x5BF9;&#x611F;&#x77E5;&#x673A;&#x505A;&#x51FA;&#x4E86;&#x6539;&#x8FDB;&#xFF0C;&#x6FC0;&#x52B1;&#x51FD;&#x6570;&#x6539;&#x7528;&#x4E00;&#x4E2A;S&#x578B;&#x51FD;&#x6570;&#xFF08;sigmoid&#xFF09;&#xFF0C;$S(x) = \frac 1 {1 + e^{-x}}$&#xFF0C;&#x89E3;&#x51B3;$sign(x)$&#x4E0D;&#x53EF;&#x5BFC;&#x7684;&#x95EE;&#x9898;&#xFF0C;</p>
+<h4 id="2-2-&#x7F51;&#x7EDC;&#x7ED3;&#x6784;"><a href="#2-2-&#x7F51;&#x7EDC;&#x7ED3;&#x6784;" class="headerlink" title="2.2 &#x7F51;&#x7EDC;&#x7ED3;&#x6784;"></a>2.2 &#x7F51;&#x7EDC;&#x7ED3;&#x6784;</h4><blockquote>
+<p>&#x4E00;&#x5C42;&#x7531;&#x591A;&#x4E2A;&#x611F;&#x77E5;&#x673A;&#x5355;&#x5143;&#x7EC4;&#x6210;&#xFF0C;&#x4E0A;&#x4E00;&#x5C42;&#x7ED3;&#x6784;&#x7684;&#x6240;&#x6709;&#x611F;&#x77E5;&#x673A;&#x7684;&#x8F93;&#x51FA;&#x5C06;&#x8F93;&#x5165;&#x5F53;&#x524D;&#x5C42;&#x6BCF;&#x4E2A;&#x795E;&#x7ECF;&#x5143;</p>
+<p>&#x5373;&#x4E3A;&#x6BCF;&#x4E2A;&#x795E;&#x7ECF;&#x5143;&#x9700;&#x8981;&#x4EE5;&#x4E0A;&#x4E00;&#x5C42;&#x6240;&#x6709;&#x795E;&#x7ECF;&#x5143;&#x7684;&#x8F93;&#x51FA;&#x4F5C;&#x4E3A;&#x8F93;&#x5165;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x5C31;&#x5168;&#x8FDE;&#x63A5;</p>
 </blockquote>
-<p>输入层+隐藏层+输出层</p>
+<p>&#x8F93;&#x5165;&#x5C42;+&#x9690;&#x85CF;&#x5C42;+&#x8F93;&#x51FA;&#x5C42;</p>
 <blockquote>
-<p>对于多分类问题，可能结尾会需要使用一个softmax函数转换为概率分布</p>
+<p>&#x5BF9;&#x4E8E;&#x591A;&#x5206;&#x7C7B;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x80FD;&#x7ED3;&#x5C3E;&#x4F1A;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;softmax&#x51FD;&#x6570;&#x8F6C;&#x6362;&#x4E3A;&#x6982;&#x7387;&#x5206;&#x5E03;</p>
 </blockquote>
-<h4 id="2-3-反向传播算法"><a href="#2-3-反向传播算法" class="headerlink" title="2.3 反向传播算法"></a>2.3 反向传播算法</h4><p>由于出现了多层网络，就出现一个问题，原来的梯度下降法是否用于模型的优化呢？</p>
-<p>答案是可以的，在BP的论文中给予了证明，即通过<strong>链式法则</strong>求各层各个参数的偏导数。</p>
+<h4 id="2-3-&#x53CD;&#x5411;&#x4F20;&#x64AD;&#x7B97;&#x6CD5;"><a href="#2-3-&#x53CD;&#x5411;&#x4F20;&#x64AD;&#x7B97;&#x6CD5;" class="headerlink" title="2.3 &#x53CD;&#x5411;&#x4F20;&#x64AD;&#x7B97;&#x6CD5;"></a>2.3 &#x53CD;&#x5411;&#x4F20;&#x64AD;&#x7B97;&#x6CD5;</h4><p>&#x7531;&#x4E8E;&#x51FA;&#x73B0;&#x4E86;&#x591A;&#x5C42;&#x7F51;&#x7EDC;&#xFF0C;&#x5C31;&#x51FA;&#x73B0;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x539F;&#x6765;&#x7684;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x662F;&#x5426;&#x7528;&#x4E8E;&#x6A21;&#x578B;&#x7684;&#x4F18;&#x5316;&#x5462;&#xFF1F;</p>
+<p>&#x7B54;&#x6848;&#x662F;&#x53EF;&#x4EE5;&#x7684;&#xFF0C;&#x5728;BP&#x7684;&#x8BBA;&#x6587;&#x4E2D;&#x7ED9;&#x4E88;&#x4E86;&#x8BC1;&#x660E;&#xFF0C;&#x5373;&#x901A;&#x8FC7;<strong>&#x94FE;&#x5F0F;&#x6CD5;&#x5219;</strong>&#x6C42;&#x5404;&#x5C42;&#x5404;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x504F;&#x5BFC;&#x6570;&#x3002;</p>
 <ul>
-<li>BP的核心指出，在网络中下一层的得到的梯度，可以在上一层梯度计算的过程中使用，所以各层的梯度计算是一个递推的过程，所以每层的时间复杂度都是相同的，指出多层网络中的梯度计算是可行的</li>
+<li>BP&#x7684;&#x6838;&#x5FC3;&#x6307;&#x51FA;&#xFF0C;&#x5728;&#x7F51;&#x7EDC;&#x4E2D;&#x4E0B;&#x4E00;&#x5C42;&#x7684;&#x5F97;&#x5230;&#x7684;&#x68AF;&#x5EA6;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x4E0A;&#x4E00;&#x5C42;&#x68AF;&#x5EA6;&#x8BA1;&#x7B97;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x4F7F;&#x7528;&#xFF0C;&#x6240;&#x4EE5;&#x5404;&#x5C42;&#x7684;&#x68AF;&#x5EA6;&#x8BA1;&#x7B97;&#x662F;&#x4E00;&#x4E2A;&#x9012;&#x63A8;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x6240;&#x4EE5;&#x6BCF;&#x5C42;&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x90FD;&#x662F;&#x76F8;&#x540C;&#x7684;&#xFF0C;&#x6307;&#x51FA;&#x591A;&#x5C42;&#x7F51;&#x7EDC;&#x4E2D;&#x7684;&#x68AF;&#x5EA6;&#x8BA1;&#x7B97;&#x662F;&#x53EF;&#x884C;&#x7684;</li>
 </ul>
 <blockquote>
-<p>由于梯度的计算是从网络的输出层计算到输入层，与前向网络的方向（输入层到输出层）相反，同时由于梯度的计算是层次相关的，类似传播的过程，所以叫做反向传播算法</p>
+<p>&#x7531;&#x4E8E;&#x68AF;&#x5EA6;&#x7684;&#x8BA1;&#x7B97;&#x662F;&#x4ECE;&#x7F51;&#x7EDC;&#x7684;&#x8F93;&#x51FA;&#x5C42;&#x8BA1;&#x7B97;&#x5230;&#x8F93;&#x5165;&#x5C42;&#xFF0C;&#x4E0E;&#x524D;&#x5411;&#x7F51;&#x7EDC;&#x7684;&#x65B9;&#x5411;&#xFF08;&#x8F93;&#x5165;&#x5C42;&#x5230;&#x8F93;&#x51FA;&#x5C42;&#xFF09;&#x76F8;&#x53CD;&#xFF0C;&#x540C;&#x65F6;&#x7531;&#x4E8E;&#x68AF;&#x5EA6;&#x7684;&#x8BA1;&#x7B97;&#x662F;&#x5C42;&#x6B21;&#x76F8;&#x5173;&#x7684;&#xFF0C;&#x7C7B;&#x4F3C;&#x4F20;&#x64AD;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x6240;&#x4EE5;&#x53EB;&#x505A;&#x53CD;&#x5411;&#x4F20;&#x64AD;&#x7B97;&#x6CD5;</p>
 </blockquote>
-<h3 id="3-卷积神经网络（CNN）"><a href="#3-卷积神经网络（CNN）" class="headerlink" title="3. 卷积神经网络（CNN）"></a>3. 卷积神经网络（CNN）</h3><blockquote>
-<p>与ANN不同，引入卷积概念，池化概念，ReLU概念</p>
+<h3 id="3-&#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#xFF08;CNN&#xFF09;"><a href="#3-&#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#xFF08;CNN&#xFF09;" class="headerlink" title="3. &#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#xFF08;CNN&#xFF09;"></a>3. &#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#xFF08;CNN&#xFF09;</h3><blockquote>
+<p>&#x4E0E;ANN&#x4E0D;&#x540C;&#xFF0C;&#x5F15;&#x5165;&#x5377;&#x79EF;&#x6982;&#x5FF5;&#xFF0C;&#x6C60;&#x5316;&#x6982;&#x5FF5;&#xFF0C;ReLU&#x6982;&#x5FF5;</p>
 </blockquote>
-<h4 id="3-1-卷积的概念"><a href="#3-1-卷积的概念" class="headerlink" title="3.1 卷积的概念"></a>3.1 卷积的概念</h4><ul>
-<li>feature map：指数据的形式</li>
-<li>feature map size：$c \times w \times h$ (频道(channel) x 宽 x 高)</li>
-</ul>
-<ul>
-<li>kernel/mask：卷积核指的是一个三维的张量</li>
-<li>kernel size：$d\times w \times h$ （深度 x 宽 x 高）</li>
-<li>receptive field: 一个kernel与feature map一次卷积的feature map的范围（一次卷积只能用一部分feature map，计算得到一个值）</li>
+<h4 id="3-1-&#x5377;&#x79EF;&#x7684;&#x6982;&#x5FF5;"><a href="#3-1-&#x5377;&#x79EF;&#x7684;&#x6982;&#x5FF5;" class="headerlink" title="3.1 &#x5377;&#x79EF;&#x7684;&#x6982;&#x5FF5;"></a>3.1 &#x5377;&#x79EF;&#x7684;&#x6982;&#x5FF5;</h4><ul>
+<li>feature map&#xFF1A;&#x6307;&#x6570;&#x636E;&#x7684;&#x5F62;&#x5F0F;</li>
+<li>feature map size&#xFF1A;$c \times w \times h$ (&#x9891;&#x9053;(channel) x &#x5BBD; x &#x9AD8;)</li>
 </ul>
 <ul>
-<li>padding：原始feature map卷积前的边缘扩充</li>
-<li>stride：kernel卷积中移动的距离</li>
-<li>convolution：通过卷积核在原feature map上各个感知域（receptive field）点乘求和操作，提取feature map的特征</li>
+<li>kernel/mask&#xFF1A;&#x5377;&#x79EF;&#x6838;&#x6307;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x4E09;&#x7EF4;&#x7684;&#x5F20;&#x91CF;</li>
+<li>kernel size&#xFF1A;$d\times w \times h$ &#xFF08;&#x6DF1;&#x5EA6; x &#x5BBD; x &#x9AD8;&#xFF09;</li>
+<li>receptive field: &#x4E00;&#x4E2A;kernel&#x4E0E;feature map&#x4E00;&#x6B21;&#x5377;&#x79EF;&#x7684;feature map&#x7684;&#x8303;&#x56F4;&#xFF08;&#x4E00;&#x6B21;&#x5377;&#x79EF;&#x53EA;&#x80FD;&#x7528;&#x4E00;&#x90E8;&#x5206;feature map&#xFF0C;&#x8BA1;&#x7B97;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x503C;&#xFF09;</li>
+</ul>
+<ul>
+<li>padding&#xFF1A;&#x539F;&#x59CB;feature map&#x5377;&#x79EF;&#x524D;&#x7684;&#x8FB9;&#x7F18;&#x6269;&#x5145;</li>
+<li>stride&#xFF1A;kernel&#x5377;&#x79EF;&#x4E2D;&#x79FB;&#x52A8;&#x7684;&#x8DDD;&#x79BB;</li>
+<li>convolution&#xFF1A;&#x901A;&#x8FC7;&#x5377;&#x79EF;&#x6838;&#x5728;&#x539F;feature map&#x4E0A;&#x5404;&#x4E2A;&#x611F;&#x77E5;&#x57DF;&#xFF08;receptive field&#xFF09;&#x70B9;&#x4E58;&#x6C42;&#x548C;&#x64CD;&#x4F5C;&#xFF0C;&#x63D0;&#x53D6;feature map&#x7684;&#x7279;&#x5F81;</li>
 </ul>
 <blockquote>
-<p>convolution 使用的是</p>
+<p>convolution &#x4F7F;&#x7528;&#x7684;&#x662F;</p>
 </blockquote>
-<h4 id="3-2-池化的概念"><a href="#3-2-池化的概念" class="headerlink" title="3.2 池化的概念"></a>3.2 池化的概念</h4><ul>
-<li>最大池化</li>
-<li>平均池化</li>
+<h4 id="3-2-&#x6C60;&#x5316;&#x7684;&#x6982;&#x5FF5;"><a href="#3-2-&#x6C60;&#x5316;&#x7684;&#x6982;&#x5FF5;" class="headerlink" title="3.2 &#x6C60;&#x5316;&#x7684;&#x6982;&#x5FF5;"></a>3.2 &#x6C60;&#x5316;&#x7684;&#x6982;&#x5FF5;</h4><ul>
+<li>&#x6700;&#x5927;&#x6C60;&#x5316;</li>
+<li>&#x5E73;&#x5747;&#x6C60;&#x5316;</li>
 </ul>
 <blockquote>
-<p>pooling 是一种下取样的方法，目的是为了降低feature map的尺度</p>
+<p>pooling &#x662F;&#x4E00;&#x79CD;&#x4E0B;&#x53D6;&#x6837;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x76EE;&#x7684;&#x662F;&#x4E3A;&#x4E86;&#x964D;&#x4F4E;feature map&#x7684;&#x5C3A;&#x5EA6;</p>
 </blockquote>
-<h4 id="3-3-用ReLU代替激励函数sigmoid"><a href="#3-3-用ReLU代替激励函数sigmoid" class="headerlink" title="3.3 用ReLU代替激励函数sigmoid"></a>3.3 用ReLU代替激励函数sigmoid</h4><p>AlexNet中提出，效果得到优化</p>
+<h4 id="3-3-&#x7528;ReLU&#x4EE3;&#x66FF;&#x6FC0;&#x52B1;&#x51FD;&#x6570;sigmoid"><a href="#3-3-&#x7528;ReLU&#x4EE3;&#x66FF;&#x6FC0;&#x52B1;&#x51FD;&#x6570;sigmoid" class="headerlink" title="3.3 &#x7528;ReLU&#x4EE3;&#x66FF;&#x6FC0;&#x52B1;&#x51FD;&#x6570;sigmoid"></a>3.3 &#x7528;ReLU&#x4EE3;&#x66FF;&#x6FC0;&#x52B1;&#x51FD;&#x6570;sigmoid</h4><p>AlexNet&#x4E2D;&#x63D0;&#x51FA;&#xFF0C;&#x6548;&#x679C;&#x5F97;&#x5230;&#x4F18;&#x5316;</p>
 <blockquote>
-<p>相当于去了个绝对值，同样是非线性，在x = 0处不可导</p>
+<p>&#x76F8;&#x5F53;&#x4E8E;&#x53BB;&#x4E86;&#x4E2A;&#x7EDD;&#x5BF9;&#x503C;&#xFF0C;&#x540C;&#x6837;&#x662F;&#x975E;&#x7EBF;&#x6027;&#xFF0C;&#x5728;x = 0&#x5904;&#x4E0D;&#x53EF;&#x5BFC;</p>
 </blockquote>
-<h4 id="3-4-网络结构"><a href="#3-4-网络结构" class="headerlink" title="3.4 网络结构"></a>3.4 网络结构</h4><p>与ANN一样是：输入层+隐藏层+输出层</p>
-<p>不同于加入了卷积层，池化层，ReLU方法。</p>
-<p>卷积层一般紧接池化层</p>
-<h2 id="二、代表架构学习"><a href="#二、代表架构学习" class="headerlink" title="二、代表架构学习"></a>二、代表架构学习</h2><blockquote>
-<p>代表架构的学习让我学到了除网络结构以外的东西</p>
+<h4 id="3-4-&#x7F51;&#x7EDC;&#x7ED3;&#x6784;"><a href="#3-4-&#x7F51;&#x7EDC;&#x7ED3;&#x6784;" class="headerlink" title="3.4 &#x7F51;&#x7EDC;&#x7ED3;&#x6784;"></a>3.4 &#x7F51;&#x7EDC;&#x7ED3;&#x6784;</h4><p>&#x4E0E;ANN&#x4E00;&#x6837;&#x662F;&#xFF1A;&#x8F93;&#x5165;&#x5C42;+&#x9690;&#x85CF;&#x5C42;+&#x8F93;&#x51FA;&#x5C42;</p>
+<p>&#x4E0D;&#x540C;&#x4E8E;&#x52A0;&#x5165;&#x4E86;&#x5377;&#x79EF;&#x5C42;&#xFF0C;&#x6C60;&#x5316;&#x5C42;&#xFF0C;ReLU&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x5377;&#x79EF;&#x5C42;&#x4E00;&#x822C;&#x7D27;&#x63A5;&#x6C60;&#x5316;&#x5C42;</p>
+<h2 id="&#x4E8C;&#x3001;&#x4EE3;&#x8868;&#x67B6;&#x6784;&#x5B66;&#x4E60;"><a href="#&#x4E8C;&#x3001;&#x4EE3;&#x8868;&#x67B6;&#x6784;&#x5B66;&#x4E60;" class="headerlink" title="&#x4E8C;&#x3001;&#x4EE3;&#x8868;&#x67B6;&#x6784;&#x5B66;&#x4E60;"></a>&#x4E8C;&#x3001;&#x4EE3;&#x8868;&#x67B6;&#x6784;&#x5B66;&#x4E60;</h2><blockquote>
+<p>&#x4EE3;&#x8868;&#x67B6;&#x6784;&#x7684;&#x5B66;&#x4E60;&#x8BA9;&#x6211;&#x5B66;&#x5230;&#x4E86;&#x9664;&#x7F51;&#x7EDC;&#x7ED3;&#x6784;&#x4EE5;&#x5916;&#x7684;&#x4E1C;&#x897F;</p>
 <ol>
-<li>一些数据预处理的方法，如AlexNet中数据增强</li>
-<li>解决过拟合的方法，如Dropout，LRN（local response normalization）</li>
-<li>各种新型网络的结构，以及好的CNN模型的特点（深、窄）</li>
-<li>CNN模型的可适用领域广泛，各种解决各种其他实际问题</li>
-<li>了解了一些有趣的算法，selective searching</li>
+<li>&#x4E00;&#x4E9B;&#x6570;&#x636E;&#x9884;&#x5904;&#x7406;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5982;AlexNet&#x4E2D;&#x6570;&#x636E;&#x589E;&#x5F3A;</li>
+<li>&#x89E3;&#x51B3;&#x8FC7;&#x62DF;&#x5408;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5982;Dropout&#xFF0C;LRN&#xFF08;local response normalization&#xFF09;</li>
+<li>&#x5404;&#x79CD;&#x65B0;&#x578B;&#x7F51;&#x7EDC;&#x7684;&#x7ED3;&#x6784;&#xFF0C;&#x4EE5;&#x53CA;&#x597D;&#x7684;CNN&#x6A21;&#x578B;&#x7684;&#x7279;&#x70B9;&#xFF08;&#x6DF1;&#x3001;&#x7A84;&#xFF09;</li>
+<li>CNN&#x6A21;&#x578B;&#x7684;&#x53EF;&#x9002;&#x7528;&#x9886;&#x57DF;&#x5E7F;&#x6CDB;&#xFF0C;&#x5404;&#x79CD;&#x89E3;&#x51B3;&#x5404;&#x79CD;&#x5176;&#x4ED6;&#x5B9E;&#x9645;&#x95EE;&#x9898;</li>
+<li>&#x4E86;&#x89E3;&#x4E86;&#x4E00;&#x4E9B;&#x6709;&#x8DA3;&#x7684;&#x7B97;&#x6CD5;&#xFF0C;selective searching</li>
 </ol>
 </blockquote>
 <ul>
 <li>RoadMap</li>
 </ul>
-<p><img src="/2018/03/31/卷积神经网络入门总结/Computer Vision.png" alt="Computer Visio"></p>
+<p><img src="/2018/03/31/&#x5377;&#x79EF;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x5165;&#x95E8;&#x603B;&#x7ED3;/Computer Vision.png" alt="Computer Visio"></p>
 <h3 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h3><ol>
-<li>首次提出卷积网络应用于人工神经网络</li>
-<li>提出池化层的概念</li>
+<li>&#x9996;&#x6B21;&#x63D0;&#x51FA;&#x5377;&#x79EF;&#x7F51;&#x7EDC;&#x5E94;&#x7528;&#x4E8E;&#x4EBA;&#x5DE5;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;</li>
+<li>&#x63D0;&#x51FA;&#x6C60;&#x5316;&#x5C42;&#x7684;&#x6982;&#x5FF5;</li>
 </ol>
 <h3 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h3><ol>
-<li>改进池化层，使用最大化池</li>
-<li>使用ReLU代替sigmoid</li>
-<li>为了防止过拟合，提出Dropout，Data Augmentation</li>
-<li>提出LNR（local response nomarlization）</li>
-<li>运用GPU的并行运算的性能</li>
+<li>&#x6539;&#x8FDB;&#x6C60;&#x5316;&#x5C42;&#xFF0C;&#x4F7F;&#x7528;&#x6700;&#x5927;&#x5316;&#x6C60;</li>
+<li>&#x4F7F;&#x7528;ReLU&#x4EE3;&#x66FF;sigmoid</li>
+<li>&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x8FC7;&#x62DF;&#x5408;&#xFF0C;&#x63D0;&#x51FA;Dropout&#xFF0C;Data Augmentation</li>
+<li>&#x63D0;&#x51FA;LNR&#xFF08;local response nomarlization&#xFF09;</li>
+<li>&#x8FD0;&#x7528;GPU&#x7684;&#x5E76;&#x884C;&#x8FD0;&#x7B97;&#x7684;&#x6027;&#x80FD;</li>
 </ol>
 <h3 id="ZFNet"><a href="#ZFNet" class="headerlink" title="ZFNet"></a>ZFNet</h3><ol>
-<li>对AlexNet提出可视化层面研究，研究CNN背后机理</li>
-<li>提出解卷积层，可视化CNN学习的过程</li>
-<li>减小AlexNet部分卷积核，减少参数得到更好效果</li>
+<li>&#x5BF9;AlexNet&#x63D0;&#x51FA;&#x53EF;&#x89C6;&#x5316;&#x5C42;&#x9762;&#x7814;&#x7A76;&#xFF0C;&#x7814;&#x7A76;CNN&#x80CC;&#x540E;&#x673A;&#x7406;</li>
+<li>&#x63D0;&#x51FA;&#x89E3;&#x5377;&#x79EF;&#x5C42;&#xFF0C;&#x53EF;&#x89C6;&#x5316;CNN&#x5B66;&#x4E60;&#x7684;&#x8FC7;&#x7A0B;</li>
+<li>&#x51CF;&#x5C0F;AlexNet&#x90E8;&#x5206;&#x5377;&#x79EF;&#x6838;&#xFF0C;&#x51CF;&#x5C11;&#x53C2;&#x6570;&#x5F97;&#x5230;&#x66F4;&#x597D;&#x6548;&#x679C;</li>
 </ol>
 <h3 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h3><ol>
-<li>研究CNN不同模型的性能，提出更深的网络以及更小的卷积核的改进思路</li>
-<li>提出3x3卷积核，简化模型，使得需要训练的参数更少</li>
-<li>feature map随着尺寸变小，逐渐加深层数</li>
+<li>&#x7814;&#x7A76;CNN&#x4E0D;&#x540C;&#x6A21;&#x578B;&#x7684;&#x6027;&#x80FD;&#xFF0C;&#x63D0;&#x51FA;&#x66F4;&#x6DF1;&#x7684;&#x7F51;&#x7EDC;&#x4EE5;&#x53CA;&#x66F4;&#x5C0F;&#x7684;&#x5377;&#x79EF;&#x6838;&#x7684;&#x6539;&#x8FDB;&#x601D;&#x8DEF;</li>
+<li>&#x63D0;&#x51FA;3x3&#x5377;&#x79EF;&#x6838;&#xFF0C;&#x7B80;&#x5316;&#x6A21;&#x578B;&#xFF0C;&#x4F7F;&#x5F97;&#x9700;&#x8981;&#x8BAD;&#x7EC3;&#x7684;&#x53C2;&#x6570;&#x66F4;&#x5C11;</li>
+<li>feature map&#x968F;&#x7740;&#x5C3A;&#x5BF8;&#x53D8;&#x5C0F;&#xFF0C;&#x9010;&#x6E10;&#x52A0;&#x6DF1;&#x5C42;&#x6570;</li>
 </ol>
 <h3 id="GoogLeNet"><a href="#GoogLeNet" class="headerlink" title="GoogLeNet"></a>GoogLeNet</h3><ol>
-<li>提出了Inception module</li>
-<li>Inception module中运用许多并行结构</li>
-<li>参量减少更多</li>
-<li>可以运用于图像检测</li>
+<li>&#x63D0;&#x51FA;&#x4E86;Inception module</li>
+<li>Inception module&#x4E2D;&#x8FD0;&#x7528;&#x8BB8;&#x591A;&#x5E76;&#x884C;&#x7ED3;&#x6784;</li>
+<li>&#x53C2;&#x91CF;&#x51CF;&#x5C11;&#x66F4;&#x591A;</li>
+<li>&#x53EF;&#x4EE5;&#x8FD0;&#x7528;&#x4E8E;&#x56FE;&#x50CF;&#x68C0;&#x6D4B;</li>
 </ol>
 <h3 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h3><ol>
-<li>为解决层数太多，梯度消失的问题，提出残差模型</li>
+<li>&#x4E3A;&#x89E3;&#x51B3;&#x5C42;&#x6570;&#x592A;&#x591A;&#xFF0C;&#x68AF;&#x5EA6;&#x6D88;&#x5931;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x63D0;&#x51FA;&#x6B8B;&#x5DEE;&#x6A21;&#x578B;</li>
 </ol>
 <hr>
 <blockquote>
-<p>下面是关于图像检测的模型，许多只是在粗略的学习</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x5173;&#x4E8E;&#x56FE;&#x50CF;&#x68C0;&#x6D4B;&#x7684;&#x6A21;&#x578B;&#xFF0C;&#x8BB8;&#x591A;&#x53EA;&#x662F;&#x5728;&#x7C97;&#x7565;&#x7684;&#x5B66;&#x4E60;</p>
 </blockquote>
 <h3 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h3><ol>
-<li>第一阶段通过selective searching 算法进行Region Proposal 区域预选，每个图片提取2000个regions</li>
-<li>第二阶段通过CNN提取每个region的特征</li>
-<li>第三阶段通过SVM线性分类器，对每个region的类型进行识别，同时设置阈值，去除无信息regions</li>
-<li>后期做box-bounding regression 使得提取区域的边界更为准确</li>
+<li>&#x7B2C;&#x4E00;&#x9636;&#x6BB5;&#x901A;&#x8FC7;selective searching &#x7B97;&#x6CD5;&#x8FDB;&#x884C;Region Proposal &#x533A;&#x57DF;&#x9884;&#x9009;&#xFF0C;&#x6BCF;&#x4E2A;&#x56FE;&#x7247;&#x63D0;&#x53D6;2000&#x4E2A;regions</li>
+<li>&#x7B2C;&#x4E8C;&#x9636;&#x6BB5;&#x901A;&#x8FC7;CNN&#x63D0;&#x53D6;&#x6BCF;&#x4E2A;region&#x7684;&#x7279;&#x5F81;</li>
+<li>&#x7B2C;&#x4E09;&#x9636;&#x6BB5;&#x901A;&#x8FC7;SVM&#x7EBF;&#x6027;&#x5206;&#x7C7B;&#x5668;&#xFF0C;&#x5BF9;&#x6BCF;&#x4E2A;region&#x7684;&#x7C7B;&#x578B;&#x8FDB;&#x884C;&#x8BC6;&#x522B;&#xFF0C;&#x540C;&#x65F6;&#x8BBE;&#x7F6E;&#x9608;&#x503C;&#xFF0C;&#x53BB;&#x9664;&#x65E0;&#x4FE1;&#x606F;regions</li>
+<li>&#x540E;&#x671F;&#x505A;box-bounding regression &#x4F7F;&#x5F97;&#x63D0;&#x53D6;&#x533A;&#x57DF;&#x7684;&#x8FB9;&#x754C;&#x66F4;&#x4E3A;&#x51C6;&#x786E;</li>
 </ol>
 <h3 id="Fast-R-CNN"><a href="#Fast-R-CNN" class="headerlink" title="Fast R-CNN"></a>Fast R-CNN</h3><ol>
-<li>保留selective searching</li>
-<li>将SVM部分去除</li>
-<li>提出RoI，以及RoI池化层，用于训练box bounding</li>
-<li>CNN改造成两个部分，一个部分用来训练分类，一个用于训练box bounding</li>
-<li>一定程度上增强了CNN网络的作用，以及简化了模型</li>
+<li>&#x4FDD;&#x7559;selective searching</li>
+<li>&#x5C06;SVM&#x90E8;&#x5206;&#x53BB;&#x9664;</li>
+<li>&#x63D0;&#x51FA;RoI&#xFF0C;&#x4EE5;&#x53CA;RoI&#x6C60;&#x5316;&#x5C42;&#xFF0C;&#x7528;&#x4E8E;&#x8BAD;&#x7EC3;box bounding</li>
+<li>CNN&#x6539;&#x9020;&#x6210;&#x4E24;&#x4E2A;&#x90E8;&#x5206;&#xFF0C;&#x4E00;&#x4E2A;&#x90E8;&#x5206;&#x7528;&#x6765;&#x8BAD;&#x7EC3;&#x5206;&#x7C7B;&#xFF0C;&#x4E00;&#x4E2A;&#x7528;&#x4E8E;&#x8BAD;&#x7EC3;box bounding</li>
+<li>&#x4E00;&#x5B9A;&#x7A0B;&#x5EA6;&#x4E0A;&#x589E;&#x5F3A;&#x4E86;CNN&#x7F51;&#x7EDC;&#x7684;&#x4F5C;&#x7528;&#xFF0C;&#x4EE5;&#x53CA;&#x7B80;&#x5316;&#x4E86;&#x6A21;&#x578B;</li>
 </ol>
-<h2 id="三、工程学习"><a href="#三、工程学习" class="headerlink" title="三、工程学习"></a>三、工程学习</h2><h3 id="Tensorflow"><a href="#Tensorflow" class="headerlink" title="Tensorflow"></a>Tensorflow</h3><ul>
-<li>搭建LeNet的简化模型，训练手写体，在测试集中达到超过94%的正确率</li>
-<li>下阶段打算尝试搭建VGG，ResNet，训练相片分类，熟悉网络的搭建</li>
+<h2 id="&#x4E09;&#x3001;&#x5DE5;&#x7A0B;&#x5B66;&#x4E60;"><a href="#&#x4E09;&#x3001;&#x5DE5;&#x7A0B;&#x5B66;&#x4E60;" class="headerlink" title="&#x4E09;&#x3001;&#x5DE5;&#x7A0B;&#x5B66;&#x4E60;"></a>&#x4E09;&#x3001;&#x5DE5;&#x7A0B;&#x5B66;&#x4E60;</h2><h3 id="Tensorflow"><a href="#Tensorflow" class="headerlink" title="Tensorflow"></a>Tensorflow</h3><ul>
+<li>&#x642D;&#x5EFA;LeNet&#x7684;&#x7B80;&#x5316;&#x6A21;&#x578B;&#xFF0C;&#x8BAD;&#x7EC3;&#x624B;&#x5199;&#x4F53;&#xFF0C;&#x5728;&#x6D4B;&#x8BD5;&#x96C6;&#x4E2D;&#x8FBE;&#x5230;&#x8D85;&#x8FC7;94%&#x7684;&#x6B63;&#x786E;&#x7387;</li>
+<li>&#x4E0B;&#x9636;&#x6BB5;&#x6253;&#x7B97;&#x5C1D;&#x8BD5;&#x642D;&#x5EFA;VGG&#xFF0C;ResNet&#xFF0C;&#x8BAD;&#x7EC3;&#x76F8;&#x7247;&#x5206;&#x7C7B;&#xFF0C;&#x719F;&#x6089;&#x7F51;&#x7EDC;&#x7684;&#x642D;&#x5EFA;</li>
 </ul>
-<h3 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h3><p>👉<a href="http://blog.zhanzy.xyz/2018/04/11/pytorch/" target="_blank" rel="noopener">http://blog.zhanzy.xyz/2018/04/11/pytorch/</a></p>
+<h3 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h3><p>&#x1F449;<a href="http://blog.zhanzy.xyz/2018/04/11/pytorch/" target="_blank" rel="noopener">http://blog.zhanzy.xyz/2018/04/11/pytorch/</a></p>
 
       
     </div>
